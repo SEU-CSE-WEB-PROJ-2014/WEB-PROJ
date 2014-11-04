@@ -1,0 +1,6 @@
+<Context path="" docBase="G:\WORKSPACE\easygo\WebRoot" debug="99" reloadable="false">
+	
+<Logger className="org.apache.catalina.logger.FileLogger" prefix="app_log." suffix=".log" timestamp="true"/>
+
+<Resource name="jdbc/coeus" auth="Container" type="javax.sql.DataSource"   maxActive="20" maxIdle="30" maxWait="10000" username="usr_w12_test" password="usr_w12_test" driverClassName="oracle.jdbc.OracleDriver"   url="jdbc:oracle:thin:@172.16.6.68:1521:ORCL" />
+</Context>
