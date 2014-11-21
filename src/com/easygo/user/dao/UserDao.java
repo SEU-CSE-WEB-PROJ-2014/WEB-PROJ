@@ -1,16 +1,17 @@
 package com.easygo.user.dao;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
+import javax.annotation.Resource;
 
-@Controller
-@RequestMapping("/user")
-public class UserDao {
-	
-	@RequestMapping("/regUserPage.do")
-	public ModelAndView regUserPage(){
-		
-		return new ModelAndView();
+import org.hibernate.SessionFactory;
+import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+import org.springframework.stereotype.Repository;
+
+@Repository("userDao")
+public class UserDao extends HibernateDaoSupport {
+	private SessionFactory sessionFacotry;
+
+	@Resource
+	public void setSessionFacotry(SessionFactory sessionFacotry) {
+		super.setSessionFactory(sessionFacotry);
 	}
 }
