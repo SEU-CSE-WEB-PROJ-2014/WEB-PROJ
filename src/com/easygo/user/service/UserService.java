@@ -30,7 +30,6 @@ public class UserService {
 		
 		Session s = userDao.getHibernateTemplate().getSessionFactory().getCurrentSession();
 		Transaction tx = s.beginTransaction();
-		
 		userDao.getHibernateTemplate().save(user);
 		userDao.getHibernateTemplate().flush();
 		s.flush();
