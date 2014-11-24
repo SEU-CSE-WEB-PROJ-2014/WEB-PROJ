@@ -25,6 +25,7 @@ public class UserService {
 		user.setSex(sex);
 		user.setState(state);
 		
+		//test gitcafe
 		Session session = userDao.getSessionFactory().openSession();
 		session.beginTransaction();
 		userDao.getHibernateTemplate().save(user);
