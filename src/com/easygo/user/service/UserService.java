@@ -1,8 +1,11 @@
 package com.easygo.user.service;
 
+
+import org.hibernate.Transaction;
 import org.hibernate.classic.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.easygo.user.bo.User;
 import com.easygo.user.dao.UserDao;
@@ -12,7 +15,7 @@ public class UserService {
 	@Autowired
 	private UserDao userDao;
 	
-	
+//	@Transactional(readOnly = false)
 	public void addUser(String loginName,
 			String nickName,
 			Short sex,
@@ -25,10 +28,16 @@ public class UserService {
 		user.setSex(sex);
 		user.setState(state);
 		
-		Session session = userDao.getSessionFactory().openSession();
-		session.beginTransaction();
+		Session s = userDao.getHibernateTemplate().getSessionFactory().getCurrentSession();
+		Transaction tx = s.beginTransaction();
+		
 		userDao.getHibernateTemplate().save(user);
-		session.getTransaction().commit();
-		session.close();
+		userDao.getHibernateTemplate().flush();
+		s.flush();
+		tx.commit();
+		
+//		user.setUserId(null);
+//		userDao.getHibernateTemplate().save(user);
+//		userDao.getHibernateTemplate().getSessionFactory().getCurrentSession().beginTransaction().commit();
 	}
 }
