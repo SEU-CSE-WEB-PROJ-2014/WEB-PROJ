@@ -1,7 +1,11 @@
 package com.easygo.user.service;
 
 
+
+import java.util.List;
+
 import org.hibernate.Transaction;
+import org.hibernate.annotations.Entity;
 import org.hibernate.classic.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,6 +41,11 @@ public class UserService {
 		
 //		user.setUserId(null);
 //		userDao.getHibernateTemplate().save(user);
-//		userDao.getHibernateTemplate().getSessionFactory().getCurrentSession().beginTransaction().commit();
+		userDao.getHibernateTemplate().getSessionFactory().getCurrentSession().beginTransaction().commit();
+	}
+	
+	
+	public void listAllUsers(){ 
+		List list = userDao.getHibernateTemplate().findByNamedQuery("listUserQuery", null);
 	}
 }

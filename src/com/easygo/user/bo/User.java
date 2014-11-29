@@ -6,6 +6,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.NamedQueries;
+import org.hibernate.annotations.NamedQuery;
 
 
 /**
@@ -15,7 +17,9 @@ import org.hibernate.annotations.GenericGenerator;
 @Table(name="user"
     ,catalog="easygo"
 )
-
+@NamedQueries({
+	@NamedQuery(name="listAllUsers", query="select u from User u")
+})
 public class User  implements java.io.Serializable {
 
 

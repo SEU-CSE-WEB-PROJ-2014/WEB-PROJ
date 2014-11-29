@@ -30,7 +30,7 @@ public class UserController {
 		
 		userService.addUser("jallenjia", "JALL", new Short((short) 0), "123456", new Short((short) 1));
 		
-		
+		userService.listAllUsers();
 		return null;
 	}
 }
