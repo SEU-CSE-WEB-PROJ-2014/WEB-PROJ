@@ -2,7 +2,6 @@
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-request.setAttribute("basePath", basePath);
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -16,8 +15,15 @@ request.setAttribute("basePath", basePath);
 	<meta http-equiv="expires" content="0">    
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
+	<!--
+	<link rel="stylesheet" type="text/css" href="styles.css">
+	-->
   </head>
+  
+  <body>
+    EasyGo home page. <br>
+    <a href="javascript:void(0);" class="login">登陆</a>
+    <a href="javascript:void(0);" class="register">注册</a>
+	  
+  </body>
 </html>
-<script type="text/javascript">
-	window.location="http://www.baidu.com"
-</script>
