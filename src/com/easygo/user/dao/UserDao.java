@@ -6,12 +6,10 @@ import org.hibernate.SessionFactory;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import org.springframework.stereotype.Repository;
 
-@Repository("userDao")
-public class UserDao extends HibernateDaoSupport {
-	private SessionFactory sessionFacotry;
+import com.easygo.common.utils.dao.HibernateDao;
+import com.easygo.user.bo.User;
 
-	@Resource
-	public void setSessionFacotry(SessionFactory sessionFacotry) {
-		super.setSessionFactory(sessionFacotry);
-	}
+@Repository("userDao")
+public class UserDao extends HibernateDao<String, User> {
+	
 }

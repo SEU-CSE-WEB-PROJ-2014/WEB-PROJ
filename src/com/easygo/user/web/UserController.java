@@ -26,11 +26,11 @@ public class UserController {
 	}
 	
 	@RequestMapping("/regUser.do")
-	public ModelAndView regUser(){
+	public ModelAndView regUser() throws Exception{
 		
-		userService.addUser("jallenjia", "JALL", new Short((short) 0), "123456", new Short((short) 1));
+		userService.saveUser("jallenjia", "JALL", new Short((short) 0), "123456", new Short((short) 1));
 		
-		userService.listAllUsers();
+//		userService.listAllUsers();
 		return null;
 	}
 }

@@ -18,8 +18,8 @@
 			com.mysql.jdbc.Driver
 		</property>
 		<property name="myeclipse.connection.profile">easygo</property>
-		<property name="hibernate.connection.isolation">4</property>
-		<property name="hibernate.connection.autocommit">false</property>  
+<!-- 		<property name="hibernate.connection.isolation">4</property> -->
+		<property name="hibernate.connection.autocommit">true</property>  
 		<property name="hibernate.current_session_context_class">thread</property>
 		<mapping class="com.easygo.user.bo.User" />
 	</session-factory>
