@@ -4,6 +4,8 @@ package com.easygo.user.service;
 
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import org.hibernate.Transaction;
 import org.hibernate.annotations.Entity;
 import org.hibernate.classic.Session;
@@ -20,7 +22,6 @@ public class UserService {
 	@Autowired
 	private UserDao userDao;
 	
-	@Transactional(readOnly = true)
 	public void saveUser(String loginName,
 			String nickName,
 			Short sex,
@@ -35,11 +36,10 @@ public class UserService {
 		
 		
 		userDao.save(user);
-		throw new RuntimeException();
 	}
 	
 	
 	public void listAllUsers(){ 
-		List list = userDao.getHibernateTemplate().findByNamedQuery("listUserQuery", null);
+//		List list = userDao.getHibernateTemplate().findByNamedQuery("listUserQuery", null);
 	}
 }

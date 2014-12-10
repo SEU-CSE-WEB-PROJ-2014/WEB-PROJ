@@ -15,63 +15,19 @@ import org.springframework.transaction.annotation.Transactional;
  * 适用于处理单主键的bo对象.
  * K为主键的类型, T为bo对象的类型.
  */
-public class HibernateDao<K extends Serializable, T> extends HibernateDaoSupport{
-	//设置dao的sessionFactory
-	@Resource
-	public void setSessionFacotry(SessionFactory sessionFacotry) {
-		super.setSessionFactory(sessionFacotry);
-	}
+public interface HibernateDao<K extends Serializable, T>{
+	public T get(K key);
 	
-	/**
-	 * 实体类类型
-	 */
-	private final Class<T> typeClass;
+	public T load(K key);
 	
-	@SuppressWarnings("unchecked")
-	public HibernateDao() {
-		Type type = this.getClass().getGenericSuperclass();
-		this.typeClass = (Class<T>) ((ParameterizedType)type).getActualTypeArguments()[1];
-	}
+	public void save(T bean);
 	
-	@Transactional(readOnly=true)
-	public T get(K key){
-		return this.getHibernateTemplate().get(typeClass, key);
-	}
+	public void update(T bean);
 	
-	@Transactional(readOnly=true)
-	public T load(K key){
-		return this.getHibernateTemplate().load(typeClass, key);
-	}
+	public void saveOrUpdate(T bean);
 	
-	@Transactional(readOnly=false)
-	public void save(T bean){
-		this.getHibernateTemplate().save(bean);
-	}
+	public void delete(T bean);
 	
-	@Transactional(readOnly=false)
-	public void update(T bean){
-		this.getHibernateTemplate().update(bean);
-	}
-	
-	@Transactional(readOnly=false)
-	public void saveOrUpdate(T bean){
-		this.getHibernateTemplate().saveOrUpdate(bean);
-	}
-	
-	@Transactional(readOnly=false)
-	public void delete(T bean){
-		this.getHibernateTemplate().delete(bean);
-	}
-	
-	public void flush(){
-		this.getHibernateTemplate().flush();
-	}
-//	
-//	public void findByParam(String hql, Map params);
-//	
-//	public void bulkUpdate(String hql, Map params);
-	
-	
-	
+	public void flush();
 
 }
