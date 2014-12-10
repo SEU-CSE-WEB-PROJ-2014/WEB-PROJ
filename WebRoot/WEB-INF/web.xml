@@ -30,4 +30,42 @@
 		<servlet-name>springmvc</servlet-name>
 		<url-pattern>*.do</url-pattern>
 	</servlet-mapping>
+	
+	<session-config>
+ 		<session-timeout>10</session-timeout>
+ 	</session-config>
+ 	
+	<jsp-config>
+		<taglib>
+			<taglib-uri>http://java.sun.com/jstl/core</taglib-uri>
+			<taglib-location>/WEB-INF/tld/c.tld</taglib-location>
+		</taglib>
+
+		<taglib>
+			<taglib-uri>http://java.sun.com/jstl/fmt</taglib-uri>
+			<taglib-location>/WEB-INF/tld/fmt.tld</taglib-location>
+		</taglib>
+		
+		<!-- 
+		<taglib>
+			<taglib-uri>http://www.springframework.org/tags</taglib-uri>
+			<taglib-location>/WEB-INF/tld/spring.tld</taglib-location>
+		</taglib>
+
+		<taglib>
+			<taglib-uri>http://www.springframework.org/tags/form</taglib-uri>
+			<taglib-location>/WEB-INF/tld/spring-form.tld</taglib-location>
+		</taglib>
+
+		<taglib>
+			<taglib-uri>http://www.wisedu.com/coeus</taglib-uri>
+			<taglib-location>/WEB-INF/tld/coeus.tld</taglib-location>
+		</taglib>
+		<taglib>
+			<taglib-uri>http://jsptags.com/tags/navigation/pager</taglib-uri>
+			<taglib-location>/WEB-INF/tld/pager.tld</taglib-location>
+		</taglib>		
+		 -->
+	</jsp-config>
 </web-app>
+	

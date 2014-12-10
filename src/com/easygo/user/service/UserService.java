@@ -9,6 +9,7 @@ import org.hibernate.annotations.Entity;
 import org.hibernate.classic.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.easygo.user.bo.User;
@@ -19,12 +20,12 @@ public class UserService {
 	@Autowired
 	private UserDao userDao;
 	
-//	@Transactional(readOnly = false)
-	public void addUser(String loginName,
+	@Transactional(readOnly = true)
+	public void saveUser(String loginName,
 			String nickName,
 			Short sex,
 			String password,
-			Short state) {
+			Short state) throws Exception {
 		User user = new User();
 		user.setLoginName(loginName);
 		user.setNickName(nickName);
@@ -32,16 +33,9 @@ public class UserService {
 		user.setSex(sex);
 		user.setState(state);
 		
-		Session s = userDao.getHibernateTemplate().getSessionFactory().getCurrentSession();
-		Transaction tx = s.beginTransaction();
-		userDao.getHibernateTemplate().save(user);
-		userDao.getHibernateTemplate().flush();
-		s.flush();
-		tx.commit();
 		
-//		user.setUserId(null);
-//		userDao.getHibernateTemplate().save(user);
-		userDao.getHibernateTemplate().getSessionFactory().getCurrentSession().beginTransaction().commit();
+		userDao.save(user);
+		throw new RuntimeException();
 	}
 	
 	

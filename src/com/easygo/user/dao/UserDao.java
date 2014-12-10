@@ -8,20 +8,10 @@ import org.hibernate.Transaction;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import org.springframework.stereotype.Repository;
 
-@Repository("userDao")
-public class UserDao extends HibernateDaoSupport {
-	private SessionFactory sessionFacotry;
+import com.easygo.common.utils.dao.HibernateDao;
+import com.easygo.user.bo.User;
 
-	@Resource
-	public void setSessionFacotry(SessionFactory sessionFacotry) {
-		super.setSessionFactory(sessionFacotry);
-	}
-	
-	public void save(){
-		Session s = this.sessionFacotry.getCurrentSession();
-		Transaction tx = s.beginTransaction();
-		s.save(null);
-		tx.commit();
-	}
+@Repository("userDao")
+public class UserDao extends HibernateDao<String, User> {
 	
 }
