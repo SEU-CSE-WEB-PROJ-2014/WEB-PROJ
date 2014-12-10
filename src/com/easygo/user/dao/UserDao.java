@@ -2,7 +2,9 @@ package com.easygo.user.dao;
 
 import javax.annotation.Resource;
 
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import org.springframework.stereotype.Repository;
 
@@ -14,4 +16,12 @@ public class UserDao extends HibernateDaoSupport {
 	public void setSessionFacotry(SessionFactory sessionFacotry) {
 		super.setSessionFactory(sessionFacotry);
 	}
+	
+	public void save(){
+		Session s = this.sessionFacotry.getCurrentSession();
+		Transaction tx = s.beginTransaction();
+		s.save(null);
+		tx.commit();
+	}
+	
 }

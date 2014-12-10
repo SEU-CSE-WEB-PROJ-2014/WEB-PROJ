@@ -21,6 +21,7 @@
 		<property name="hibernate.connection.isolation">4</property>
 		<property name="hibernate.connection.autocommit">false</property>  
 		<property name="hibernate.current_session_context_class">thread</property>
+		<property name="hbm2ddl.auto">update</property>  
 		<mapping class="com.easygo.user.bo.User" />
 	</session-factory>
 

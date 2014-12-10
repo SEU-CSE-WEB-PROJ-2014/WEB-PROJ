@@ -46,6 +46,6 @@ public class UserService {
 	
 	
 	public void listAllUsers(){ 
-		List list = userDao.getHibernateTemplate().findByNamedQuery("listUserQuery", null);
+		//List list = userDao.getHibernateTemplate().findByNamedQuery("listUserQuery", null);
 	}
 }
