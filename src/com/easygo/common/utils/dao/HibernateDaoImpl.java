@@ -1,10 +1,12 @@
 package com.easygo.common.utils.dao;
 
 import java.io.Serializable;
+import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.sql.SQLException;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -104,6 +106,68 @@ public class HibernateDaoImpl<K extends Serializable, T> extends HibernateDaoSup
 		return this.getHibernateTemplate().execute(callback);
 	}
 
+	
+	/**
+	 * 全字段可选等查询
+	 * 把查询的等条件(bo.filed_1="value")放入map（map.put("filed_1", "value")），
+	 * 返回表中符合filed_1="value"的数据列表
+	 */
+	public List<T> eqQueryByParams(Map<String, Object> params){
+		
+		StringBuilder sb = new StringBuilder();
+		sb.append("FROM " + typeClass.getName() + " t WHERE 1=1");
+		
+		//构造等查询hql
+		if(params != null && params.size() > 0){
+			Iterator it = params.entrySet().iterator();
+			while(it.hasNext()){
+				Map.Entry<String, ?> entry = (Entry<String, ?>) it.next();
+				try{
+					if(entry.getValue() == null){
+						params.remove(entry.getKey());
+					}
+					
+					typeClass.getField(entry.getKey());			//没有异常则表示bo类存在该字段
+					
+					sb.append(" AND t." + entry.getKey() + " = :" + entry.getKey());
+				}catch(Exception e){
+					params.remove(entry.getKey());				//报异常则表示bo类不存在该字段，应从map中移除该字段的查询条件
+				}
+			}
+		}
+		return (List<T>) this.findByParams(sb.toString(), params);
+	}
+	
+	
+//	public List<T> eqQueryByParams(Map<String, Object> params){
+//		Map procedParams = new HashMap<String, Object>();
+//		
+//		StringBuilder sb = new StringBuilder();
+//		sb.append("FROM " + typeClass.getName() + " t WHERE 1=1");
+//		
+//		//构造等查询hql
+//		if(params != null && params.size() > 0){
+//			//遍历bo类所有字段，如果params存在此字段的key，将其key和value放进procedParams
+//			Field[] fields = typeClass.getFields();
+//			if(fields != null && fields.length > 0){
+//				for(int i = 0; i < fields.length; i++){
+//					String fieldName = fields[i].getName();
+//					if(params.get(fieldName) != null){
+//						procedParams.put("fieldName", params.get(fieldName));
+//						sb.append(" AND t." + fieldName + " = :" + fieldName);
+//					}
+//				}
+//			}
+//		}
+//		return (List<T>) this.findByParams(sb.toString(), params);
+//	}
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
