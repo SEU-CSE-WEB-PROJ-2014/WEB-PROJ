@@ -2,7 +2,9 @@ package com.easygo.user.service;
 
 
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -39,6 +41,13 @@ public class UserService {
 	}
 	
 	
-	public void listAllUsers(){ 
+	public void listAllUsers(){
+		Map params = new HashMap<String, Object>();
+//		params.put("nickName", "123");
+		List<User> list = (List<User>) userDao.findByParams("from User u where 1=1 and u.nickName is not null", params);
+		
+		System.out.println();
+		
+		return;
 	}
 }

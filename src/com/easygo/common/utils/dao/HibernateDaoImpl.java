@@ -3,10 +3,20 @@ package com.easygo.common.utils.dao;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.sql.SQLException;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.annotation.Resource;
 
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -66,10 +76,38 @@ public class HibernateDaoImpl<K extends Serializable, T> extends HibernateDaoSup
 	public void flush(){
 		this.getHibernateTemplate().flush();
 	}
-//	
-//	public void findByParam(String hql, Map params);
-//	
-//	public void bulkUpdate(String hql, Map params);
+	
+	@Transactional(readOnly=false)
+	public List<?> findByParams(final String hql, final Map<String, Object> params){
+		HibernateCallback callback = new HibernateCallback() {
+			public List doInHibernate(Session session)
+					throws HibernateException, SQLException {
+				Query queryObject = session.createQuery(hql);
+				if(params != null && !params.isEmpty()){
+					Iterator it = params.entrySet().iterator();
+					for(int i = 0; i < params.size(); i++){
+						Map.Entry<String, ?> entry = (Entry<String, ?>) it.next();
+						if(entry.getValue() instanceof Object[]){
+							queryObject.setParameterList(entry.getKey(), (Object[]) entry.getValue());
+						}else if(entry.getValue() instanceof Collection<?>){
+							queryObject.setParameterList(entry.getKey(), (Collection)entry.getValue());
+						}else{
+							queryObject.setParameter(entry.getKey(), entry.getValue());
+						}
+					}
+				}
+				return queryObject.list();
+			}
+		};
+		
+		
+		return this.getHibernateTemplate().execute(callback);
+	}
+
+	
+	
+	
+	//	public void bulkUpdate(String hql, Map params);
 	
 	
 	

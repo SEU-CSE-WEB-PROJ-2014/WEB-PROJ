@@ -3,6 +3,8 @@ package com.easygo.common.utils.dao;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -29,5 +31,7 @@ public interface HibernateDao<K extends Serializable, T>{
 	public void delete(T bean);
 	
 	public void flush();
+	
+	public List<?> findByParams(String hql, Map<String, Object> params);
 
 }
