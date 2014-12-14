@@ -60,6 +60,11 @@ public interface HibernateDao<K extends Serializable, T>{
 	public List<?> findByParams(String hql, Map<String, Object> params);
 	
 	/**
+	 * hql更新数据表 
+	 */
+	public Integer bulkUpdate(String hql, Map<String, ?> params);
+	
+	/**
 	 * 全字段可选等查询:查询字段值不能为数组或集合
 	 * 把查询的等条件(bo.filed_1="value")放入map（map.put("filed_1", "value")），
 	 * 返回表中符合filed_1="value"的数据列表
@@ -79,4 +84,6 @@ public interface HibernateDao<K extends Serializable, T>{
 	 * 全字段可选，混合的in/eq查询：查询字段值可以为数组集合或具体值
 	 */
 	public List<T> mixedInEqQueryByParams(Map<String, Object> params);
+	
+	
 }
