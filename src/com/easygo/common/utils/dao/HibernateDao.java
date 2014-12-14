@@ -62,7 +62,9 @@ public interface HibernateDao<K extends Serializable, T>{
 	 * 全字段可选等查询
 	 * 把查询的等条件(bo.filed_1="value")放入map（map.put("filed_1", "value")），
 	 * 返回表中符合filed_1="value"的数据列表
+	 * @throws NoSuchFieldException 
+	 * @throws SecurityException 
 	 */
-	public List<T> eqQueryByParams(Map<String, Object> params);
+	public List<T> eqQueryByParams(Map<String, Object> params) throws SecurityException, NoSuchFieldException;
 
 }

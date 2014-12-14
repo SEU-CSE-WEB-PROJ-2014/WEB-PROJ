@@ -41,10 +41,11 @@ public class UserService {
 	}
 	
 	
-	public void listAllUsers(){
+	public void listAllUsers() throws SecurityException, NoSuchFieldException{
 		Map params = new HashMap<String, Object>();
-//		params.put("nickName", "123");
-		List<User> list = (List<User>) userDao.findByParams("from User u where 1=1 and u.nickName is not null", params);
+		params.put("nickName", "123");
+//		List<User> list = (List<User>) userDao.findByParams("from User u where 1=1 and u.nickName is not null", params);
+		userDao.eqQueryByParams(params);
 		
 		System.out.println();
 		
