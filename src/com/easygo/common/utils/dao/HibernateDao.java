@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
  * K为主键的类型, T为bo对象的类型.
  */
 public interface HibernateDao<K extends Serializable, T>{
+	
 	/**
 	 * 根据key值获取bo对象
 	 */
@@ -59,12 +60,23 @@ public interface HibernateDao<K extends Serializable, T>{
 	public List<?> findByParams(String hql, Map<String, Object> params);
 	
 	/**
-	 * 全字段可选等查询
+	 * 全字段可选等查询:查询字段值不能为数组或集合
 	 * 把查询的等条件(bo.filed_1="value")放入map（map.put("filed_1", "value")），
 	 * 返回表中符合filed_1="value"的数据列表
-	 * @throws NoSuchFieldException 
-	 * @throws SecurityException 
 	 */
-	public List<T> eqQueryByParams(Map<String, Object> params) throws SecurityException, NoSuchFieldException;
+	public List<T> eqQueryByParams(Map<String, Object> params);
+	
+	
+	/**
+	 * 全字段可选in查询：查询字段只能为数组或集合
+	 * 把查询的in条件(bo.filed_1 in ("value1","value2"))放入map（map.put("filed_1", ["value1", "value2"])），
+	 * 返回表中符合filed_1 in ("value1","value2")的数据列表
+	 */
+	public List<T> inQueryByParams(Map<String, Object> params);
 
+	
+	/**
+	 * 全字段可选，混合的in/eq查询：查询字段值可以为数组集合或具体值
+	 */
+	public List<T> mixedInEqQueryByParams(Map<String, Object> params);
 }

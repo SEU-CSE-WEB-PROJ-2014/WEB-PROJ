@@ -36,18 +36,43 @@ public class UserService {
 		user.setSex(sex);
 		user.setState(state);
 		
+		User user2 = new User();
+		user2.setLoginName("A1");
+		user2.setNickName("A2");
+		user2.setState((short) 1);
 		
+		User user3 = new User();
+		user3.setLoginName("A1");
+		user3.setNickName("A2");
+		user3.setState((short) 1);
+		
+		User user4 = new User();
+		user4.setLoginName("A1");
+		user4.setNickName("A2");
+		user4.setState((short) 1);
 		userDao.save(user);
+		userDao.save(user2);
+		userDao.save(user3);
+		userDao.save(user4);
+		
 	}
 	
 	
-	public void listAllUsers() throws SecurityException, NoSuchFieldException{
+	public void listAllUsers(){
 		Map params = new HashMap<String, Object>();
-		params.put("nickName", "123");
-//		List<User> list = (List<User>) userDao.findByParams("from User u where 1=1 and u.nickName is not null", params);
+		params.put("nickName", "JALL");
+		List<User> list = (List<User>) userDao.findByParams("from User u where 1=1 and u.nickName = :nickName", params);
 		userDao.eqQueryByParams(params);
 		
-		System.out.println();
+		params.clear();
+		params.put("nickName", new String[]{"JALL", "A2"});
+		
+		userDao.inQueryByParams(params);
+		
+		
+		params.put("sex", (short)0);
+		userDao.mixedInEqQueryByParams(params);
+		
 		
 		return;
 	}

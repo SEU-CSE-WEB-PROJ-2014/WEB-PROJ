@@ -22,21 +22,127 @@ import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.easygo.common.utils.BusinessException;
+
 /**
  * 供hibernate使用的通用dao. 适用于处理单主键的bo对象. K为主键的类型, T为bo对象的类型.
  */
 public class HibernateDaoImpl<K extends Serializable, T> extends
 		HibernateDaoSupport implements HibernateDao<K, T> {
+	
+	/**
+	 * queryByParams查询类型：等查询(eq)
+	 */
+	private static final Byte QUERY_BY_PARAMS_EQ = 0;
+	
+	/**
+	 * queryByParams查询类型：in查询
+	 */
+	private static final Byte QUERY_BY_PARAMS_IN = 1;
+	
+	/**
+	 * queryByParams查询类型：混合的in/eq查询
+	 */
+	private static final Byte QUERY_BY_PARAMS_MIXED = 2;
+	
+	/**
+	 * 实体类类型
+	 */
+	private final Class<T> typeClass;
+	
+	
+	/**
+	 * 根据entry构造查询条件
+	 */
+	private String buildQueryCondition(Map.Entry<String, ?> entry){
+		String condition = null;
+		if(isArrayOrCollection(entry.getValue())){
+			condition = " AND t." + entry.getKey() + " in (:" + entry.getKey() + ")";
+		}else{
+			condition = " AND t." + entry.getKey() + " = :" + entry.getKey();
+		}
+		return condition;
+	}
+	
+	/**
+	 * 全字段可选，参数指定的in/eq/mixed查询
+	 */
+	@Transactional(readOnly = true)
+	private List<T> queryByParams(Map<String, Object> params, Byte queryType) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("FROM " + typeClass.getName() + " t WHERE 1=1");
+
+		// 构造等查询hql
+		if (params != null && params.size() > 0) {
+			Iterator it = params.entrySet().iterator();
+			while (it.hasNext()) {
+				Map.Entry<String, ?> entry = (Entry<String, ?>) it.next();
+				
+				//查询字段数据校验
+				if (entry.getValue() == null) {								//查询字段值为空
+					throw new BusinessException("查询字段：" + entry.getKey() + "\t值不能为null");
+				}
+				
+				//查询字段存在性校验
+				if(!isFieldExist(entry.getKey())){							//typeClass不存在该字段（数据库表不存在该字段）
+					throw new BusinessException("查询字段：" + entry.getKey() + "\t不存在于数据表映射类 " + typeClass.getName() + " 中");
+				}
+				
+				if(queryType.equals(QUERY_BY_PARAMS_EQ)){
+					if(isArrayOrCollection(entry.getValue())){
+						throw new BusinessException("查询字段：" + entry.getKey() + "\t值不能为数组或集合");
+					}
+				}else if(queryType.equals(QUERY_BY_PARAMS_IN)){
+					if(!isArrayOrCollection(entry.getValue())){
+						throw new BusinessException("查询字段：" + entry.getKey() + "\t值必须为为数组或集合");
+					}
+				}else if(queryType.equals(QUERY_BY_PARAMS_MIXED)){
+					//in/eq都可以，不报异常
+				}else{
+					throw new BusinessException("未定义的查询类型：" + queryType);
+				}
+				
+				sb.append(buildQueryCondition(entry));
+			}
+		}
+		return (List<T>) this.findByParams(sb.toString(), params);
+	}
+
+	
+	/**
+	 * 判断参数是否为数组或集合类型
+	 * @param obj
+	 * @return
+	 */
+	private Boolean isArrayOrCollection(Object obj){
+		return obj instanceof Object[] || obj instanceof Collection<?> 
+			? true : false;
+	}
+	
+	
+	/**
+	 * 判断某个字段是否存在于typeClass
+	 * @param fieldName
+	 * @return
+	 */
+	private Boolean isFieldExist(String fieldName){
+		Boolean result = false;
+		try{
+			typeClass.getDeclaredField(fieldName);
+			result = true;
+		}catch(Exception e){
+			
+		}
+		return result;
+	}
+	
+	
+	
 	// 设置dao的sessionFactory
 	@Resource
 	public void setSessionFacotry(SessionFactory sessionFacotry) {
 		super.setSessionFactory(sessionFacotry);
 	}
-
-	/**
-	 * 实体类类型
-	 */
-	private final Class<T> typeClass;
 
 	@SuppressWarnings("unchecked")
 	public HibernateDaoImpl() {
@@ -109,56 +215,36 @@ public class HibernateDaoImpl<K extends Serializable, T> extends
 
 		return this.getHibernateTemplate().execute(callback);
 	}
+	
+	
+	
 
 	/**
-	 * 全字段可选等查询 把查询的等条件(bo.filed_1="value")放入map（map.put("filed_1", "value")），
-	 * 返回表中符合filed_1="value"的数据列表
-	 * @throws NoSuchFieldException 
-	 * @throws SecurityException 
+	 * 全字段可选等查询
 	 */
-	public List<T> eqQueryByParams(Map<String, Object> params) throws SecurityException, NoSuchFieldException {
-
-		StringBuilder sb = new StringBuilder();
-		sb.append("FROM " + typeClass.getName() + " t WHERE 1=1");
-
-		// 构造等查询hql
-		if (params != null && params.size() > 0) {
-			Iterator it = params.entrySet().iterator();
-			while (it.hasNext()) {
-				Map.Entry<String, ?> entry = (Entry<String, ?>) it.next();
-				if (entry.getValue() == null) {
-					params.remove(entry.getKey());
-				}
-				typeClass.getDeclaredField(entry.getKey()); // 没有异常则表示bo类存在该字段
-				sb.append(" AND t." + entry.getKey() + " = :" + entry.getKey());
-			}
-		}
-		return (List<T>) this.findByParams(sb.toString(), params);
+	@Transactional(readOnly = true)
+	public List<T> eqQueryByParams(Map<String, Object> params){
+		return queryByParams(params, QUERY_BY_PARAMS_EQ);
 	}
 
-	// public List<T> eqQueryByParams(Map<String, Object> params){
-	// Map procedParams = new HashMap<String, Object>();
-	//
-	// StringBuilder sb = new StringBuilder();
-	// sb.append("FROM " + typeClass.getName() + " t WHERE 1=1");
-	//
-	// //构造等查询hql
-	// if(params != null && params.size() > 0){
-	// //遍历bo类所有字段，如果params存在此字段的key，将其key和value放进procedParams
-	// Field[] fields = typeClass.getFields();
-	// if(fields != null && fields.length > 0){
-	// for(int i = 0; i < fields.length; i++){
-	// String fieldName = fields[i].getName();
-	// if(params.get(fieldName) != null){
-	// procedParams.put("fieldName", params.get(fieldName));
-	// sb.append(" AND t." + fieldName + " = :" + fieldName);
-	// }
-	// }
-	// }
-	// }
-	// return (List<T>) this.findByParams(sb.toString(), params);
-	// }
-
-	// public void bulkUpdate(String hql, Map params);
-
+	
+	/**
+	 * 全字段可选in查询
+	 */
+	@Transactional(readOnly = true)
+	public List<T> inQueryByParams(Map<String, Object> params) {
+		return queryByParams(params, QUERY_BY_PARAMS_IN);
+	}
+	
+	
+	/**
+	 * 全字段可选，混合的in/eq查询
+	 */
+	@Transactional(readOnly = true)
+	public List<T> mixedInEqQueryByParams(Map<String, Object> params) {
+		return queryByParams(params, QUERY_BY_PARAMS_MIXED);
+	}
+	
+	
+	
 }

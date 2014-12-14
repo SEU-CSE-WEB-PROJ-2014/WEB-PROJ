@@ -15,4 +15,12 @@ public class BusinessException extends RuntimeException{
 	public BusinessException(String errorMsg) {
 		super(errorMsg);
 	}
+
+	public BusinessException(Throwable cause) {
+		super(cause);
+	}
+
+	public BusinessException(String errorMsg, Throwable cause) {
+		super(errorMsg, cause);
+	}
 }
