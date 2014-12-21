@@ -11,7 +11,7 @@ import org.hibernate.annotations.GenericGenerator;
  * CoreUserDetail entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "core_user_detail", catalog = "easygo")
+@Table(name = "core_user_detail")
 public class CoreUserDetail implements java.io.Serializable {
 
 	// Fields

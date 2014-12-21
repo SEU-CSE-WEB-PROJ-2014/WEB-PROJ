@@ -1,17 +1,45 @@
 package com.easygo.user.bo;
 
+
+import java.util.Map;
+
 import javax.persistence.Column;
+import javax.persistence.ColumnResult;
 import javax.persistence.Entity;
+import javax.persistence.EntityResult;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.NamedNativeQueries;
+import javax.persistence.NamedNativeQuery;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.SqlResultSetMapping;
+import javax.persistence.SqlResultSetMappings;
 import javax.persistence.Table;
+
 import org.hibernate.annotations.GenericGenerator;
 
 /**
  * CoreUser entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "core_user", catalog = "easygo")
+@Table(name="core_user")
+@NamedQueries({
+	@NamedQuery(name="CoreUser.listAll", query="select u as u from CoreUser u")
+})
+
+@NamedNativeQueries({
+	@NamedNativeQuery(name="CoreUser.nListAll", query="select u.user_id as id, u.* from core_user u", resultSetMapping="listAllMapping")
+})
+
+@SqlResultSetMappings({
+	@SqlResultSetMapping(name="listAllMapping", entities={
+			@EntityResult(entityClass=CoreUser.class)
+	}, columns={
+			@ColumnResult(name="id")
+	})
+})
+
 public class CoreUser implements java.io.Serializable {
 
 	// Fields

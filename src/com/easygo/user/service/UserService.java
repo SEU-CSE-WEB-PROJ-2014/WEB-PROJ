@@ -38,20 +38,26 @@ public class UserService {
 	
 	
 	public void listUserInfo(){
-		String hql = "select u.userId, u.loginName, u.sex from CoreUser u, CoreUserDetail ud where ud.userId = u.userId";
+//		String hql = "select u.userId, u.loginName, u.sex from CoreUser u, CoreUserDetail ud where ud.userId = u.userId";
+//		
+//		List userInfoList = this.userDao.findByParams(hql, null);
+//		for(int i = 0; i < userInfoList.size(); i++){
+//			Object obj = userInfoList.get(i);
+//			if(obj != null && obj instanceof Object[]){
+//				Object[] objs = (Object[]) obj;
+//				for(int j = 0; j < objs.length; j++){
+//					System.out.println(objs[j]);
+//				}
+//			}
+//			
+//			continue;
+//		}
 		
-		List userInfoList = this.userDao.findByParams(hql, null);
-		for(int i = 0; i < userInfoList.size(); i++){
-			Object obj = userInfoList.get(i);
-			if(obj != null && obj instanceof Object[]){
-				Object[] objs = (Object[]) obj;
-				for(int j = 0; j < objs.length; j++){
-					System.out.println(objs[j]);
-				}
-			}
-			
-			continue;
-		}
+		userDao.testNamedQuery();
+		userDao.testNamedNativeQuery();
+		
+		
+		
 	}
 		
 	
