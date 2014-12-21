@@ -188,9 +188,9 @@ public class HibernateDaoImpl<K extends Serializable, T> extends
 		this.getHibernateTemplate().flush();
 	}
 
-	@Transactional(readOnly = false)
-	public List<?> findByParams(final String hql,
-			final Map<String, Object> params) {
+	@Transactional(readOnly = true)
+	public List<?> findByParams(String hql,
+			Map<String, Object> params) {
 		HQLCallback<List<?>> call = new HQLCallback<List<?>>(hql, params, false, this.getHibernateTemplate());
 		return this.getHibernateTemplate().execute(call);
 	}

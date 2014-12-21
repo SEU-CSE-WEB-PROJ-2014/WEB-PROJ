@@ -19,18 +19,14 @@ public class UserController {
 	
 	@RequestMapping("/regUserPage.do")
 	public ModelAndView regUserPage(){
-		
-		
-		
+
 		return new ModelAndView();
 	}
 	
 	@RequestMapping("/regUser.do")
 	public ModelAndView regUser() throws Exception{
-		
-		userService.saveUser("jallenjia", "JALL", new Short((short) 0), "123456", new Short((short) 1));
-		
-		userService.listAllUsers();
+		userService.saveUser("jallenjia", "jall", "jallenjia@sina.com");
+		userService.listUserInfo();
 		
 		return null;
 	}
