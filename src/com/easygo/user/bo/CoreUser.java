@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.ColumnResult;
 import javax.persistence.Entity;
 import javax.persistence.EntityResult;
+import javax.persistence.FieldResult;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.NamedNativeQueries;
@@ -19,13 +20,15 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import com.mysql.jdbc.Field;
+
 /**
  * CoreUser entity. @author MyEclipse Persistence Tools
  */
 @Entity
 @Table(name="core_user")
 @NamedQueries({
-	@NamedQuery(name="CoreUser.listAll", query="select u as u from CoreUser u")
+	@NamedQuery(name="CoreUser.listAll", query="select u, u.userId from CoreUser u")
 })
 
 @NamedNativeQueries({

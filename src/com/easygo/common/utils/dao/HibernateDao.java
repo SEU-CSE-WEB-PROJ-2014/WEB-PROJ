@@ -86,4 +86,9 @@ public interface HibernateDao<K extends Serializable, T>{
 	public List<T> mixedInEqQueryByParams(Map<String, Object> params);
 	
 	
+	/**
+	 * namedQuery查询，不分页
+	 */
+	public <T1> QueryResult<T1> doQuery(String queryName, Map<String, Object> params,
+			Class<T1> type);
 }

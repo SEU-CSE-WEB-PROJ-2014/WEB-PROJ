@@ -18,13 +18,17 @@ import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.transform.AliasToBeanResultTransformer;
+import org.hibernate.transform.Transformers;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.orm.hibernate3.SessionFactoryUtils;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
 import com.easygo.common.utils.BusinessException;
+import com.easygo.user.bo.CoreUser;
 
 /**
  * 供hibernate使用的通用dao. 适用于处理单主键的bo对象. K为主键的类型, T为bo对象的类型.
@@ -191,6 +195,7 @@ public class HibernateDaoImpl<K extends Serializable, T> extends
 	@Transactional(readOnly = true)
 	public List<?> findByParams(String hql,
 			Map<String, Object> params) {
+		Assert.notNull(hql);
 		HQLCallback<List<?>> call = new HQLCallback<List<?>>(hql, params, false, this.getHibernateTemplate());
 		return this.getHibernateTemplate().execute(call);
 	}
@@ -229,8 +234,22 @@ public class HibernateDaoImpl<K extends Serializable, T> extends
 	 */
 	@Transactional(readOnly = false)
 	public Integer bulkUpdate(String hql, Map<String, ?> params){
+		Assert.notNull(hql);
 		HQLCallback<Integer> call = new HQLCallback<Integer>(hql, params, true, this.getHibernateTemplate());
 		return this.getHibernateTemplate().execute(call);
+	}
+	
+	
+	/**
+	 * namedQuery查询，不分页
+	 */
+	public <T1> QueryResult<T1> doQuery(String queryName, Map<String, Object> params,
+			Class<T1> type){
+		QueryCallback<List<T1>> callback = new QueryCallback<List<T1>>(queryName, this.getHibernateTemplate(),
+				params, type);
+		List<T1> resultList = this.getHibernateTemplate().execute(callback);
+		QueryResult<T1> result = new QueryResult<T1>(resultList);
+		return result;
 	}
 	
 }
@@ -311,4 +330,90 @@ class HQLCallback<T> implements HibernateCallback<T>{
 			return (T) queryObject.list();
 		}
 	}
+}
+
+
+class QueryCallback<T> implements HibernateCallback<T>{
+	private String queryName = null;
+	private HibernateTemplate template = null;
+	private Map<String, Object> params = null;
+	private Class<?> type = null;
+	
+	public QueryCallback(String queryName, HibernateTemplate template, 
+			Map<String, Object> params, Class<?> type) {
+		Assert.notNull(queryName);
+		Assert.notNull(template);
+		
+		this.queryName = queryName;
+		this.template = template;
+		this.params = params;
+		this.type = type;
+	}
+
+	
+	protected void prepareQuery(Query queryObject){
+		if (this.template.isCacheQueries())
+		{
+			queryObject.setCacheable(true);
+			if (this.template.getQueryCacheRegion() != null)
+			{
+				queryObject.setCacheRegion(this.template.getQueryCacheRegion());
+			}
+		}
+		if (this.template.getFetchSize() > 0)
+		{
+			queryObject.setFetchSize(this.template.getFetchSize());
+		}
+		if (this.template.getMaxResults() > 0)
+		{
+			queryObject.setMaxResults(this.template.getMaxResults());
+		}
+		SessionFactoryUtils.applyTransactionTimeout(
+				queryObject, this.template.getSessionFactory());
+	}
+	
+	
+	/**
+	 * 设置查询参数
+	 */
+	private void setQueryObjectParams(Query queryObject, Map.Entry<String, ?> entry){
+		if (entry.getValue() instanceof Object[]) {
+			queryObject.setParameterList(entry.getKey(),
+					(Object[]) entry.getValue());
+		} else if (entry.getValue() instanceof Collection<?>) {
+			queryObject.setParameterList(entry.getKey(),
+					(Collection) entry.getValue());
+		} else {
+			queryObject.setParameter(entry.getKey(),
+					entry.getValue());
+		}
+	}
+	
+	
+	public T doInHibernate(Session s) throws HibernateException,
+			SQLException {
+		Query queryObject = s.getNamedQuery(queryName);
+		this.prepareQuery(queryObject);
+		
+		//设置返回数据的实体类
+//		if(type.equals(Map.class)){
+			queryObject.setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
+//		}else{
+//			queryObject.setResultTransformer(new AliasToBeanResultTransformer(type));
+//		}
+		
+		//查询参数
+		if (params != null && !params.isEmpty()) {
+			Iterator it = params.entrySet().iterator();
+			for (int i = 0; i < params.size(); i++) {
+				Map.Entry<String, ?> entry = (Entry<String, ?>) it
+						.next();
+				this.setQueryObjectParams(queryObject, entry);
+			}
+		}
+		
+		
+		return (T) queryObject.list();
+	}
+	
 }

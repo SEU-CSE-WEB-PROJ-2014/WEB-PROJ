@@ -31,15 +31,16 @@ public class UserDaoImpl extends HibernateDaoImpl<String, CoreUser> implements U
 	public void testNamedNativeQuery(){
 		Session s = this.getHibernateTemplate().getSessionFactory().getCurrentSession();
 		s.beginTransaction();
+
+		Query q = s.createSQLQuery("select u.* from core_user u");
+		q.setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
+		q.list();
 		
-		Query q = s.getNamedQuery("CoreUser.nListAll");
-		
-		
-//		Query q = s.getNamedQuery("CoreUser.listAll");
-		q.setFirstResult(2);
-		q.setMaxResults(4);
+//		Query q = s.getNamedQuery("CoreUser.nListAll");
+//		q.setFirstResult(2);
+//		q.setMaxResults(4);
 //		q.setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
-		List list = q.list();
+//		List list = q.list();
 		return;
 	}
 
