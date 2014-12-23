@@ -19,5 +19,5 @@ request.setAttribute("basePath", basePath);
   </head>
 </html>
 <script type="text/javascript">
-	window.location="http://www.baidu.com"
+	window.location="home/index.do"
 </script>
