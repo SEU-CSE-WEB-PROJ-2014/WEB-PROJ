@@ -25,16 +25,20 @@ public class UserService {
 	private UserDetailDao userDetailDao;
 	
 	
-	public void saveUser(String loginName, String nickName, String email){
-//		CoreUser user = new CoreUser();
-//		user.setLoginName(loginName);
-//		user.setNickName(nickName);
-//		userDao.save(user);
-//		
-//		CoreUserDetail userDetail = new CoreUserDetail();
-//		userDetail.setUserId(user.getUserId());
-//		userDetail.setEmail(email);
-//		userDetailDao.save(userDetail);
+	public String regUser(String nickName, String password, String email){
+		CoreUser user = new CoreUser();
+		user.setNickName(nickName);
+		user.setLoginName(email);
+		user.setPassword(password);
+		
+		this.userDao.save(user);
+		
+		CoreUserDetail userDetail = new CoreUserDetail();
+		
+		
+		return null;
+		
+		
 	}
 	
 	

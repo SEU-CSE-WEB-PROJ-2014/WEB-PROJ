@@ -1,11 +1,8 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@ include file="/WEB-INF/common/includes.jsp" %>
 
-<script src="${contextPath}/res/js/fancyBox/jquery-ui-1.8.22.custom.min.js"></script>
-<script src="${contextPath}/res/js/fancyBox/jquery.fancybox-1.3.4.pack.js"></script>
-<script src="${contextPath}/res/js/fancyBox/jquery.fancybox-1.3.4.js"></script>
-<script src="${contextPath}/res/js/fancyBox/jquery.mousewheel-3.0.4.pack.js"></script>
-<script src="${contextPath}/res/js/fancyBox/jquery.easing-1.3.pack.js"></script>
+<link rel="stylesheet" type="text/css" href="${contextPath}/res/js/fancybox/fancybox.css"/>
+<script src="${contextPath}/res/js/fancybox/jquery.fancybox-1.3.1.pack.js"></script>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
@@ -26,17 +23,16 @@
   <body>
     EasyGo home page. <br>
     <a href="javascript:void(0);" class="login">登陆</a>
-    <a href="javascript:void(0);" class="register">注册</a>
-    
-    <a href="javascript:void(0);" class="test">
-    	<img src="${contextPath}/res/joseph.jpeg" class="test" style="width:100px;">
-    </a>
+    <a href="user/regUserPage.do" class="register">注册</a>
   </body>
 </html>
 
 <script type="text/javascript">
 $(function(){
-	$(".test").fancybox();
+	$(".register").fancybox({
+	});
+	$(".login").fancybox({
+	});
 
 	
 });
