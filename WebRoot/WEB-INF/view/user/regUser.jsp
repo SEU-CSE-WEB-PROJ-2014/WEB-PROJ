@@ -1,6 +1,7 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@ include file="/WEB-INF/common/includes.jsp" %>
 
+
 <div>
     <div>
 	 	<form>
@@ -33,14 +34,19 @@ $(function(){
 		var nickName = $("#nickName").val();
 
 		$.post(
-				"regUser.do",
+				"user/regUser.do",
 				{
 					"email" : email,
 					"password" : password,
 					"nickName" : nickName
 				},
-				function(data){
-					var status = data.status;
+				function(result){
+					var returnCode = result.returnCode;
+					if(returnCode == 1){
+						$.fancybox.close();
+					}else{
+						alert(result.msg);
+					} 
 				},
 				"json"
 		);		

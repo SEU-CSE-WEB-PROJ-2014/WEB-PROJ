@@ -1,8 +1,9 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@ include file="/WEB-INF/common/includes.jsp" %>
 
-<link rel="stylesheet" type="text/css" href="${contextPath}/res/js/fancybox/fancybox.css"/>
+<script src="${contextPath}/res/js/jquery.js"></script>
 <script src="${contextPath}/res/js/fancybox/jquery.fancybox-1.3.1.pack.js"></script>
+<link rel="stylesheet" type="text/css" href="${contextPath}/res/js/fancybox/fancybox.css"/>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
@@ -22,7 +23,7 @@
   
   <body>
     EasyGo home page. <br>
-    <a href="javascript:void(0);" class="login">登陆</a>
+    <a href="user/loginPage.do" class="login">登陆</a>
     <a href="user/regUserPage.do" class="register">注册</a>
   </body>
 </html>

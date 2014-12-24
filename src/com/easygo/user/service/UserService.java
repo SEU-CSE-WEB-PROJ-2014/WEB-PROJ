@@ -34,11 +34,10 @@ public class UserService {
 		this.userDao.save(user);
 		
 		CoreUserDetail userDetail = new CoreUserDetail();
-		
-		
-		return null;
-		
-		
+		userDetail.setEmail(email);
+		userDetail.setUserId(user.getUserId());
+		this.userDetailDao.save(userDetail);
+		return user.getUserId();
 	}
 	
 	

@@ -7,4 +7,3 @@
 	request.setAttribute("basePath", basePath);
 %>
 
-<script src="${contextPath}/res/js/jquery.js"></script>
