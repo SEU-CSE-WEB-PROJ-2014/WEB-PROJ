@@ -1,5 +1,6 @@
 package com.easygo.user.web;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,6 +32,29 @@ public class UserController {
 		
 		return new ModelAndView("user/login");
 	}
+
+	
+	@RequestMapping("/login.do")
+	public ModelAndView login(@RequestParam String loginName, @RequestParam String password,
+			HttpServletRequest request, HttpServletResponse response) throws IOException{
+		Map result = new HashMap<String, Object>();
+		Byte status = Constant.STATUS_ERR;
+		String msg = null;
+		try{
+			this.userService.login(loginName, password, request, response);
+			status = Constant.STATUS_SUCC;
+		}catch (Exception e) {
+			e.printStackTrace();
+			msg = e.getMessage();
+		}
+		
+		result.put("status", status);
+		result.put("msg", msg);
+		response.setContentType(Constant.HTTP_JSON_CONTENTTYPE);
+		response.getWriter().print(JSON.toJSONString(result));
+		
+		return null;
+	}
 	
 	
 	@RequestMapping("/regUserPage.do")
@@ -43,17 +67,17 @@ public class UserController {
 	public ModelAndView regUser(@RequestParam String email, @RequestParam String password, @RequestParam String nickName,
 			HttpServletRequest request, HttpServletResponse response) throws Exception{
 		Map result = new HashMap<String, Object>();
-		Byte returnCode = Constant.RETURN_CODE_ERR;
+		Byte status = Constant.STATUS_ERR;
 		String msg = null;
 		try{
 			String userId = userService.regUser(nickName, password, email);
 			result.put("userId", userId);
-			returnCode = Constant.RETURN_CODE_SUCC;
+			status = Constant.STATUS_SUCC;
 		}catch(Exception e){
 			msg = e.getMessage();
 			e.printStackTrace();
 		}
-		result.put("returnCode", returnCode);
+		result.put("status", status);
 		result.put("msg", msg);
 		response.setContentType(Constant.HTTP_JSON_CONTENTTYPE);
 		response.getWriter().print(JSON.toJSONString(result));

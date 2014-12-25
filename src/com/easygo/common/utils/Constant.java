@@ -2,15 +2,15 @@ package com.easygo.common.utils;
 
 public final class Constant {
 	/**
-	 * 返回状态：出错
+	 * 状态：出错
 	 */
-	public static final Byte RETURN_CODE_ERR = 0;
+	public static final Byte STATUS_ERR = 0;
 	
 	
 	/**
-	 * 返回状态：成功
+	 * 状态：成功
 	 */
-	public static final Byte RETURN_CODE_SUCC = 1;
+	public static final Byte STATUS_SUCC = 1;
 	
 
 	/**

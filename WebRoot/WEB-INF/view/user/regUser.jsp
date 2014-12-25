@@ -41,8 +41,8 @@ $(function(){
 					"nickName" : nickName
 				},
 				function(result){
-					var returnCode = result.returnCode;
-					if(returnCode == 1){
+					var status = result.status;
+					if(status == 1){
 						$.fancybox.close();
 					}else{
 						alert(result.msg);

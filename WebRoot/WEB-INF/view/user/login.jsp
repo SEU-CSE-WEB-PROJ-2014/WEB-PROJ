@@ -28,13 +28,12 @@ $(function(){
 		$.post(
 				"user/login.do",
 				{
-					"email" : email,
-					"password" : password,
-					"nickName" : nickName
+					"loginName" : loginName,
+					"password" : password
 				},
 				function(result){
-					var returnCode = result.returnCode;
-					if(returnCode == 1){
+					var status = result.status;
+					if(status == 1){
 						$.fancybox.close();
 					}else{
 						alert(result.msg);

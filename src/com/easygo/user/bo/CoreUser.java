@@ -45,6 +45,16 @@ import com.mysql.jdbc.Field;
 
 public class CoreUser implements java.io.Serializable {
 
+	/**
+	 * 数据有效
+	 */
+	public static final Integer STATE_YES = 1;
+	
+	/**
+	 * 数据无效
+	 */
+	public static final Integer STATE_NO = 0;
+	
 	// Fields
 
 	private String userId;
