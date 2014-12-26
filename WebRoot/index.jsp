@@ -19,5 +19,5 @@ request.setAttribute("basePath", basePath);
   </head>
 </html>
 <script type="text/javascript">
-	window.location="home/index.do"
+	window.location="home/index.do";
 </script>
