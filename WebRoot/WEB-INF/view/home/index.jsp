@@ -1,5 +1,5 @@
-<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
-<%@ include file="/WEB-INF/common/includes.jsp" %>
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8" session="false"%>
+<%@ include file="/WEB-INF/common/header.jsp" %>
 
 <script src="${contextPath}/res/js/jquery.js"></script>
 <script src="${contextPath}/res/js/fancybox/jquery.fancybox-1.3.1.pack.js"></script>

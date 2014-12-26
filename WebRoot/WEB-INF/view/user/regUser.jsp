@@ -1,5 +1,4 @@
-<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
-<%@ include file="/WEB-INF/common/includes.jsp" %>
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8" session="false"%>
 
 
 <div>

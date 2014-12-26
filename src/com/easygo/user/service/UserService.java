@@ -71,7 +71,7 @@ public class UserService {
 				throw new BusinessException("用户数据不正确，请联系管理员");
 			}
 			
-			HttpSession s = request.getSession(true);
+			HttpSession s = request.getSession();
 			s.setAttribute("CoreUser", user);
 			s.setAttribute("CoreUserDetail", userDetail.get(0));
 		}else{

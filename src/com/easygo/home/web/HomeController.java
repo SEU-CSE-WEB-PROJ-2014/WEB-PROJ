@@ -1,4 +1,4 @@
-package com.easygo.common.home.web;
+package com.easygo.home.web;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,7 +10,7 @@ public class HomeController {
 
 	@RequestMapping("/index.do")
 	public ModelAndView index(){
-		return new ModelAndView("common/index", null);
+		return new ModelAndView("home/index", null);
 	}
 
 }
