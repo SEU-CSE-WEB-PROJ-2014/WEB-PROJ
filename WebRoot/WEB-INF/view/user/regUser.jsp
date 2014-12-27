@@ -33,7 +33,7 @@ $(function(){
 		var nickName = $("#nickName").val();
 
 		$.post(
-				"user/regUser.do",
+				"${basePath}user/regUser.do",
 				{
 					"email" : email,
 					"password" : password,

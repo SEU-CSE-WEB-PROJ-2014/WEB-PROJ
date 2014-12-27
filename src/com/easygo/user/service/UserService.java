@@ -18,6 +18,7 @@ import org.springframework.util.Assert;
 
 import com.easygo.common.utils.BusinessException;
 import com.easygo.common.utils.dao.QueryResult;
+import com.easygo.common.utils.userManager.UserManager;
 import com.easygo.user.bo.CoreUser;
 import com.easygo.user.bo.CoreUserDetail;
 import com.easygo.user.dao.UserDao;
@@ -70,10 +71,17 @@ public class UserService {
 			if(userDetail == null || userDetail.size() < 1){
 				throw new BusinessException("用户数据不正确，请联系管理员");
 			}
-			
 			HttpSession s = request.getSession();
-			s.setAttribute("CoreUser", user);
-			s.setAttribute("CoreUserDetail", userDetail.get(0));
+			s.setAttribute(UserManager.CORE_USER_KEY, user);
+			s.setAttribute(UserManager.CORE_USER_DETAIL_KEY, userDetail.get(0));
+			
+			
+			UserManager.setCoreUser(user);
+			UserManager.setCoreUserDetail(userDetail.get(0));
+			
+			Object obj = UserManager.getCoreUser();
+			
+			int i = 0;
 		}else{
 			throw new BusinessException("用户名或密码错误");
 		}

@@ -1,8 +1,10 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8" session="false"%>
 <%@ include file="includes.jsp" %>
 <%@ page import="com.easygo.user.bo.*" %>
+<%@ page import="com.easygo.common.utils.userManager.*" %>
 
 <%
+	Object coreUser = UserManager.getCoreUser();
 	String msg = null;
 	HttpSession s= request.getSession(false);
 	if(s == null){
@@ -16,9 +18,11 @@
 		}
 	}
 	request.setAttribute("msg", msg);
+	request.setAttribute("coreUser", coreUser);
 %>
 
 <!-- header数据 -------------------------------------------------------------------------->
 <div class="header">
-	${msg}
+	${msg}<br/>
+	${coreUser.loginName}
 </div>

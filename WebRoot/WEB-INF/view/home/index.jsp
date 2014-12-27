@@ -23,8 +23,8 @@
   
   <body>
     EasyGo home page. <br>
-    <a href="user/loginPage.do" class="login">登陆</a>
-    <a href="user/regUserPage.do" class="register">注册</a>
+    <a href="${basePath}user/loginPage.do" class="login">登陆</a>
+    <a href="${basePath}user/regUserPage.do" class="register">注册</a>
   </body>
 </html>
 

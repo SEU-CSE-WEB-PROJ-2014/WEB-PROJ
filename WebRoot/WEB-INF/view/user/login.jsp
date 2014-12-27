@@ -25,7 +25,7 @@ $(function(){
 		var password = $("#password").val();
 
 		$.post(
-				"user/login.do",
+				"${basePath}user/login.do",
 				{
 					"loginName" : loginName,
 					"password" : password

@@ -15,6 +15,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSON;
 import com.easygo.common.utils.Constant;
+import com.easygo.common.utils.userManager.UserManager;
+import com.easygo.user.bo.CoreUser;
 import com.easygo.user.service.UserService;
 
 @Controller
@@ -83,5 +85,14 @@ public class UserController {
 		response.getWriter().print(JSON.toJSONString(result));
 		
 		return null;
+	}
+	
+	@RequestMapping("/test.do")
+	public ModelAndView test(){
+		CoreUser coreUser = (CoreUser) UserManager.getCoreUser();
+		
+		
+		return null;
+//		return new ModelAndView();
 	}
 }

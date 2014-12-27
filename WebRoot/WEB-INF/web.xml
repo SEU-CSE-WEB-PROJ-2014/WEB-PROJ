@@ -48,6 +48,41 @@
 		</init-param>
 	</filter>
 	
+	<filter>
+		<filter-name>userManagerFilter</filter-name>
+		<filter-class>com.easygo.common.utils.userManager.UserManagerFilter</filter-class>
+	</filter>
+	
+	<filter-mapping>
+		<filter-name>characterEncoding</filter-name>
+		<url-pattern>*.do</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>characterEncoding</filter-name>
+		<url-pattern>*.res</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>characterEncoding</filter-name>
+		<url-pattern>*.html</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>characterEncoding</filter-name>
+		<url-pattern>*.htm</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>characterEncoding</filter-name>
+		<url-pattern>*.js</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>characterEncoding</filter-name>
+		<url-pattern>*.css</url-pattern>
+	</filter-mapping>
+	
+	<filter-mapping>
+		<filter-name>userManagerFilter</filter-name>
+		<url-pattern>*.do</url-pattern>
+	</filter-mapping>
+	
 	
  	
  	
