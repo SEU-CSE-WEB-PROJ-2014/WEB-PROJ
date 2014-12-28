@@ -39,22 +39,7 @@ public class UserController {
 	@RequestMapping("/login.do")
 	public ModelAndView login(@RequestParam String loginName, @RequestParam String password,
 			HttpServletRequest request, HttpServletResponse response) throws IOException{
-		Map result = new HashMap<String, Object>();
-		Byte status = Constant.STATUS_ERR;
-		String msg = null;
-		try{
-			this.userService.login(loginName, password, request, response);
-			status = Constant.STATUS_SUCC;
-		}catch (Exception e) {
-			e.printStackTrace();
-			msg = e.getMessage();
-		}
-		
-		result.put("status", status);
-		result.put("msg", msg);
-		response.setContentType(Constant.HTTP_JSON_CONTENTTYPE);
-		response.getWriter().print(JSON.toJSONString(result));
-		
+		this.userService.login(loginName, password, request, response);
 		return null;
 	}
 	
@@ -69,30 +54,15 @@ public class UserController {
 	public ModelAndView regUser(@RequestParam String email, @RequestParam String password, @RequestParam String nickName,
 			HttpServletRequest request, HttpServletResponse response) throws Exception{
 		Map result = new HashMap<String, Object>();
-		Byte status = Constant.STATUS_ERR;
-		String msg = null;
-		try{
-			String userId = userService.regUser(nickName, password, email);
-			result.put("userId", userId);
-			status = Constant.STATUS_SUCC;
-		}catch(Exception e){
-			msg = e.getMessage();
-			e.printStackTrace();
-		}
-		result.put("status", status);
-		result.put("msg", msg);
-		response.setContentType(Constant.HTTP_JSON_CONTENTTYPE);
-		response.getWriter().print(JSON.toJSONString(result));
-		
-		return null;
+		String userId = userService.regUser(nickName, password, email);
+		result.put("userId", userId);
+		return new ModelAndView("", result);
 	}
 	
 	@RequestMapping("/test.do")
 	public ModelAndView test(){
 		CoreUser coreUser = (CoreUser) UserManager.getCoreUser();
 		
-		
 		return null;
-//		return new ModelAndView();
 	}
 }

@@ -28,5 +28,17 @@ public final class Constant {
 	/**
 	 * 以json格式返回modelAndView的数据，没有view
 	 */
-	public static final String NULL_VIEW = "_null_view";
+	public static final String NULL_VIEW = "";
+	
+	
+	/**
+	 * controller方法返回的状态变量的名称
+	 */
+	public static final String STATUS_NAME = "status";
+	
+	
+	/**
+	 * controller方法异常时返回出错提示变量的名称
+	 */
+	public static final String MSG_NAME = "msg";
 }
