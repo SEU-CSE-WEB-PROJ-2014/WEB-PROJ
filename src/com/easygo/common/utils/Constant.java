@@ -23,4 +23,10 @@ public final class Constant {
 	 * 返回内容格式：json数据
 	 */
 	public static final String HTTP_JSON_CONTENTTYPE = "application/json;charset=UTF-8";
+	
+	
+	/**
+	 * 以json格式返回modelAndView的数据，没有view
+	 */
+	public static final String NULL_VIEW = "_null_view";
 }
