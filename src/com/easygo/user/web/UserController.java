@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSON;
+import com.easygo.common.utils.BusinessException;
 import com.easygo.common.utils.Constant;
 import com.easygo.common.utils.userManager.UserManager;
 import com.easygo.user.bo.CoreUser;
@@ -46,7 +47,6 @@ public class UserController {
 	
 	@RequestMapping("/regUserPage.do")
 	public ModelAndView regUserPage(){
-
 		return new ModelAndView("user/regUser");
 	}
 	

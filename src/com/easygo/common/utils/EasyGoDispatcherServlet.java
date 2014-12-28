@@ -98,7 +98,13 @@ public class EasyGoDispatcherServlet extends DispatcherServlet{
 					mv = ha.handle(processedRequest, response, mappedHandler.getHandler());
 					status = Constant.STATUS_SUCC;
 				}catch(Exception e){
-					msg = e.getMessage();
+					e.printStackTrace();
+					//判断是否为ajax请求。是则将错误信息封装到modelAndView中返回，否则继续抛出异常
+					if(StringUtils.equals(request.getHeader("x-requested-with"), "XMLHttpRequest")){
+						msg = e.getMessage();
+					}else{
+						throw e;
+					}
 				}
 				
 				String viewName = mv != null && StringUtils.isNotEmpty(mv.getViewName())
