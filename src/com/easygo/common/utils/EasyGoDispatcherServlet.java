@@ -34,6 +34,7 @@ public class EasyGoDispatcherServlet extends DispatcherServlet{
 
 	/**
 	 * 根据modelAndView渲染页面
+	 * 如果view名称为Constant.NULL_VIEW，则返回json数据
 	 */
 	protected void render(ModelAndView mv, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		if(mv != null && mv.getViewName().equals(Constant.NULL_VIEW) && mv.getModel() != null){
