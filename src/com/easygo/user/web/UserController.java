@@ -45,6 +45,12 @@ public class UserController {
 		return null;
 	}
 	
+	@RequestMapping("/logout.do")
+	public ModelAndView logout(HttpServletRequest request, HttpServletResponse response){
+		this.userService.logout(request, response);
+		return null;
+	}
+	
 	
 	@RequestMapping("/regUserPage.do")
 	public ModelAndView regUserPage(){

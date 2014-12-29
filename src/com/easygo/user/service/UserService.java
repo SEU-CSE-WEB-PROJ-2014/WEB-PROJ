@@ -91,6 +91,25 @@ public class UserService {
 	}
 	
 	
+	public void logout(HttpServletRequest request, HttpServletResponse response){
+		Assert.notNull(request);
+		Assert.notNull(response);
+		
+		HttpSession s = request.getSession(false);
+		if(s == null){
+			throw new BusinessException("无登录用户");
+		}
+		
+		LoginUser loginUser = (LoginUser) s.getAttribute(UserManager.LOGIN_USER_KEY);
+		if(loginUser == null){
+			throw new BusinessException("无登录用户");
+		}
+		
+		s.removeAttribute(UserManager.LOGIN_USER_KEY);
+		UserManager.setCurrentUser(null);
+	}
+	
+	
 	public void listUserInfo(){
 //		QueryResult<CoreUser> qr = 
 //				this.userDao.doQuery("CoreUser.nListAll", null, Map.class);

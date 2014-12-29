@@ -58,6 +58,7 @@ public class CoreUser implements java.io.Serializable {
 	// Fields
 
 	private String userId;
+	private String roleId;
 	private String loginName;
 	private String nickName;
 	private String password;
@@ -91,6 +92,16 @@ public class CoreUser implements java.io.Serializable {
 
 	public void setUserId(String userId) {
 		this.userId = userId;
+	}
+	
+	
+	@Column(name = "role_id", nullable = false, length = 50)
+	public String getRoleId() {
+		return roleId;
+	}
+
+	public void setRoleId(String roleId) {
+		this.roleId = roleId;
 	}
 
 	@Column(name = "login_name", length = 50)

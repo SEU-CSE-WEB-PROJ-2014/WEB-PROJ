@@ -18,5 +18,11 @@ public class HomeController {
 		Map result = new HashMap<String, Object>();
 		return new ModelAndView("home/index", null);
 	}
+	
+	@RequestMapping("/backstageIndex.do")
+	public ModelAndView backstageIndex(){
+		
+		return new ModelAndView();
+	}
 
 }

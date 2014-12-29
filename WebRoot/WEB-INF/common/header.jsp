@@ -19,6 +19,7 @@
 	<c:choose>
 		<c:when test="${curUser != null}">
 			${curUser.nickName}&nbsp;&nbsp;您好！
+			<a href="javascript:void(0);" class="logout">注销</a>
 		</c:when>
 		<c:otherwise>
 			<a href="${basePath}user/loginPage.do" class="login">登陆</a>
@@ -32,6 +33,22 @@ $(function(){
 	$(".register").fancybox({
 	});
 	$(".login").fancybox({
+	});
+	
+	//注销
+	$(".logout").click(function(){
+		$.post(
+			"${basePath}user/logout.do",
+			{},
+			function(result){
+				if(result.status == 1){
+					window.location.href = "${basePath}";
+				}else{
+					alert(result.msg);
+				}
+			},
+			"json"
+		);		
 	});
 });
 </script>
