@@ -1,6 +1,7 @@
 package com.easygo.user.web;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -39,7 +40,7 @@ public class UserController {
 	
 	@RequestMapping("/login.do")
 	public ModelAndView login(@RequestParam String loginName, @RequestParam String password,
-			HttpServletRequest request, HttpServletResponse response) throws IOException{
+			HttpServletRequest request, HttpServletResponse response) throws IOException, IllegalAccessException, InvocationTargetException{
 		this.userService.login(loginName, password, request, response);
 		return null;
 	}
@@ -61,7 +62,7 @@ public class UserController {
 	
 	@RequestMapping("/test.do")
 	public ModelAndView test(){
-		CoreUser coreUser = (CoreUser) UserManager.getCoreUser();
+		
 		
 		return null;
 	}

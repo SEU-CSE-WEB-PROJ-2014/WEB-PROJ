@@ -2,6 +2,7 @@ package com.easygo.user.service;
 
 
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,7 @@ import org.springframework.util.Assert;
 
 import com.easygo.common.utils.BusinessException;
 import com.easygo.common.utils.dao.QueryResult;
+import com.easygo.common.utils.userManager.LoginUser;
 import com.easygo.common.utils.userManager.UserManager;
 import com.easygo.user.bo.CoreUser;
 import com.easygo.user.bo.CoreUserDetail;
@@ -51,7 +54,7 @@ public class UserService {
 	}
 	
 	public void login(String loginName, String password, 
-			HttpServletRequest request, HttpServletResponse response){
+			HttpServletRequest request, HttpServletResponse response) throws IllegalAccessException, InvocationTargetException{
 		Assert.notNull(loginName);
 		Assert.notNull(password);
 		Assert.notNull(request);
@@ -71,17 +74,17 @@ public class UserService {
 			if(userDetail == null || userDetail.size() < 1){
 				throw new BusinessException("用户数据不正确，请联系管理员");
 			}
+
+			//登录用户数据放入session
+			LoginUser loginUser = new LoginUser();
+			BeanUtils.copyProperties(loginUser, user);
+			BeanUtils.copyProperties(loginUser, userDetail.get(0));
+			
+			
 			HttpSession s = request.getSession();
-			s.setAttribute(UserManager.CORE_USER_KEY, user);
-			s.setAttribute(UserManager.CORE_USER_DETAIL_KEY, userDetail.get(0));
+			s.setAttribute(UserManager.LOGIN_USER_KEY, loginUser);
 			
-			
-			UserManager.setCoreUser(user);
-			UserManager.setCoreUserDetail(userDetail.get(0));
-			
-			Object obj = UserManager.getCoreUser();
-			
-			int i = 0;
+			UserManager.setCurrentUser(loginUser);
 		}else{
 			throw new BusinessException("用户名或密码错误");
 		}

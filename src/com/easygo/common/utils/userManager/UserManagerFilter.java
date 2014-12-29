@@ -23,14 +23,14 @@ public class UserManagerFilter implements Filter{
 		HttpServletRequest h_request = (HttpServletRequest) request;
 		HttpServletResponse h_response = (HttpServletResponse) response;
 
+		//登录用户数据放入UserManager
 		HttpSession s = h_request.getSession(false);
 		if(s != null){
-			Object coreUser = s.getAttribute(UserManager.CORE_USER_KEY);
-			Object coreUserDetail = s.getAttribute(UserManager.CORE_USER_DETAIL_KEY);
-			UserManager.setCoreUser(coreUser);
-			UserManager.setCoreUserDetail(coreUserDetail);
+			LoginUser loginUser  = (LoginUser) s.getAttribute(UserManager.LOGIN_USER_KEY);
+			UserManager.setCurrentUser(loginUser);
 		}
 		
+		//调用controller方法
 		chain.doFilter(h_request, h_response);
 		
 		//清空当前线程数据

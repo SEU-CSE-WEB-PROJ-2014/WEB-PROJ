@@ -84,8 +84,6 @@
 	</filter-mapping>
 	
 	
- 	
- 	
 	<jsp-config>
 		<taglib>
 			<taglib-uri>http://java.sun.com/jstl/core</taglib-uri>

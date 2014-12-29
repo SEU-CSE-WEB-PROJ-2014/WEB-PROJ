@@ -4,25 +4,34 @@
 <%@ page import="com.easygo.common.utils.userManager.*" %>
 
 <%
-	Object coreUser = UserManager.getCoreUser();
-	String msg = null;
-	HttpSession s= request.getSession(false);
-	if(s == null){
-		msg = "session 为空";
-	}else{
-		CoreUser user = (CoreUser)s.getAttribute("CoreUser");
-		if(user != null){
-			msg = "当前登录：" + user.getNickName();
-		}else{
-			msg = "session 不为空，无登录用户";
-		}
-	}
-	request.setAttribute("msg", msg);
-	request.setAttribute("coreUser", coreUser);
+	LoginUser curUser = UserManager.getCurrentUser();
+	request.setAttribute("curUser", curUser);
+	
 %>
+
+<!-- JS -------------------------------------------------------------------------------->
+<script src="${contextPath}/res/js/jquery.js"></script>
+<script src="${contextPath}/res/js/fancybox/jquery.fancybox-1.3.1.pack.js"></script>
+<link rel="stylesheet" type="text/css" href="${contextPath}/res/js/fancybox/fancybox.css"/>
 
 <!-- header数据 -------------------------------------------------------------------------->
 <div class="header">
-	${msg}<br/>
-	${coreUser.loginName}
+	<c:choose>
+		<c:when test="${curUser != null}">
+			${curUser.nickName}&nbsp;&nbsp;您好！
+		</c:when>
+		<c:otherwise>
+			<a href="${basePath}user/loginPage.do" class="login">登陆</a>
+   	 		<a href="${basePath}user/regUserPage.do" class="register">注册</a>
+		</c:otherwise>
+	</c:choose>
 </div>
+
+<script type="text/javascript">
+$(function(){
+	$(".register").fancybox({
+	});
+	$(".login").fancybox({
+	});
+});
+</script>

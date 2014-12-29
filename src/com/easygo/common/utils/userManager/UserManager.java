@@ -7,8 +7,7 @@ import java.util.Map;
 public class UserManager {
 	private static final ThreadLocal SESSION_MAP = new ThreadLocal();
 	
-	public static final String CORE_USER_KEY = "coreUser";
-	public static final String CORE_USER_DETAIL_KEY = "coreUserDetail";
+	public static final String LOGIN_USER_KEY = "loginUser";
 	
 	protected UserManager(){
 		
@@ -36,21 +35,23 @@ public class UserManager {
 		map.put(attribute, value);
 	}
 	
-	public static void setCoreUser(Object coreUser){
-		set(CORE_USER_KEY, coreUser);
-	}
-	
-	public static Object getCoreUser(){
-		return get(CORE_USER_KEY);
-	}
 	
 
-	public static void setCoreUserDetail(Object coreUserDetail){
-		set(CORE_USER_DETAIL_KEY, coreUserDetail);
+	public static void setCurrentUser(LoginUser LoginUser){
+		set(LOGIN_USER_KEY, LoginUser);
 	}
 	
-	public static Object getCoreUserDetail(){
-		return get(CORE_USER_DETAIL_KEY);
+	public static LoginUser getCurrentUser(){
+		return get(LOGIN_USER_KEY, LoginUser.class);
+	}
+	
+	public static String getCurrentUserId(){
+		LoginUser loginUser = get(LOGIN_USER_KEY, LoginUser.class);
+		if(loginUser != null){
+			return loginUser.getUserId();
+		}else{
+			return null;
+		}
 	}
 	
 	public static void removeThreadData(){
