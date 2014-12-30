@@ -26,7 +26,7 @@ public class RoleService {
 		
 		QueryResult<Map> qr = coreRoleDao.doNamedSQLQuery("CoreRole.QueryRoleManUrlInfo", params);
 		
-		return null;
+		return qr.toArray();
 	}
 	
 }

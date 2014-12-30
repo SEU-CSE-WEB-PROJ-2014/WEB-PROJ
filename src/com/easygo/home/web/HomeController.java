@@ -19,8 +19,7 @@ public class HomeController {
 
 	@RequestMapping("/index.do")
 	public ModelAndView index(){
-		
-		roleService.getRoleManUrlInfo("ID001");
+		Map[] info = roleService.getRoleManUrlInfo("ID001");
 		
 		Map result = new HashMap<String, Object>();
 		return new ModelAndView("home/index", null);

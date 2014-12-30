@@ -247,7 +247,7 @@ public class HibernateDaoImpl<K extends Serializable, T> extends
 		SQLQueryCallback<List<Map>> callback = new SQLQueryCallback<List<Map>>(query, this.getHibernateTemplate(),
 				params);
 		List<Map> resultList = this.getHibernateTemplate().execute(callback);
-		QueryResult<Map> result = new QueryResult<Map>(resultList);
+		QueryResult<Map> result = new QueryResult<Map>(resultList, Map.class);
 		return result;
 	}
 	
@@ -256,8 +256,9 @@ public class HibernateDaoImpl<K extends Serializable, T> extends
 	 * 获取sql命名查询的字符串
 	 */
 	public String getQueryString(String namedQueryName){
-		return this.getHibernateTemplate().getSessionFactory().getCurrentSession()
-				.getNamedQuery(namedQueryName).getQueryString();
+		Session s = this.getHibernateTemplate().getSessionFactory().getCurrentSession();
+		s.beginTransaction();
+		return s.getNamedQuery(namedQueryName).getQueryString();
 	}
 	
 	
@@ -269,7 +270,7 @@ public class HibernateDaoImpl<K extends Serializable, T> extends
 		SQLQueryCallback<List<Map>> callback = new SQLQueryCallback<List<Map>>(query, this.getHibernateTemplate(),
 				params);
 		List<Map> resultList = this.getHibernateTemplate().execute(callback);
-		QueryResult<Map> result = new QueryResult<Map>(resultList);
+		QueryResult<Map> result = new QueryResult<Map>(resultList,  Map.class);
 		return result;
 	}
 	
