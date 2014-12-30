@@ -87,7 +87,7 @@ public class CoreUser implements java.io.Serializable {
 	}
 	
 	
-	@Column(name = "role_id", nullable = false, length = 50)
+	@Column(name = "role_id", length = 50)
 	public String getRoleId() {
 		return roleId;
 	}
