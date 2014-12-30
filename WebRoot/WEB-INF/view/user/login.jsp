@@ -34,6 +34,7 @@ $(function(){
 					var status = result.status;
 					if(status == 1){
 						$.fancybox.close();
+						window.location.href = "${basePath}";
 					}else{
 						alert(result.msg);
 					} 

@@ -27,6 +27,9 @@
 		<property name="hbm2ddl.auto">update</property>
 		<mapping class="com.easygo.user.bo.CoreUser" />
 		<mapping class="com.easygo.user.bo.CoreUserDetail" />
+		<mapping class="com.easygo.common.role.bo.CoreRole" />
+		<mapping class="com.easygo.common.role.bo.CoreRoleManUrl" />
+		<mapping class="com.easygo.test.bo.User" />
 	</session-factory>
 
 </hibernate-configuration>
