@@ -269,25 +269,15 @@ public class HibernateDaoImpl<K extends Serializable, T> extends
 		return doSQLQuery(query, params);
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	/**
 	 * SQLQuery查询，分页
 	 */
-	public QueryResult<Map> doSQLSearch(String queryName, Map<String, Object> params, Integer pageSize, Integer pageNum){
-		return null;
+	public QueryResult<Map> doSQLSearch(String query, Map<String, Object> params, Integer pageSize, Integer pageNum){
+		SQLSearchCallback<Map> callback = new SQLSearchCallback<Map>(query, this.getHibernateTemplate(), params, 
+				Map.class, pageSize, pageNum);
+		
+		return this.getHibernateTemplate().execute(callback);
 	}
 	
 	
@@ -295,8 +285,8 @@ public class HibernateDaoImpl<K extends Serializable, T> extends
 	 * namedQuery查询，分页
 	 */
 	public QueryResult<Map> doNamedSQLSearch(String namedQueryName, Map<String, Object> params, Integer pageSize, Integer pageNum){
-//		this.get
-		return null;
+		String query = getQueryString(namedQueryName);
+		return doSQLSearch(query, params, pageSize, pageNum);
 	}
 
 }
