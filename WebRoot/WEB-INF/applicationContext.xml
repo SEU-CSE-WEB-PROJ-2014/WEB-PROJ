@@ -48,12 +48,15 @@
 	 </context:component-scan>
  
 	 
-	 <bean id="sessionFactory"
+	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
 		<property name="configLocation">
 			<value>classpath:hibernate.cfg.xml</value>
 		</property>
 	</bean>
+	
+	<bean id="SpringContextUtil" 
+	class="com.easygo.common.utils.platform.SpringContextUtils"/>
 	
 	<!-- 配置事务管理器 指定其作用的sessionFactory把事务交给Spring去处理 -->
     <bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">

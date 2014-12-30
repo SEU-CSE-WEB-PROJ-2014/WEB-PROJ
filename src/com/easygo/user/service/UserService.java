@@ -21,6 +21,7 @@ import org.springframework.util.Assert;
 import com.easygo.common.utils.BusinessException;
 import com.easygo.common.utils.dao.QueryResult;
 import com.easygo.common.utils.dao.SearchResult;
+import com.easygo.common.utils.platform.Platform;
 import com.easygo.common.utils.userManager.LoginUser;
 import com.easygo.common.utils.userManager.UserManager;
 import com.easygo.user.bo.CoreUser;
@@ -110,12 +111,21 @@ public class UserService {
 		UserManager.setCurrentUser(null);
 	}
 	
+	public void test1(String str){
+		System.out.println("测试invoke:" + str);
+	}
 	
 	public void test(){
 		QueryResult<Map> qr = this.userDao.doSQLQuery("select * from core_user", null);
 		
 		SearchResult<Map> sr = this.userDao.doSQLSearch("select * from core_user", null, 2, 1);
-		
 		sr = this.userDao.doSQLSearch("select * from core_user", null, 2, 2);
+		
+		sr = this.userDao.doNamedSQLSearch("CoreUser.nListAll", null, null, null);
+		
+		Platform.invoke("userService", "test1", "妈了个蛋");
+		
+		return;
+		
 	}
 }

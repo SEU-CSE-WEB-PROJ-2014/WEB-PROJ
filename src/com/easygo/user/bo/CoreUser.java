@@ -27,10 +27,6 @@ import com.mysql.jdbc.Field;
  */
 @Entity
 @Table(name="core_user")
-@NamedQueries({
-	@NamedQuery(name="CoreUser.listAll", query="select u, u.userId from CoreUser u")
-})
-
 @NamedNativeQueries({
 	@NamedNativeQuery(name="CoreUser.nListAll", query="select u.user_id as id, u.* from core_user u", resultSetMapping="sqlMapping")
 })
