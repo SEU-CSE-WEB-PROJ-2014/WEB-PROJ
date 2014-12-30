@@ -272,162 +272,21 @@ public class HibernateDaoImpl<K extends Serializable, T> extends
 		QueryResult<Map> result = new QueryResult<Map>(resultList);
 		return result;
 	}
-}
-
-
-/**
- * HibernateCallback实现类
- * @author jljia
- */
-class HQLCallback<T> implements HibernateCallback<T>{
-	private String hql = null;
-	private Map<String, ?> params = null;
-	private boolean doUpdate = false;
-	private HibernateTemplate template = null;
 	
-	protected void prepareQuery(Query queryObject){
-		if (this.template.isCacheQueries())
-		{
-			queryObject.setCacheable(true);
-			if (this.template.getQueryCacheRegion() != null)
-			{
-				queryObject.setCacheRegion(this.template.getQueryCacheRegion());
-			}
-		}
-		if (this.template.getFetchSize() > 0)
-		{
-			queryObject.setFetchSize(this.template.getFetchSize());
-		}
-		if (this.template.getMaxResults() > 0)
-		{
-			queryObject.setMaxResults(this.template.getMaxResults());
-		}
-		SessionFactoryUtils.applyTransactionTimeout(
-				queryObject, this.template.getSessionFactory());
-	}
 	
 	/**
-	 * 设置查询参数
+	 * SQLQuery查询，分页
 	 */
-	private void setQueryObjectParams(Query queryObject, Map.Entry<String, ?> entry){
-		if (entry.getValue() instanceof Object[]) {
-			queryObject.setParameterList(entry.getKey(),
-					(Object[]) entry.getValue());
-		} else if (entry.getValue() instanceof Collection<?>) {
-			queryObject.setParameterList(entry.getKey(),
-					(Collection) entry.getValue());
-		} else {
-			queryObject.setParameter(entry.getKey(),
-					entry.getValue());
-		}
-	}
-	
-	public HQLCallback(String hql, Map<String, ?> params,
-			boolean doUpdate, HibernateTemplate template) {
-		this.hql = hql;
-		this.params = params;
-		this.doUpdate = doUpdate;
-		this.template = template;
-	}
-
-	public T doInHibernate(Session session)
-			throws HibernateException, SQLException {
-		Query queryObject = session.createQuery(hql);
-		this.prepareQuery(queryObject);
-		
-		if (params != null && !params.isEmpty()) {
-			Iterator it = params.entrySet().iterator();
-			for (int i = 0; i < params.size(); i++) {
-				Map.Entry<String, ?> entry = (Entry<String, ?>) it
-						.next();
-				this.setQueryObjectParams(queryObject, entry);
-			}
-		}
-		
-		if(this.doUpdate){
-			return (T) new Integer(queryObject.executeUpdate());
-		}else{
-			return (T) queryObject.list();
-		}
-	}
-}
-
-
-class SQLQueryCallback<T> implements HibernateCallback<T>{
-	private String query = null;
-	private HibernateTemplate template = null;
-	private Map<String, Object> params = null;
-	
-	public SQLQueryCallback(String query, HibernateTemplate template, 
-			Map<String, Object> params) {
-		Assert.notNull(query);
-		Assert.notNull(template);
-		
-		this.query = query;
-		this.template = template;
-		this.params = params;
-	}
-
-	
-	protected void prepareQuery(Query queryObject){
-		if (this.template.isCacheQueries())
-		{
-			queryObject.setCacheable(true);
-			if (this.template.getQueryCacheRegion() != null)
-			{
-				queryObject.setCacheRegion(this.template.getQueryCacheRegion());
-			}
-		}
-		if (this.template.getFetchSize() > 0)
-		{
-			queryObject.setFetchSize(this.template.getFetchSize());
-		}
-		if (this.template.getMaxResults() > 0)
-		{
-			queryObject.setMaxResults(this.template.getMaxResults());
-		}
-		SessionFactoryUtils.applyTransactionTimeout(
-				queryObject, this.template.getSessionFactory());
+	public QueryResult<Map> doSQLSearch(String queryName, Map<String, Object> params){
+		return null;
 	}
 	
 	
 	/**
-	 * 设置查询参数
+	 * namedQuery查询，分页
 	 */
-	private void setQueryObjectParams(Query queryObject, Map.Entry<String, ?> entry){
-		if (entry.getValue() instanceof Object[]) {
-			queryObject.setParameterList(entry.getKey(),
-					(Object[]) entry.getValue());
-		} else if (entry.getValue() instanceof Collection<?>) {
-			queryObject.setParameterList(entry.getKey(),
-					(Collection) entry.getValue());
-		} else {
-			queryObject.setParameter(entry.getKey(),
-					entry.getValue());
-		}
+	public QueryResult<Map> doNamedSQLSearch(String namedQueryName, Map<String, Object> params){
+		return null;
 	}
-	
-	
-	public T doInHibernate(Session s) throws HibernateException,
-			SQLException {
-		Query queryObject = s.createSQLQuery(query);
-		this.prepareQuery(queryObject);
-		
-		//以map返回数据
-		queryObject.setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
-		
-		//查询参数
-		if (params != null && !params.isEmpty()) {
-			Iterator it = params.entrySet().iterator();
-			for (int i = 0; i < params.size(); i++) {
-				Map.Entry<String, ?> entry = (Entry<String, ?>) it
-						.next();
-				this.setQueryObjectParams(queryObject, entry);
-			}
-		}
-		
-		
-		return (T) queryObject.list();
-	}
-	
 }
+
