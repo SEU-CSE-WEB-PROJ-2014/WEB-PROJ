@@ -6,8 +6,8 @@ import java.util.List;
 import org.springframework.util.Assert;
 
 public class QueryResult<T> {
-	private List<T> resultList;
-	private Class<T> type;
+	protected List<T> resultList;
+	protected Class<T> type;
 
 	public QueryResult(List<T> resultList, Class<T> type) {
 		Assert.notNull(resultList);

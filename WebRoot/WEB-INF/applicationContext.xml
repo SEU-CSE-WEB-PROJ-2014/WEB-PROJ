@@ -81,7 +81,7 @@
 	
 	<!-- 那些类的哪些方法参与事务 -->
     <aop:config>
-    <aop:pointcut id="allServiceMethod" expression="execution(* com.easygo.user.service.*.*(..))"/>
+    <aop:pointcut id="allServiceMethod" expression="execution(* com.easygo..service.*.*(..))"/>
     <aop:advisor pointcut-ref="allServiceMethod" advice-ref="txAdvice"/>
     </aop:config> 
 	 

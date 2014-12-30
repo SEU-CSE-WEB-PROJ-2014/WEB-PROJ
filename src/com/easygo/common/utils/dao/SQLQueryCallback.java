@@ -3,6 +3,7 @@ package com.easygo.common.utils.dao;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -15,19 +16,21 @@ import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.orm.hibernate3.SessionFactoryUtils;
 import org.springframework.util.Assert;
 
-class SQLQueryCallback<T> implements HibernateCallback<T>{
+class SQLQueryCallback<T> implements HibernateCallback<QueryResult<T>>{
 	private String query = null;
 	private HibernateTemplate template = null;
 	private Map<String, Object> params = null;
+	private Class<T> type = null;
 	
 	public SQLQueryCallback(String query, HibernateTemplate template, 
-			Map<String, Object> params) {
+			Map<String, Object> params, Class<T> type) {
 		Assert.notNull(query);
 		Assert.notNull(template);
 		
 		this.query = query;
 		this.template = template;
 		this.params = params;
+		this.type = type;
 	}
 
 	
@@ -70,7 +73,7 @@ class SQLQueryCallback<T> implements HibernateCallback<T>{
 	}
 	
 	
-	public T doInHibernate(Session s) throws HibernateException,
+	public QueryResult<T> doInHibernate(Session s) throws HibernateException,
 			SQLException {
 		Query queryObject = s.createSQLQuery(query);
 		this.prepareQuery(queryObject);
@@ -88,8 +91,7 @@ class SQLQueryCallback<T> implements HibernateCallback<T>{
 			}
 		}
 		
-		
-		return (T) queryObject.list();
+		return new QueryResult<T>((List<T>) queryObject.list(), type);
 	}
 	
 }

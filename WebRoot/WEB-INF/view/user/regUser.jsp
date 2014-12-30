@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8" session="false"%>
+<%@ include file="/WEB-INF/common/includes.jsp" %>
 
 
 <div>
@@ -31,7 +32,6 @@ $(function(){
 		var email = $("#email").val();
 		var password = $("#pwd").val();
 		var nickName = $("#nickName").val();
-
 		$.post(
 				"${basePath}user/regUser.do",
 				{

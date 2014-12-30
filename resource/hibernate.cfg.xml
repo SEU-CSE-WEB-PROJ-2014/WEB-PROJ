@@ -21,9 +21,9 @@
 		<property name="hibernate.show_sql">true</property>
 		<!-- 		<property name="hibernate.connection.isolation">4</property> -->
 		<property name="hibernate.connection.autocommit">true</property>
-		<property name="hibernate.current_session_context_class">
+		<!-- <property name="hibernate.current_session_context_class">
 			thread
-		</property>
+		</property> -->
 		<property name="hbm2ddl.auto">update</property>
 		<mapping class="com.easygo.user.bo.CoreUser" />
 		<mapping class="com.easygo.user.bo.CoreUserDetail" />

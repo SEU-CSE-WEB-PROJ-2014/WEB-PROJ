@@ -107,11 +107,13 @@ public interface HibernateDao<K extends Serializable, T>{
 	/**
 	 * SQLQuery查询，分页
 	 */
-	public QueryResult<Map> doSQLSearch(String queryName, Map<String, Object> params);
+	public QueryResult<Map> doSQLSearch(String queryName, Map<String, Object> params, 
+			Integer pageSize, Integer pageNum);
 	
 	
 	/**
 	 * namedQuery查询，分页
 	 */
-	public QueryResult<Map> doNamedSQLSearch(String namedQueryName, Map<String, Object> params);
+	public QueryResult<Map> doNamedSQLSearch(String namedQueryName, Map<String, Object> params, 
+			Integer pageSize, Integer pageNum);
 }

@@ -24,6 +24,7 @@ import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.orm.hibernate3.SessionFactoryUtils;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
@@ -241,24 +242,22 @@ public class HibernateDaoImpl<K extends Serializable, T> extends
 	
 	
 	/**
-	 * SQL Query查询，不分页
+	 * 获取sql命名查询的字符串
 	 */
-	public QueryResult<Map> doSQLQuery(String query, Map<String, Object> params){
-		SQLQueryCallback<List<Map>> callback = new SQLQueryCallback<List<Map>>(query, this.getHibernateTemplate(),
-				params);
-		List<Map> resultList = this.getHibernateTemplate().execute(callback);
-		QueryResult<Map> result = new QueryResult<Map>(resultList, Map.class);
-		return result;
+	@Transactional
+	public String getQueryString(String namedQueryName){
+		Session s = this.getHibernateTemplate().getSessionFactory().getCurrentSession();
+		return s.getNamedQuery(namedQueryName).getQueryString();
 	}
 	
 	
 	/**
-	 * 获取sql命名查询的字符串
+	 * SQL Query查询，不分页
 	 */
-	public String getQueryString(String namedQueryName){
-		Session s = this.getHibernateTemplate().getSessionFactory().getCurrentSession();
-		s.beginTransaction();
-		return s.getNamedQuery(namedQueryName).getQueryString();
+	public QueryResult<Map> doSQLQuery(String query, Map<String, Object> params){
+		SQLQueryCallback<Map> callback = new SQLQueryCallback<Map>(query, this.getHibernateTemplate(),
+				params, Map.class);
+		return this.getHibernateTemplate().execute(callback);
 	}
 	
 	
@@ -267,18 +266,27 @@ public class HibernateDaoImpl<K extends Serializable, T> extends
 	 */
 	public QueryResult<Map> doNamedSQLQuery(String namedQueryName, Map<String, Object> params){
 		String query = getQueryString(namedQueryName);
-		SQLQueryCallback<List<Map>> callback = new SQLQueryCallback<List<Map>>(query, this.getHibernateTemplate(),
-				params);
-		List<Map> resultList = this.getHibernateTemplate().execute(callback);
-		QueryResult<Map> result = new QueryResult<Map>(resultList,  Map.class);
-		return result;
+		return doSQLQuery(query, params);
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	/**
 	 * SQLQuery查询，分页
 	 */
-	public QueryResult<Map> doSQLSearch(String queryName, Map<String, Object> params){
+	public QueryResult<Map> doSQLSearch(String queryName, Map<String, Object> params, Integer pageSize, Integer pageNum){
 		return null;
 	}
 	
@@ -286,8 +294,10 @@ public class HibernateDaoImpl<K extends Serializable, T> extends
 	/**
 	 * namedQuery查询，分页
 	 */
-	public QueryResult<Map> doNamedSQLSearch(String namedQueryName, Map<String, Object> params){
+	public QueryResult<Map> doNamedSQLSearch(String namedQueryName, Map<String, Object> params, Integer pageSize, Integer pageNum){
+//		this.get
 		return null;
 	}
+
 }
 
