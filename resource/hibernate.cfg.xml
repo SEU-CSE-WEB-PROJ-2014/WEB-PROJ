@@ -29,9 +29,9 @@
 		<mapping class="com.easygo.user.bo.CoreUserDetail" />
 		<mapping class="com.easygo.common.role.bo.CoreRole" />
 		<mapping class="com.easygo.common.role.bo.CoreRoleManUrl" />
-		<mapping class="com.easygo.test.bo.User" />
 		<mapping class="com.easygo.goods.bo.AppGoodsType" />
 		<mapping class="com.easygo.goods.bo.AppGoods" />
+		<mapping class="com.easygo.common.utils.dao.CoreMapping" />
 	</session-factory>
 
 </hibernate-configuration>

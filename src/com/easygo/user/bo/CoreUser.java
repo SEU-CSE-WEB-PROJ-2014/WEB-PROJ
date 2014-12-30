@@ -32,15 +32,7 @@ import com.mysql.jdbc.Field;
 })
 
 @NamedNativeQueries({
-	@NamedNativeQuery(name="CoreUser.nListAll", query="select u.user_id as id, u.* from core_user u", resultSetMapping="listAllMapping")
-})
-
-@SqlResultSetMappings({
-	@SqlResultSetMapping(name="listAllMapping", entities={
-			@EntityResult(entityClass=CoreUser.class)
-	}, columns={
-			@ColumnResult(name="id")
-	})
+	@NamedNativeQuery(name="CoreUser.nListAll", query="select u.user_id as id, u.* from core_user u", resultSetMapping="sqlMapping")
 })
 
 public class CoreUser implements java.io.Serializable {
