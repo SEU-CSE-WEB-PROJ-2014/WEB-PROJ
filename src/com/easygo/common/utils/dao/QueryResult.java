@@ -15,4 +15,5 @@ public class QueryResult<T> {
 	public List<T> getResultList() {
 		return resultList;
 	}
+	
 }

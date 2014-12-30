@@ -4,6 +4,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.NamedNativeQueries;
+import javax.persistence.NamedNativeQuery;
 import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -12,6 +14,12 @@ import org.hibernate.annotations.GenericGenerator;
  */
 @Entity
 @Table(name = "core_role", catalog = "easygo")
+@NamedNativeQueries({
+	@NamedNativeQuery(name="CoreRole.QueryRoleManUrlInfo", 
+			query="select * from core_role r" +
+					" inner join core_role_man_url mu on r.role_id = mu.role_id and r.state = 1" +
+					" where r.role_id = :roleId", resultSetMapping="sqlMapping")
+})
 public class CoreRole implements java.io.Serializable {
 
 	// Fields

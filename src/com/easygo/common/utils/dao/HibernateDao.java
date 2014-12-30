@@ -87,8 +87,31 @@ public interface HibernateDao<K extends Serializable, T>{
 	
 	
 	/**
+	 * 获取sql命名查询的字符串
+	 */
+	public String getQueryString(String namedQueryName);
+	
+	
+	/**
+	 * SQLQuery查询，不分页
+	 */
+	public QueryResult<Map> doSQLQuery(String queryName, Map<String, Object> params);
+	
+	
+	/**
 	 * namedQuery查询，不分页
 	 */
-	public <T1> QueryResult<T1> doQuery(String queryName, Map<String, Object> params,
-			Class<T1> type);
+	public QueryResult<Map> doNamedSQLQuery(String namedQueryName, Map<String, Object> params);
+	
+	
+//	/**
+//	 * SQLQuery查询，分页
+//	 */
+//	public QueryResult<Map> doSQLSearch(String queryName, Map<String, Object> params);
+//	
+//	
+//	/**
+//	 * namedQuery查询，分页
+//	 */
+//	public QueryResult<Map> doNamedSQLSearch(String namedQueryName, Map<String, Object> params);
 }

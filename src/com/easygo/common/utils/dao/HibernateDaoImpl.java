@@ -241,17 +241,37 @@ public class HibernateDaoImpl<K extends Serializable, T> extends
 	
 	
 	/**
-	 * namedQuery查询，不分页
+	 * SQL Query查询，不分页
 	 */
-	public <T1> QueryResult<T1> doQuery(String queryName, Map<String, Object> params,
-			Class<T1> type){
-		QueryCallback<List<T1>> callback = new QueryCallback<List<T1>>(queryName, this.getHibernateTemplate(),
-				params, type);
-		List<T1> resultList = this.getHibernateTemplate().execute(callback);
-		QueryResult<T1> result = new QueryResult<T1>(resultList);
+	public QueryResult<Map> doSQLQuery(String query, Map<String, Object> params){
+		SQLQueryCallback<List<Map>> callback = new SQLQueryCallback<List<Map>>(query, this.getHibernateTemplate(),
+				params);
+		List<Map> resultList = this.getHibernateTemplate().execute(callback);
+		QueryResult<Map> result = new QueryResult<Map>(resultList);
 		return result;
 	}
 	
+	
+	/**
+	 * 获取sql命名查询的字符串
+	 */
+	public String getQueryString(String namedQueryName){
+		return this.getHibernateTemplate().getSessionFactory().getCurrentSession()
+				.getNamedQuery(namedQueryName).getQueryString();
+	}
+	
+	
+	/**
+	 * namedQuery查询，不分页
+	 */
+	public QueryResult<Map> doNamedSQLQuery(String namedQueryName, Map<String, Object> params){
+		String query = getQueryString(namedQueryName);
+		SQLQueryCallback<List<Map>> callback = new SQLQueryCallback<List<Map>>(query, this.getHibernateTemplate(),
+				params);
+		List<Map> resultList = this.getHibernateTemplate().execute(callback);
+		QueryResult<Map> result = new QueryResult<Map>(resultList);
+		return result;
+	}
 }
 
 
@@ -333,21 +353,19 @@ class HQLCallback<T> implements HibernateCallback<T>{
 }
 
 
-class QueryCallback<T> implements HibernateCallback<T>{
-	private String queryName = null;
+class SQLQueryCallback<T> implements HibernateCallback<T>{
+	private String query = null;
 	private HibernateTemplate template = null;
 	private Map<String, Object> params = null;
-	private Class<?> type = null;
 	
-	public QueryCallback(String queryName, HibernateTemplate template, 
-			Map<String, Object> params, Class<?> type) {
-		Assert.notNull(queryName);
+	public SQLQueryCallback(String query, HibernateTemplate template, 
+			Map<String, Object> params) {
+		Assert.notNull(query);
 		Assert.notNull(template);
 		
-		this.queryName = queryName;
+		this.query = query;
 		this.template = template;
 		this.params = params;
-		this.type = type;
 	}
 
 	
@@ -392,15 +410,11 @@ class QueryCallback<T> implements HibernateCallback<T>{
 	
 	public T doInHibernate(Session s) throws HibernateException,
 			SQLException {
-		Query queryObject = s.getNamedQuery(queryName);
+		Query queryObject = s.createSQLQuery(query);
 		this.prepareQuery(queryObject);
 		
-		//设置返回数据的实体类
-//		if(type.equals(Map.class)){
-			queryObject.setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
-//		}else{
-//			queryObject.setResultTransformer(new AliasToBeanResultTransformer(type));
-//		}
+		//以map返回数据
+		queryObject.setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
 		
 		//查询参数
 		if (params != null && !params.isEmpty()) {
