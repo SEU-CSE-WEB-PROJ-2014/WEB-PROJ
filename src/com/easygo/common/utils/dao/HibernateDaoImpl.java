@@ -244,7 +244,7 @@ public class HibernateDaoImpl<K extends Serializable, T> extends
 	/**
 	 * 获取sql命名查询的字符串
 	 */
-	@Transactional
+	@Transactional(propagation=Propagation.REQUIRED)
 	public String getQueryString(String namedQueryName){
 		Session s = this.getHibernateTemplate().getSessionFactory().getCurrentSession();
 		return s.getNamedQuery(namedQueryName).getQueryString();
@@ -254,6 +254,7 @@ public class HibernateDaoImpl<K extends Serializable, T> extends
 	/**
 	 * SQL Query查询，不分页
 	 */
+	@Transactional(readOnly = false)
 	public QueryResult<Map> doSQLQuery(String query, Map<String, Object> params){
 		SQLQueryCallback<Map> callback = new SQLQueryCallback<Map>(query, this.getHibernateTemplate(),
 				params, Map.class);
@@ -264,6 +265,7 @@ public class HibernateDaoImpl<K extends Serializable, T> extends
 	/**
 	 * namedQuery查询，不分页
 	 */
+	@Transactional(readOnly = false)
 	public QueryResult<Map> doNamedSQLQuery(String namedQueryName, Map<String, Object> params){
 		String query = getQueryString(namedQueryName);
 		return doSQLQuery(query, params);
@@ -273,7 +275,8 @@ public class HibernateDaoImpl<K extends Serializable, T> extends
 	/**
 	 * SQLQuery查询，分页
 	 */
-	public QueryResult<Map> doSQLSearch(String query, Map<String, Object> params, Integer pageSize, Integer pageNum){
+	@Transactional(readOnly = false)
+	public SearchResult<Map> doSQLSearch(String query, Map<String, Object> params, Integer pageSize, Integer pageNum){
 		SQLSearchCallback<Map> callback = new SQLSearchCallback<Map>(query, this.getHibernateTemplate(), params, 
 				Map.class, pageSize, pageNum);
 		
@@ -284,7 +287,8 @@ public class HibernateDaoImpl<K extends Serializable, T> extends
 	/**
 	 * namedQuery查询，分页
 	 */
-	public QueryResult<Map> doNamedSQLSearch(String namedQueryName, Map<String, Object> params, Integer pageSize, Integer pageNum){
+	@Transactional(readOnly = false)
+	public SearchResult<Map> doNamedSQLSearch(String namedQueryName, Map<String, Object> params, Integer pageSize, Integer pageNum){
 		String query = getQueryString(namedQueryName);
 		return doSQLSearch(query, params, pageSize, pageNum);
 	}

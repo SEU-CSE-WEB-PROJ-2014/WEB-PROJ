@@ -68,7 +68,7 @@ public class UserController {
 	
 	@RequestMapping("/test.do")
 	public ModelAndView test(){
-		
+		userService.test();
 		
 		return null;
 	}

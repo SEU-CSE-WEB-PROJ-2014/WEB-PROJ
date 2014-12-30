@@ -20,6 +20,7 @@ import org.springframework.util.Assert;
 
 import com.easygo.common.utils.BusinessException;
 import com.easygo.common.utils.dao.QueryResult;
+import com.easygo.common.utils.dao.SearchResult;
 import com.easygo.common.utils.userManager.LoginUser;
 import com.easygo.common.utils.userManager.UserManager;
 import com.easygo.user.bo.CoreUser;
@@ -110,13 +111,11 @@ public class UserService {
 	}
 	
 	
-	public void listUserInfo(){
-//		QueryResult<CoreUser> qr = 
-//				this.userDao.doQuery("CoreUser.nListAll", null, Map.class);
-		userDao.testNamedQuery();
-		userDao.testNamedNativeQuery();
-		return;
-	}
+	public void test(){
+		QueryResult<Map> qr = this.userDao.doSQLQuery("select * from core_user", null);
 		
-	
+		SearchResult<Map> sr = this.userDao.doSQLSearch("select * from core_user", null, 2, 1);
+		
+		sr = this.userDao.doSQLSearch("select * from core_user", null, 2, 2);
+	}
 }

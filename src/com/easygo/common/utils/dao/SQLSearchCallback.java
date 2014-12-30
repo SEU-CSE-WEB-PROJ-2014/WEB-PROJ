@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -113,7 +114,7 @@ public class SQLSearchCallback<T> implements HibernateCallback<SearchResult<T>> 
 		StringBuilder sb = new StringBuilder();
 		sb.append("SELECT COUNT(1) FROM (");
 		sb.append(query);
-		sb.append(") tb_"+System.currentTimeMillis());
+		sb.append(") tmp_table_"+System.currentTimeMillis());
 		Query countQuery = s.createSQLQuery(sb.toString());
 		
 		//查询参数
@@ -126,7 +127,11 @@ public class SQLSearchCallback<T> implements HibernateCallback<SearchResult<T>> 
 			}
 		}
 		
-		return (Integer)countQuery.iterate().next();
+		List countList = countQuery.list();
+		if(!(countList != null && countList.size() > 0)){
+			throw new BusinessException("获取结果总数出错");
+		}
+		return Integer.valueOf(countList.get(0).toString());
 	}
 	
 	
