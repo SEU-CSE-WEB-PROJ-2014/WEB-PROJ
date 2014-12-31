@@ -32,14 +32,12 @@ public class GoodsService {
 		return goods.getGoodsId();
 	}
 	
-	public boolean deleteAppGoods(String goodsId)
+	public void deleteAppGoods(String goodsId)
 	{
 		Map params = new HashMap<String, Object>();
 		params.put("goodsId", goodsId);
 		this.appGoodsDao.bulkUpdate("update AppGoods g set g.state = 0 where g.goodsId = :goodsId ", params);
 //		List<AppGoods> list = (List<AppGoods>)this.appGoodsDao.findByParams("select from AppGoods g where g.goodsId = :goodsId", params);
-		
-		return true;
 	}
 	
 	public SearchResult<Map> searchAppGoods(String goodsName, Integer goodsTypeId, Double minPrice, Double maxPrice, Integer pageNum)
