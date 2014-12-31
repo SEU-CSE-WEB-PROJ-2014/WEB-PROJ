@@ -18,29 +18,29 @@ public class GoodsService {
 	@Autowired
 	private AppGoodsDao appGoodsDao;
 	
-	public String addOrEditAppGoods(String goodsId, String goodsName, Double price, Integer quantity, String description, Integer state, Integer goodsTypeId)
+	public String addOrEditAppGoods(String goodsId, String goodsName, Double price, Integer quantity, String description, Integer goodsTypeId)
 	{
 		AppGoods goods = new AppGoods();
 		goods.setGoodsName(goodsName);
 		goods.setPrice(price);
 		goods.setQuantity(quantity);
 		goods.setDescription(description);
-		goods.setState(state);
+		goods.setState(1);
 		goods.setGoodsTypeId(goodsTypeId);
 		
 		this.appGoodsDao.saveOrUpdate(goods);
 		return goods.getGoodsId();
 	}
 	
-	public void deleteAppGoods(String goodsId)
+	public void deleteAppGoods(String[] goodsIds)
 	{
 		Map params = new HashMap<String, Object>();
-		params.put("goodsId", goodsId);
-		this.appGoodsDao.bulkUpdate("update AppGoods g set g.state = 0 where g.goodsId = :goodsId ", params);
+		params.put("goodsIds", goodsIds);
+		this.appGoodsDao.bulkUpdate("update AppGoods g set g.state = 0 where g.goodsId in (:goodsIds) ", params);
 //		List<AppGoods> list = (List<AppGoods>)this.appGoodsDao.findByParams("select from AppGoods g where g.goodsId = :goodsId", params);
 	}
 	
-	public SearchResult<Map> searchAppGoods(String goodsName, Integer goodsTypeId, Double minPrice, Double maxPrice, Integer pageNum)
+	public SearchResult<Map> searchAppGoods(String goodsName, Integer goodsTypeId, Double minPrice, Double maxPrice,Integer pageSize, Integer pageNum)
 	{
 		Map params = new HashMap<String, Object>();
 		
@@ -66,7 +66,7 @@ public class GoodsService {
 		}
 		
 		//查询
-		SearchResult<Map> sr = this.appGoodsDao.doSQLSearch(sql, params, null, pageNum);
+		SearchResult<Map> sr = this.appGoodsDao.doSQLSearch(sql, params, pageSize, pageNum);
 		
 		return sr;
 	}
