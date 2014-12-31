@@ -114,16 +114,14 @@ public class EasyGoDispatcherServlet extends DispatcherServlet{
 					}
 				}
 				
-				if(isAjaxRequest(request)){
-					String viewName = mv != null && StringUtils.isNotEmpty(mv.getViewName())
-							? mv.getViewName() : Constant.NULL_VIEW;
-							Map<String, Object> modelMap = mv != null && mv.getModel() != null
-									? mv.getModel() : new HashMap<String, Object>();
-									
-									modelMap.put(Constant.STATUS_NAME, status);
-									modelMap.put(Constant.MSG_NAME, msg);
-									mv = new ModelAndView(viewName, modelMap);
-				}
+				String viewName = mv != null && StringUtils.isNotEmpty(mv.getViewName())
+						? mv.getViewName() : Constant.NULL_VIEW;
+				Map<String, Object> modelMap = mv != null && mv.getModel() != null
+						? mv.getModel() : new HashMap<String, Object>();
+						
+				modelMap.put(Constant.STATUS_NAME, status);
+				modelMap.put(Constant.MSG_NAME, msg);
+				mv = new ModelAndView(viewName, modelMap);
 				//END:controller方法try/catch，返回status、msg////////////////////////////////////
 
 				// Do we need view name translation?

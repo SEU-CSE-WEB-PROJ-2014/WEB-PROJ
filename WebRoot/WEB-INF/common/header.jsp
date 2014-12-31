@@ -8,10 +8,25 @@
 	request.setAttribute("curUser", curUser);
 %>
 
-<!-- JS -------------------------------------------------------------------------------->
-<script src="${contextPath}/res/js/jquery.js"></script>
-<script src="${contextPath}/res/js/fancybox/jquery.fancybox-1.3.1.pack.js"></script>
-<link rel="stylesheet" type="text/css" href="${contextPath}/res/js/fancybox/fancybox.css"/>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <base href="${basePath}">
+    
+    <title>EasyGo</title>
+	<meta http-equiv="pragma" content="no-cache">
+	<meta http-equiv="cache-control" content="no-cache">
+	<meta http-equiv="expires" content="0">    
+	<meta http-equiv="keywords" content="b2c,easygo">
+	<meta http-equiv="description" content="easygo b2c platform">
+	
+	<!-- JS&CSS -------------------------------------------------------------------------------->
+	<script src="${contextPath}/res/js/jquery.js"></script>
+	<script src="${contextPath}/res/js/fancybox/jquery.fancybox-1.3.1.pack.js"></script>
+	<link rel="stylesheet" type="text/css" href="${contextPath}/res/js/fancybox/fancybox.css"/>
+  </head>
+</html>
+
 
 <!-- header数据 -------------------------------------------------------------------------->
 <div class="header">
