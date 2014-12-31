@@ -25,7 +25,7 @@ public class GoodsService {
 		goods.setPrice(price);
 		goods.setQuantity(quantity);
 		goods.setDescription(description);
-		goods.setState(1);
+		goods.setState(goods.STATE_YES);
 		goods.setGoodsTypeId(goodsTypeId);
 		
 		this.appGoodsDao.saveOrUpdate(goods);

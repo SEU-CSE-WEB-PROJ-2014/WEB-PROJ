@@ -18,7 +18,10 @@ import org.hibernate.annotations.GenericGenerator;
 	@NamedNativeQuery(name="AppGoods.goodsSearch", query="select * from app_goods g where 1=1", resultSetMapping="sqlMapping")
 })
 public class AppGoods implements java.io.Serializable {
-
+	
+	public static final Integer STATE_YES = 1;
+	public static final Integer STATE_NO = 0;
+	
 	// Fields
 
 	private String goodsId;

@@ -47,7 +47,7 @@ public class GoodsTypeService {
 		String sql = "select from app_goods_type gt where 1=1";
 		
 		if(StringUtils.isNotEmpty(GoodsTypeName)){
-			sql += " and gt.type_name like %:GoodsTypeName%";
+			sql += " and gt.type_name like '%:GoodsTypeName%'";
 			params.put("typeName", GoodsTypeName);
 		}
 		SearchResult<Map> rs = this.appGoodsTypeDao.doSQLSearch(sql, params, pageSize, pageNum);

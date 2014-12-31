@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.alibaba.fastjson.JSON;
 import com.easygo.common.utils.BusinessException;
 import com.easygo.common.utils.Constant;
+import com.easygo.common.utils.userManager.LoginUser;
 import com.easygo.common.utils.userManager.UserManager;
 import com.easygo.user.bo.CoreUser;
 import com.easygo.user.service.UserService;
@@ -58,19 +59,16 @@ public class UserController {
 	}
 	
 	@RequestMapping("/regUser.do")
-	public ModelAndView regUser(@RequestParam String email, @RequestParam String password, @RequestParam String nickName,
+	public void regUser(
+			@RequestParam String loginName,
+			@RequestParam String nickName,
+			@RequestParam String password,
+			@RequestParam(required = false) Integer sex,
+			@RequestParam String email, 
+			@RequestParam(required = false) String address,
 			HttpServletRequest request, HttpServletResponse response) throws Exception{
-		Map result = new HashMap<String, Object>();
-		String userId = userService.regUser(nickName, password, email);
-		result.put("userId", userId);
-		return new ModelAndView("", result);
-	}
-	
-	@RequestMapping("/test.do")
-	public ModelAndView test(){
-		Map result = new HashMap<String, Object>();
-		result.put("mz", "马卓");
-		
-		return new ModelAndView("", result);
+
+		userService.addOrEditUser(null, loginName, nickName, password, sex, LoginUser.ROLE_ID_USERS, email, address);
+
 	}
 }

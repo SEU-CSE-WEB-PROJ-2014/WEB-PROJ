@@ -13,7 +13,6 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.codec.digest.DigestUtils;
-import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +20,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import com.easygo.common.utils.BusinessException;
-import com.easygo.common.utils.dao.QueryResult;
 import com.easygo.common.utils.dao.SearchResult;
 import com.easygo.common.utils.platform.Platform;
 import com.easygo.common.utils.userManager.LoginUser;
@@ -36,18 +34,18 @@ public class UserService {
 	private UserDao userDao;
 	
 	
-	public String regUser(String nickName, String password, String email){
+	public void addOrEditUser(String userId, String loginName, String nickName, String password, Integer sex, String roleId, String email, String address){
 		CoreUser user = new CoreUser();
+		user.setLoginName(loginName);
 		user.setNickName(nickName);
-		user.setLoginName(email);
 		user.setPassword(DigestUtils.md5Hex(password));
 		user.setState(CoreUser.STATE_YES);
-		user.setRoleId(LoginUser.ROLE_ID_USERS);
+		user.setSex(sex);
+		user.setRoleId(roleId);
 		user.setEmail(email);
+		user.setAddress(address);
 		
-		
-		this.userDao.save(user);
-		return user.getUserId();
+		this.userDao.saveOrUpdate(user);
 	}
 	
 	public void login(String loginName, String password, 
@@ -103,17 +101,31 @@ public class UserService {
 		s.removeAttribute(UserManager.LOGIN_USER_KEY);
 		UserManager.setCurrentUser(null);
 	}
+
+	public void batchDelUser(String[] userIds){
+		Map params = new HashMap<String, Object>();
+		params.put("userIds", userIds);
+		this.userDao.bulkUpdate("update core_user u set u.state = 0 where u.user_id in (:user_id)", params);
+	}
 	
-	
-	public void test(){
-		QueryResult<Map> qr = this.userDao.doSQLQuery("select * from core_user", null);
+	public SearchResult<Map> searchUser(String name, String roleId, String email, Integer pageSize, Integer pageNum){
+		Map params = new HashMap<String, Object>();
+		String sql = "select * from core_user u where 1=1";
 		
-		SearchResult<Map> sr = this.userDao.doSQLSearch("select * from core_user", null, 2, 1);
-		sr = this.userDao.doSQLSearch("select * from core_user", null, 2, 2);
+		if(StringUtils.isNotEmpty(name)){
+			sql += " and (u.login_name like '%:name%' or u.nick_name like '%:name%')";
+			params.put("name", name);
+		}
+		if(StringUtils.isNotEmpty(roleId)){
+			sql += " and u.role_id = :roleId";
+			params.put("roleId", roleId);
+		}
+		if(StringUtils.isNotEmpty(email)){
+			sql += "and u.email = :email";
+			params.put("email", email);
+		}
 		
-		Platform.invoke("userService", "test1", "妈了个蛋");
-		
-		return;
-		
+		SearchResult<Map> rs = this.userDao.doSQLSearch(sql, params, pageSize, pageNum);
+		return rs;
 	}
 }
