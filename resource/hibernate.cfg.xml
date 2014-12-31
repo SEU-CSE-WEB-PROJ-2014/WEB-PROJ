@@ -8,7 +8,7 @@
 
 	<session-factory>
 		<property name="dialect">
-			org.hibernate.dialect.MySQLDialect
+			com.easygo.common.utils.dao.BlobMySQLDialect
 		</property>
 		<property name="connection.url">
 			jdbc:mysql://localhost:3306/easygo
@@ -23,7 +23,7 @@
 		<property name="hibernate.connection.autocommit">true</property>
 		<!-- <property name="hibernate.current_session_context_class">
 			thread
-		</property> -->
+			</property> -->
 		<property name="hbm2ddl.auto">update</property>
 		<mapping class="com.easygo.user.bo.CoreUser" />
 		<mapping class="com.easygo.common.role.bo.CoreRole" />

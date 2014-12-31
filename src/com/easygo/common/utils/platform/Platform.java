@@ -34,7 +34,7 @@ public class Platform {
 				}
 			}
 		}
-		return null;
+		throw new BusinessException("invoke调用出错：" + beanName + "不存在方法" + methodName);
 	}
 	
 	

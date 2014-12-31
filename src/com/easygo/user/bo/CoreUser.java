@@ -1,58 +1,31 @@
 package com.easygo.user.bo;
 
-
-import java.util.Map;
-
 import javax.persistence.Column;
-import javax.persistence.ColumnResult;
 import javax.persistence.Entity;
-import javax.persistence.EntityResult;
-import javax.persistence.FieldResult;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.NamedNativeQueries;
-import javax.persistence.NamedNativeQuery;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.SqlResultSetMapping;
-import javax.persistence.SqlResultSetMappings;
 import javax.persistence.Table;
-
 import org.hibernate.annotations.GenericGenerator;
-
-import com.mysql.jdbc.Field;
 
 /**
  * CoreUser entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name="core_user")
-@NamedNativeQueries({
-	@NamedNativeQuery(name="CoreUser.nListAll", query="select u.user_id as id, u.* from core_user u", resultSetMapping="sqlMapping")
-})
-
+@Table(name = "core_user", catalog = "easygo")
 public class CoreUser implements java.io.Serializable {
-
-	/**
-	 * 数据有效
-	 */
+	
 	public static final Integer STATE_YES = 1;
-	
-	/**
-	 * 数据无效
-	 */
 	public static final Integer STATE_NO = 0;
-	
-	
+
 	// Fields
 
 	private String userId;
-	private String roleId;
 	private String loginName;
 	private String nickName;
 	private String password;
 	private Integer state;
 	private Integer sex;
+	private String roleId;
 	private String email;
 	private String address;
 
@@ -64,12 +37,16 @@ public class CoreUser implements java.io.Serializable {
 
 	/** full constructor */
 	public CoreUser(String loginName, String nickName, String password,
-			Integer state, Integer sex) {
+			Integer state, Integer sex, String roleId, String email,
+			String address) {
 		this.loginName = loginName;
 		this.nickName = nickName;
 		this.password = password;
 		this.state = state;
 		this.sex = sex;
+		this.roleId = roleId;
+		this.email = email;
+		this.address = address;
 	}
 
 	// Property accessors
@@ -83,33 +60,6 @@ public class CoreUser implements java.io.Serializable {
 
 	public void setUserId(String userId) {
 		this.userId = userId;
-	}
-	
-	@Column(name = "email", length = 50)
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	@Column(name = "address")
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
-	@Column(name = "role_id", length = 50)
-	public String getRoleId() {
-		return roleId;
-	}
-
-	public void setRoleId(String roleId) {
-		this.roleId = roleId;
 	}
 
 	@Column(name = "login_name", length = 50)
@@ -155,6 +105,33 @@ public class CoreUser implements java.io.Serializable {
 
 	public void setSex(Integer sex) {
 		this.sex = sex;
+	}
+
+	@Column(name = "role_id", length = 50)
+	public String getRoleId() {
+		return this.roleId;
+	}
+
+	public void setRoleId(String roleId) {
+		this.roleId = roleId;
+	}
+
+	@Column(name = "email", length = 50)
+	public String getEmail() {
+		return this.email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	@Column(name = "address")
+	public String getAddress() {
+		return this.address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
 }
