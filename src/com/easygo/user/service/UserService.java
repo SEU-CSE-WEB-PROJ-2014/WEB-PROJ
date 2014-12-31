@@ -14,6 +14,8 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -67,6 +69,12 @@ public class UserService {
 			//登录用户数据放入session
 			LoginUser loginUser = new LoginUser();
 			BeanUtils.copyProperties(loginUser, user);
+			if(StringUtils.isNotEmpty(loginUser.getRoleId())){
+				Map[] backstageUrlInfo = Platform.invoke("roleService", "getRoleManUrlInfo", Map[].class, new Object[]{loginUser.getRoleId()});
+				if(ArrayUtils.isNotEmpty(backstageUrlInfo)){
+					loginUser.setHasBackstageAuth(true);
+				}
+			}
 			
 			HttpSession s = request.getSession();
 			s.setAttribute(UserManager.LOGIN_USER_KEY, loginUser);

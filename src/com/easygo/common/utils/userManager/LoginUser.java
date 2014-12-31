@@ -31,6 +31,7 @@ public class LoginUser {
 	private String email;
 	private String address;
 	private String roleId;
+	private boolean hasBackstageAuth = false;
 	
 	public LoginUser() {
 	}
@@ -40,8 +41,14 @@ public class LoginUser {
 			this.userId = (String) params.get("userId");
 		}
 	}
-	
-	
+
+	public boolean isHasBackstageAuth() {
+		return hasBackstageAuth;
+	}
+
+	public void setHasBackstageAuth(boolean hasBackstageAuth) {
+		this.hasBackstageAuth = hasBackstageAuth;
+	}
 
 	public String getRoleId() {
 		return roleId;
