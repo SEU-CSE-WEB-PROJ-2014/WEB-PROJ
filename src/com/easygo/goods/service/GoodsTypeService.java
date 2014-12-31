@@ -35,8 +35,7 @@ public class GoodsTypeService {
 		List<AppGoodsType> list = this.appGoodsTypeDao.findByParams("", params);
 		for(AppGoodsType type : list){
 			this.appGoodsTypeDao.delete(type);
-		}
-		*/
+		}*/
 		
 		return true;
 	}

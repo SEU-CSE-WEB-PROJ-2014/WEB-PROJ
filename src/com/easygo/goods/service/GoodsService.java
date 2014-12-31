@@ -1,8 +1,15 @@
 package com.easygo.goods.service;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.easygo.common.utils.dao.QueryResult;
+import com.easygo.common.utils.dao.SearchResult;
 import com.easygo.goods.bo.AppGoods;
 import com.easygo.goods.dao.AppGoodsDao;
 
@@ -11,9 +18,58 @@ public class GoodsService {
 	@Autowired
 	private AppGoodsDao appGoodsDao;
 	
-	public boolean addAppGoods(String goodsName)
+	public String addOrEditAppGoods(String goodsId, String goodsName, Double price, Integer quantity, String description, Integer state, Integer goodsTypeId)
 	{
 		AppGoods goods = new AppGoods();
-		return false;
+		goods.setGoodsName(goodsName);
+		goods.setPrice(price);
+		goods.setQuantity(quantity);
+		goods.setDescription(description);
+		goods.setState(state);
+		goods.setGoodsTypeId(goodsTypeId);
+		
+		this.appGoodsDao.saveOrUpdate(goods);
+		return goods.getGoodsId();
+	}
+	
+	public boolean deleteAppGoods(String goodsId)
+	{
+		Map params = new HashMap<String, Object>();
+		params.put("goodsId", goodsId);
+		this.appGoodsDao.bulkUpdate("update AppGoods g set g.state = 0 where g.goodsId = :goodsId ", params);
+//		List<AppGoods> list = (List<AppGoods>)this.appGoodsDao.findByParams("select from AppGoods g where g.goodsId = :goodsId", params);
+		
+		return true;
+	}
+	
+	public SearchResult<Map> searchAppGoods(String goodsName, Integer goodsTypeId, Double minPrice, Double maxPrice, Integer pageNum)
+	{
+		Map params = new HashMap<String, Object>();
+		
+//		String sql = "select * from app_goods g where 1=1";    动态查询
+		String sql = this.appGoodsDao.getQueryString("AppGoods.goodsSearch");
+		
+		//判断构造动态条件
+		if(StringUtils.isNotEmpty(goodsName)){
+			sql += " and g.goods_name like '%:goodsName%'";
+			params.put("goodsName", goodsName);
+		}
+		if(goodsTypeId != null){
+			sql += " and g.goods_type_id = :goodsTypeId";
+			params.put("goodsTypeId", goodsTypeId);
+		}
+		if(minPrice != null){
+			sql += " and g.price >= :minPrice";
+			params.put("minPrice", minPrice);
+		}
+		if(maxPrice != null){
+			sql += " and g.price <= :maxPrice";
+			params.put("maxPrice", maxPrice);
+		}
+		
+		//查询
+		SearchResult<Map> sr = this.appGoodsDao.doSQLSearch(sql, params, null, pageNum);
+		
+		return sr;
 	}
 }

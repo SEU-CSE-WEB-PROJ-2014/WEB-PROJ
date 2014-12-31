@@ -4,6 +4,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.NamedNativeQueries;
+import javax.persistence.NamedNativeQuery;
 import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -12,6 +14,9 @@ import org.hibernate.annotations.GenericGenerator;
  */
 @Entity
 @Table(name = "app_goods", catalog = "easygo")
+@NamedNativeQueries({
+	@NamedNativeQuery(name="AppGoods.goodsSearch", query="select * from app_goods g where 1=1")
+})
 public class AppGoods implements java.io.Serializable {
 
 	// Fields
