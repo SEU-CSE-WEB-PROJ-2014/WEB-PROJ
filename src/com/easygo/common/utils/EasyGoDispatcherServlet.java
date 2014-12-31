@@ -37,6 +37,13 @@ public class EasyGoDispatcherServlet extends DispatcherServlet{
 		super(webApplicationContext);
 	}
 	
+	public static boolean isAjaxRequest(HttpServletRequest request){
+		if(StringUtils.equals(request.getHeader("x-requested-with"), "XMLHttpRequest")){
+			return true;
+		}else{
+			return false;
+		}
+	}
 	
 	/**
 	 * 请求到方法的映射
@@ -100,21 +107,23 @@ public class EasyGoDispatcherServlet extends DispatcherServlet{
 				}catch(Exception e){
 					e.printStackTrace();
 					//判断是否为ajax请求。是则将错误信息封装到modelAndView中返回，否则继续抛出异常
-					if(StringUtils.equals(request.getHeader("x-requested-with"), "XMLHttpRequest")){
+					if(isAjaxRequest(request)){
 						msg = e.getMessage();
 					}else{
 						throw e;
 					}
 				}
 				
-				String viewName = mv != null && StringUtils.isNotEmpty(mv.getViewName())
-						? mv.getViewName() : Constant.NULL_VIEW;
-				Map<String, Object> modelMap = mv != null && mv.getModel() != null
-						? mv.getModel() : new HashMap<String, Object>();
-				
-				modelMap.put(Constant.STATUS_NAME, status);
-				modelMap.put(Constant.MSG_NAME, msg);
-				mv = new ModelAndView(viewName, modelMap);
+				if(isAjaxRequest(request)){
+					String viewName = mv != null && StringUtils.isNotEmpty(mv.getViewName())
+							? mv.getViewName() : Constant.NULL_VIEW;
+							Map<String, Object> modelMap = mv != null && mv.getModel() != null
+									? mv.getModel() : new HashMap<String, Object>();
+									
+									modelMap.put(Constant.STATUS_NAME, status);
+									modelMap.put(Constant.MSG_NAME, msg);
+									mv = new ModelAndView(viewName, modelMap);
+				}
 				//END:controller方法try/catch，返回status、msg////////////////////////////////////
 
 				// Do we need view name translation?

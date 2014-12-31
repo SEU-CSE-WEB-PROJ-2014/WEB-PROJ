@@ -6,7 +6,6 @@
 <%
 	LoginUser curUser = UserManager.getCurrentUser();
 	request.setAttribute("curUser", curUser);
-	
 %>
 
 <!-- JS -------------------------------------------------------------------------------->
@@ -20,7 +19,7 @@
 		<c:when test="${curUser != null}">
 			${curUser.nickName}&nbsp;&nbsp;您好！
 			<c:if test="${curUser.hasBackstageAuth}">
-				<a href="">后台管理</a>
+				<a href="${basePath}home/backstageIndex.do">后台管理</a>
 			</c:if>
 			
 			<a href="javascript:void(0);" class="logout">注销</a>

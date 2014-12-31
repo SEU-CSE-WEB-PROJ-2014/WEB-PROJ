@@ -2,6 +2,6 @@
 <%@ include file="header.jsp" %>
 
 <div>
-	<p>错误：<c:out value="${msg}"></c:out></p>
+	对不起，出错了：${exception.getMessage()}
 </div>
 
