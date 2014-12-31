@@ -16,7 +16,7 @@ public class BSGoodsController {
 		return new ModelAndView("goods/bsGoods/index");
 	}
 	
-	
+	@RequestMapping("/goodsGrid.do")
 	public ModelAndView goodsGrid(
 			@RequestParam(required=false) Integer pageSize,
 			@RequestParam(required=false) Integer pageNum,
@@ -47,7 +47,7 @@ public class BSGoodsController {
 	
 	
 	public void batchDelGoods(
-			@RequestParam String goodsId){
+			@RequestParam String[] goodsIds){
 		
 		//TODO: 调用service层方法,删除对应goodsId的商品
 		
