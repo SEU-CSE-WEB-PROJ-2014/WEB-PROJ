@@ -15,7 +15,7 @@ import org.hibernate.annotations.GenericGenerator;
 @Entity
 @Table(name = "app_goods", catalog = "easygo")
 @NamedNativeQueries({
-	@NamedNativeQuery(name="AppGoods.goodsSearch", query="select * from app_goods g where 1=1")
+	@NamedNativeQuery(name="AppGoods.goodsSearch", query="select * from app_goods g where 1=1", resultSetMapping="sqlMapping")
 })
 public class AppGoods implements java.io.Serializable {
 
