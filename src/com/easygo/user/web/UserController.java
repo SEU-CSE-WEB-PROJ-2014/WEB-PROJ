@@ -68,8 +68,9 @@ public class UserController {
 	
 	@RequestMapping("/test.do")
 	public ModelAndView test(){
-		userService.test();
+		Map result = new HashMap<String, Object>();
+		result.put("mz", "马卓");
 		
-		return null;
+		return new ModelAndView("", result);
 	}
 }
