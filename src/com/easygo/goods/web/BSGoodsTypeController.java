@@ -19,11 +19,12 @@ public class BSGoodsTypeController {
 	@Autowired
 	private GoodsTypeService goodsType;
 	
-	@RequestMapping("index.do")
+	@RequestMapping("/index.do")
 	public ModelAndView index(){
 		return new ModelAndView("goods/bsGoodsType/index");
 	}
 	
+	@RequestMapping("/goodsTypeGrid")
 	public ModelAndView goodsTypeGrid(
 			@RequestParam(required=false) Integer pageSize,
 			@RequestParam(required=false) Integer pageNum,
@@ -37,22 +38,23 @@ public class BSGoodsTypeController {
 		return new ModelAndView("", result);
 	}
 	
-	
+	@RequestMapping("/AddOrEditgoodsType")
 	public void addOrEditGoodsType(
 			@RequestParam(required=false) Integer typeId,
 			@RequestParam String typeName,
 			@RequestParam String typeIntro){
 		
 		//TODO: 掉用service层方法,typeId非空时修改类型名称,typeId空时新增类型
+		goodsType.AddOrEditAppGoodsType(typeId, typeName, typeIntro);
 		
 	}
 	
-	
+	@RequestMapping("/batchDelgoodsType")
 	public void batchDelGoodsType(
 			@RequestParam Integer[] typeIds){
 		
 		//TODO: 调用service层方法,删除对应typeId的类型
-		
+		goodsType.DeleteAppGoodsType(typeIds);
 	}
 	
 }
