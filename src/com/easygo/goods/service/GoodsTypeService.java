@@ -17,19 +17,21 @@ public class GoodsTypeService {
 	@Autowired
 	private AppGoodsTypeDao appGoodsTypeDao;
 	
-	public void AddAppGoodsType(String GoodsTypeName)
+	public void AddOrEditAppGoodsType(Integer GoodsTypeID, String GoodsTypeName, String typeIntro)
 	{
 		AppGoodsType goodsType = new AppGoodsType();
 		goodsType.setTypeName(GoodsTypeName);
-		this.appGoodsTypeDao.save(goodsType);
+		goodsType.setTypeIntro(typeIntro);
+		
+		this.appGoodsTypeDao.saveOrUpdate(goodsType);
 	}
 	
-	public void DeleteAppGoodsType(int GoodsTypeID)
+	public void DeleteAppGoodsType(Integer[] GoodsTypeID)
 	{
 		//1
 		Map params = new HashMap<Integer, Object>();
 		params.put("typeID", GoodsTypeID);
-		this.appGoodsTypeDao.bulkUpdate("delete from AppGoodsType g where g.goodsTypeId = :goodsTypeId", params);
+		this.appGoodsTypeDao.bulkUpdate("delete from AppGoodsType g where g.goodsTypeId in (:typeID)", params);
 		
 		/*2
 		List<AppGoodsType> list = this.appGoodsTypeDao.findByParams("", params);
@@ -50,12 +52,5 @@ public class GoodsTypeService {
 		}
 		SearchResult<Map> rs = this.appGoodsTypeDao.doSQLSearch(sql, params, pageSize, pageNum);
 		return rs;
-	}
-	
-	public void EditAppGoodsType(int GoodsTypeID, String TargetGoodsTypeName)
-	{
-		AppGoodsType goodsType = this.appGoodsTypeDao.get(GoodsTypeID);
-		goodsType.setTypeName(TargetGoodsTypeName);
-		this.appGoodsTypeDao.update(goodsType);
 	}
 }
