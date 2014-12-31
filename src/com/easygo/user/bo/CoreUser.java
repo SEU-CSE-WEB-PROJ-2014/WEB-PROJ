@@ -43,6 +43,7 @@ public class CoreUser implements java.io.Serializable {
 	 */
 	public static final Integer STATE_NO = 0;
 	
+	
 	// Fields
 
 	private String userId;
@@ -52,6 +53,8 @@ public class CoreUser implements java.io.Serializable {
 	private String password;
 	private Integer state;
 	private Integer sex;
+	private String email;
+	private String address;
 
 	// Constructors
 
@@ -82,7 +85,24 @@ public class CoreUser implements java.io.Serializable {
 		this.userId = userId;
 	}
 	
-	
+	@Column(name = "email", length = 50)
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	@Column(name = "address")
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
 	@Column(name = "role_id", length = 50)
 	public String getRoleId() {
 		return roleId;

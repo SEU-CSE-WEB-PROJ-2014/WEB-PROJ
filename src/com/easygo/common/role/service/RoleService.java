@@ -23,9 +23,7 @@ public class RoleService {
 		Assert.notNull(roleId);
 		Map params = new HashMap<String, Object>();
 		params.put("roleId", roleId);
-		
 		QueryResult<Map> qr = coreRoleDao.doNamedSQLQuery("CoreRole.QueryRoleManUrlInfo", params);
-		
 		return qr.toArray();
 	}
 	

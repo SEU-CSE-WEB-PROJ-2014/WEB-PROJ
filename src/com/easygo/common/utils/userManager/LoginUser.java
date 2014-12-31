@@ -3,6 +3,25 @@ package com.easygo.common.utils.userManager;
 import java.util.Map;
 
 public class LoginUser {
+	
+	/**
+	 * 身份标志:管理员
+	 */
+	public static final String ROLE_ID_ADMIN = "ID000";
+	/**
+	 * 身份标志:商品管理员
+	 */
+	public static final String ROLE_ID_GOODS_ADMIN = "ID001";
+	/**
+	 * 身份标志:网购用户
+	 */
+	public static final String ROLE_ID_USERS = "ID002";
+	/**
+	 * 身份标志:订单管理员
+	 */
+	public static final String ROLE_ID_ORDER_ADMIN = "ID003";
+	
+	
 	private String userId;
 	private String loginName;
 	private String nickName;
@@ -11,6 +30,7 @@ public class LoginUser {
 	private String userDetailId;
 	private String email;
 	private String address;
+	private String roleId;
 	
 	public LoginUser() {
 	}
@@ -19,6 +39,16 @@ public class LoginUser {
 		if(params.get("userId") != null && params.get("userId") instanceof String){
 			this.userId = (String) params.get("userId");
 		}
+	}
+	
+	
+
+	public String getRoleId() {
+		return roleId;
+	}
+
+	public void setRoleId(String roleId) {
+		this.roleId = roleId;
 	}
 
 	public String getUserId() {

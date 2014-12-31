@@ -25,18 +25,13 @@ import com.easygo.common.utils.platform.Platform;
 import com.easygo.common.utils.userManager.LoginUser;
 import com.easygo.common.utils.userManager.UserManager;
 import com.easygo.user.bo.CoreUser;
-import com.easygo.user.bo.CoreUserDetail;
 import com.easygo.user.dao.UserDao;
-import com.easygo.user.dao.UserDetailDao;
 
 
 @Service("userService")
 public class UserService {
 	@Autowired
 	private UserDao userDao;
-	
-	@Autowired
-	private UserDetailDao userDetailDao;
 	
 	
 	public String regUser(String nickName, String password, String email){
@@ -45,13 +40,11 @@ public class UserService {
 		user.setLoginName(email);
 		user.setPassword(DigestUtils.md5Hex(password));
 		user.setState(CoreUser.STATE_YES);
+		user.setRoleId(LoginUser.ROLE_ID_USERS);
+		user.setEmail(email);
+		
 		
 		this.userDao.save(user);
-		
-		CoreUserDetail userDetail = new CoreUserDetail();
-		userDetail.setEmail(email);
-		userDetail.setUserId(user.getUserId());
-		this.userDetailDao.save(userDetail);
 		return user.getUserId();
 	}
 	
@@ -70,18 +63,10 @@ public class UserService {
 		
 		if(userList != null && userList.size() > 0){	//密码验证成功
 			CoreUser user = userList.get(0);
-			params.clear();
-			params.put("userId", user.getUserId());
-			List<CoreUserDetail> userDetail = this.userDetailDao.eqQueryByParams(params);
-			if(userDetail == null || userDetail.size() < 1){
-				throw new BusinessException("用户数据不正确，请联系管理员");
-			}
 
 			//登录用户数据放入session
 			LoginUser loginUser = new LoginUser();
 			BeanUtils.copyProperties(loginUser, user);
-			BeanUtils.copyProperties(loginUser, userDetail.get(0));
-			
 			
 			HttpSession s = request.getSession();
 			s.setAttribute(UserManager.LOGIN_USER_KEY, loginUser);
