@@ -31,6 +31,7 @@
 		<mapping class="com.easygo.goods.bo.AppGoodsType" />
 		<mapping class="com.easygo.goods.bo.AppGoods" />
 		<mapping class="com.easygo.common.utils.dao.CoreMapping" />
+		<mapping class="com.easygo.order.bo.AppOrder" />
 	</session-factory>
 
 </hibernate-configuration>
