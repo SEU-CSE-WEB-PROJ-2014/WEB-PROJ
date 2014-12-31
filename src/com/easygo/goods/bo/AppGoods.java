@@ -22,7 +22,7 @@ public class AppGoods implements java.io.Serializable {
 	private Integer quantity;
 	private String description;
 	private Integer state;
-	private String goodsTypeId;
+	private Integer goodsTypeId;
 
 	// Constructors
 
@@ -32,7 +32,7 @@ public class AppGoods implements java.io.Serializable {
 
 	/** full constructor */
 	public AppGoods(String goodsName, Double price, Integer quantity,
-			String description, Integer state, String goodsTypeId) {
+			String description, Integer state, Integer goodsTypeId) {
 		this.goodsName = goodsName;
 		this.price = price;
 		this.quantity = quantity;
@@ -100,11 +100,11 @@ public class AppGoods implements java.io.Serializable {
 	}
 
 	@Column(name = "goods_type_id", nullable = false, length = 50)
-	public String getGoodsTypeId() {
+	public Integer getGoodsTypeId() {
 		return this.goodsTypeId;
 	}
 
-	public void setGoodsTypeId(String goodsTypeId) {
+	public void setGoodsTypeId(Integer goodsTypeId) {
 		this.goodsTypeId = goodsTypeId;
 	}
 
