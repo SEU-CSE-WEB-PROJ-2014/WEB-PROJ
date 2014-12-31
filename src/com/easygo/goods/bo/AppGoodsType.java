@@ -18,6 +18,7 @@ public class AppGoodsType implements java.io.Serializable {
 
 	private Integer goodsTypeId;
 	private String typeName;
+	private String typeIntro;
 
 	// Constructors
 
@@ -51,5 +52,17 @@ public class AppGoodsType implements java.io.Serializable {
 	public void setTypeName(String typeName) {
 		this.typeName = typeName;
 	}
+
+	
+	@Column(name = "type_intro")
+	public String getTypeIntro() {
+		return typeIntro;
+	}
+
+	public void setTypeIntro(String typeIntro) {
+		this.typeIntro = typeIntro;
+	}
+	
+	
 
 }

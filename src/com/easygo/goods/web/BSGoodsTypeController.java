@@ -28,4 +28,22 @@ public class BSGoodsTypeController {
 		return new ModelAndView("", result);
 	}
 	
+	
+	public void addOrEditGoodsType(
+			@RequestParam(required=false) Integer typeId,
+			@RequestParam String typeName,
+			@RequestParam String typeIntro){
+		
+		//TODO: 掉用service层方法,typeId非空时修改类型名称,typeId空时新增类型
+		
+	}
+	
+	
+	public void batchDelGoodsType(
+			@RequestParam Integer[] typeIds){
+		
+		//TODO: 调用service层方法,删除对应typeId的类型
+		
+	}
+	
 }
