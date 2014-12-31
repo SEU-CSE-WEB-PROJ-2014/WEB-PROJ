@@ -23,7 +23,7 @@ public class BSGoodsController {
 		return new ModelAndView("goods/bsGoods/index");
 	}
 	
-	@RequestMapping("/goodsGrid")
+	@RequestMapping("/goodsGrid.do")
 	public ModelAndView goodsGrid(
 			@RequestParam(required=false) Integer pageSize,
 			@RequestParam(required=false) Integer pageNum,
@@ -40,7 +40,7 @@ public class BSGoodsController {
 		return new ModelAndView("", result);
 	}
 	
-	@RequestMapping("/addOrEditGoods")
+	@RequestMapping("/addOrEditGoods.do")
 	public void addOrEditGoods(
 			@RequestParam(required=false) String goodsId,
 			@RequestParam String goodsName,
@@ -53,7 +53,7 @@ public class BSGoodsController {
 		goods.addOrEditAppGoods(goodsId, goodsName, price, quantity, description, typeId);
 	}
 	
-	@RequestMapping("/batchDelGoods")
+	@RequestMapping("/batchDelGoods.do")
 	public void batchDelGoods(
 			@RequestParam String[] goodsIds){
 		

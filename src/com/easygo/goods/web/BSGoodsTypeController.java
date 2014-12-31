@@ -24,7 +24,7 @@ public class BSGoodsTypeController {
 		return new ModelAndView("goods/bsGoodsType/index");
 	}
 	
-	@RequestMapping("/goodsTypeGrid")
+	@RequestMapping("/goodsTypeGrid.do")
 	public ModelAndView goodsTypeGrid(
 			@RequestParam(required=false) Integer pageSize,
 			@RequestParam(required=false) Integer pageNum,
@@ -38,7 +38,7 @@ public class BSGoodsTypeController {
 		return new ModelAndView("", result);
 	}
 	
-	@RequestMapping("/AddOrEditgoodsType")
+	@RequestMapping("/AddOrEditgoodsType.do")
 	public void addOrEditGoodsType(
 			@RequestParam(required=false) Integer typeId,
 			@RequestParam String typeName,
@@ -49,7 +49,7 @@ public class BSGoodsTypeController {
 		
 	}
 	
-	@RequestMapping("/batchDelgoodsType")
+	@RequestMapping("/batchDelgoodsType.do")
 	public void batchDelGoodsType(
 			@RequestParam Integer[] typeIds){
 		
