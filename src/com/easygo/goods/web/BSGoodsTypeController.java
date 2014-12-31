@@ -16,8 +16,10 @@ public class BSGoodsTypeController {
 		return new ModelAndView("goods/bsGoodsType/index");
 	}
 	
-	public ModelAndView goodsTypeGrid(@RequestParam(required=false) Integer pageSize,
-			@RequestParam(required=false) Integer pageNum){
+	public ModelAndView goodsTypeGrid(
+			@RequestParam(required=false) Integer pageSize,
+			@RequestParam(required=false) Integer pageNum,
+			@RequestParam(required=false) String typeName){
 		Map result = new HashMap<String, Object>();
 		
 		//TODO: result里放分页的goodsType数据
