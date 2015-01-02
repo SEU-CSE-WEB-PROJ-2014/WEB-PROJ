@@ -55,7 +55,7 @@ public class BSUserController {
 		user.addOrEditUser(userId, loginName, nickName, password, sex, roleId, email, address);
 	}
 	
-	@RequestMapping("/BatchDelUsers")
+	@RequestMapping("/batchDelUsers.do")
 	public void batchDelUsers(
 			@RequestParam String[] userIds){
 		

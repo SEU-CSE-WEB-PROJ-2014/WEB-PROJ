@@ -46,7 +46,7 @@ public class GoodsService {
 	{
 		Map params = new HashMap<String, Object>();
 		params.put("goodsIds", goodsIds);
-		this.appGoodsDao.bulkUpdate("update app_goods g set g.state = 0 where g.goods_id in (:goodsIds) ", params);
+		this.appGoodsDao.bulkUpdate("update AppGoods g set g.state = 0 where g.goodsId in (:goodsIds) ", params);
 //		List<AppGoods> list = (List<AppGoods>)this.appGoodsDao.findByParams("select from app_goods g where g.goods_id = :goodsIds", params);
 	}
 	

@@ -114,7 +114,7 @@ public class UserService {
 	public void batchDelUser(String[] userIds){
 		Map params = new HashMap<String, Object>();
 		params.put("userIds", userIds);
-		this.userDao.bulkUpdate("update core_user u set u.state = 0 where u.user_id in (:user_id)", params);
+		this.userDao.bulkUpdate("update CoreUser u set u.state = 0 where u.userId in (:userIds)", params);
 	}
 	
 	public SearchResult<Map> searchUser(String name, String roleId, String email, Integer pageSize, Integer pageNum){

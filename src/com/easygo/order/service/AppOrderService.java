@@ -20,13 +20,13 @@ public class AppOrderService {
 		Map params = new HashMap<String, Object>();
 		params.put("orderId", orderId);
 		params.put("transState", transState);
-		this.appOrderDao.bulkUpdate("update app_order order set order.trans_state = :transState where order.orderId = :orderId", params);
+		this.appOrderDao.bulkUpdate("update AppOrder order set order.transState = :transState where order.orderId = :orderId", params);
 	}
 	
 	public void batchCancelOrder(String[] orders){
 		Map params = new HashMap<String, Object>();
 		params.put("orders", orders);
-		this.appOrderDao.bulkUpdate("update app_order order set order.state = 0 where orders in (:orders)", params);
+		this.appOrderDao.bulkUpdate("update AppOrder order set order.state = 0 where order.orderId in (:orders)", params);
 	}
 	
 	public SearchResult<Map> searchAppOrder(Integer payState, Integer transState, Integer signState, Integer pageSize, Integer pageNum){
