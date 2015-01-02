@@ -8,6 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.easygo.common.utils.BusinessException;
 import com.easygo.common.utils.dao.SearchResult;
 import com.easygo.goods.bo.AppGoodsType;
 import com.easygo.goods.dao.AppGoodsTypeDao;
@@ -19,10 +20,20 @@ public class GoodsTypeService {
 	
 	public void AddOrEditAppGoodsType(Integer GoodsTypeID, String GoodsTypeName, String typeIntro)
 	{
-		AppGoodsType goodsType = new AppGoodsType();
+		AppGoodsType goodsType = null;
+		if(GoodsTypeID != null){				//typeId不为空，表示编辑
+			goodsType = this.appGoodsTypeDao.get(GoodsTypeID);	//通过dao层获取数据库层的bo对象
+			if(goodsType == null){
+				throw new BusinessException("商品类型不存在，typeId：" + GoodsTypeID);
+			}
+		}else{									//typeId为空，表示新增
+			goodsType = new AppGoodsType();
+		}
+		//设置type的字段值
 		goodsType.setTypeName(GoodsTypeName);
 		goodsType.setTypeIntro(typeIntro);
 		
+		//保存或更新
 		this.appGoodsTypeDao.saveOrUpdate(goodsType);
 	}
 	
@@ -44,7 +55,7 @@ public class GoodsTypeService {
 	{
 		Map params = new HashMap<String, Object>();
 		
-		String sql = "select from app_goods_type gt where 1=1";
+		String sql = "select * from app_goods_type gt where 1=1";
 		
 		if(StringUtils.isNotEmpty(GoodsTypeName)){
 			sql += " and gt.type_name like '%:GoodsTypeName%'";

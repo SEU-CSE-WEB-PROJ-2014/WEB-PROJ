@@ -24,6 +24,7 @@ import com.easygo.common.utils.dao.SearchResult;
 import com.easygo.common.utils.platform.Platform;
 import com.easygo.common.utils.userManager.LoginUser;
 import com.easygo.common.utils.userManager.UserManager;
+import com.easygo.goods.bo.AppGoods;
 import com.easygo.user.bo.CoreUser;
 import com.easygo.user.dao.UserDao;
 
@@ -35,7 +36,15 @@ public class UserService {
 	
 	
 	public void addOrEditUser(String userId, String loginName, String nickName, String password, Integer sex, String roleId, String email, String address){
-		CoreUser user = new CoreUser();
+		 CoreUser user = null;
+		if(userId != null){				//typeId不为空，表示编辑
+			user = this.userDao.get(userId);	//通过dao层获取数据库层的bo对象
+			if(user == null){
+				throw new BusinessException("用户不存在，userId：" + userId);
+			}
+		}else{									//typeId为空，表示新增
+			user = new CoreUser();
+		}
 		user.setLoginName(loginName);
 		user.setNickName(nickName);
 		user.setPassword(DigestUtils.md5Hex(password));
