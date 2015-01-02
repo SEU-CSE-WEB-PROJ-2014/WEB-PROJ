@@ -8,9 +8,11 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.easygo.common.utils.BusinessException;
 import com.easygo.common.utils.dao.QueryResult;
 import com.easygo.common.utils.dao.SearchResult;
 import com.easygo.goods.bo.AppGoods;
+import com.easygo.goods.bo.AppGoodsType;
 import com.easygo.goods.dao.AppGoodsDao;
 
 @Service("goodsService")
@@ -20,7 +22,15 @@ public class GoodsService {
 	
 	public String addOrEditAppGoods(String goodsId, String goodsName, Double price, Integer quantity, String description, Integer goodsTypeId)
 	{
-		AppGoods goods = new AppGoods();
+		AppGoods goods = null;
+		if(goodsId != null){				//typeId不为空，表示编辑
+			goods = this.appGoodsDao.get(goodsId);	//通过dao层获取数据库层的bo对象
+			if(goods == null){
+				throw new BusinessException("商品不存在，goodsId：" + goodsId);
+			}
+		}else{									//typeId为空，表示新增
+			goods = new AppGoods();
+		}
 		goods.setGoodsName(goodsName);
 		goods.setPrice(price);
 		goods.setQuantity(quantity);
@@ -36,8 +46,8 @@ public class GoodsService {
 	{
 		Map params = new HashMap<String, Object>();
 		params.put("goodsIds", goodsIds);
-		this.appGoodsDao.bulkUpdate("update app_goods g set g.state = 0 where g.goodsId in (:goodsIds) ", params);
-//		List<AppGoods> list = (List<AppGoods>)this.appGoodsDao.findByParams("select from app_goods g where g.goodsId = :goodsId", params);
+		this.appGoodsDao.bulkUpdate("update app_goods g set g.state = 0 where g.goods_id in (:goodsIds) ", params);
+//		List<AppGoods> list = (List<AppGoods>)this.appGoodsDao.findByParams("select from app_goods g where g.goods_id = :goodsIds", params);
 	}
 	
 	public SearchResult<Map> searchAppGoods(String goodsName, Integer goodsTypeId, Double minPrice, Double maxPrice,Integer pageSize, Integer pageNum)
