@@ -3,12 +3,14 @@ package com.easygo.common.utils;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.servlet.DispatcherServlet;
@@ -217,7 +219,17 @@ public class EasyGoDispatcherServlet extends DispatcherServlet{
 	protected void render(ModelAndView mv, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		if(mv != null && mv.getViewName().equals(Constant.NULL_VIEW) && mv.getModel() != null){
 			response.setContentType(Constant.HTTP_JSON_CONTENTTYPE);
-			response.getWriter().print(JSON.toJSONString(mv.getModel()));
+			
+			Map<String, Object> model = mv.getModel(),
+					newModel = new HashMap<String, Object>();
+			Set<Map.Entry<String, Object>> entrySet = model.entrySet();
+			for(Map.Entry<String, Object> entry: entrySet){
+				if(!StringUtils.startsWith(entry.getKey(), BindingResult.MODEL_KEY_PREFIX)){
+					newModel.put(entry.getKey(), entry.getValue());
+				}
+			}
+			
+			response.getWriter().print(JSON.toJSONString(newModel));
 		}else{
 			super.render(mv, request, response);
 		}
