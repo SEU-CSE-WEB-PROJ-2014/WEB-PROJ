@@ -45,7 +45,7 @@ public class BSGoodsTypeController {
 			@RequestParam String typeIntro){
 		
 		//TODO: 掉用service层方法,typeId非空时修改类型名称,typeId空时新增类型
-		goodsType.AddOrEditAppGoodsType(typeId, typeName, typeIntro);
+		this.goodsType.AddOrEditAppGoodsType(typeId, typeName, typeIntro);
 		
 	}
 	
