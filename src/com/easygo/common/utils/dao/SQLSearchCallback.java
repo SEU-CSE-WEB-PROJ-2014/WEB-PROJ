@@ -121,8 +121,7 @@ public class SQLSearchCallback<T> implements HibernateCallback<SearchResult<T>> 
 		if (params != null && !params.isEmpty()) {
 			Iterator it = params.entrySet().iterator();
 			for (int i = 0; i < params.size(); i++) {
-				Map.Entry<String, ?> entry = (Entry<String, ?>) it
-						.next();
+				Map.Entry<String, ?> entry = (Entry<String, ?>) it.next();
 				this.setQueryObjectParams(countQuery, entry);
 			}
 		}

@@ -14,7 +14,7 @@ import com.easygo.common.utils.dao.SearchResult;
 import com.easygo.goods.bo.AppGoodsType;
 import com.easygo.goods.dao.AppGoodsTypeDao;
 
-@Service("goodsTypeService")						//括号内是对象名称
+@Service("goodsTypeService")						//括号内是对象名称sfsgfsgsgsf
 public class GoodsTypeService {
 	@Autowired
 	private AppGoodsTypeDao appGoodsTypeDao;

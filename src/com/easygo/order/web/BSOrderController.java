@@ -55,5 +55,33 @@ public class BSOrderController {
 		//TODO: 调用service层方法,删除对应userIds的用户
 		appOrder.batchCancelOrder(orders);
 	}
-
+	
+    @RequestMapping("/addOrder.do")//获取商品信息，检查库存余量，库存减去购买数量，计算总价，数据库update商品信息，增加订单，保存数据库
+    public void addOrder(
+    		@RequestParam String goodsId,
+    		@RequestParam String userId,
+    		@RequestParam Integer quantity
+    		){
+    	appOrder.addOrder(goodsId, userId, quantity);
+    	
+    }
+    
+    @RequestMapping("/payOrder.do")
+    public void payOrder(@RequestParam String orderId){
+    	appOrder.payOrder(orderId);
+    	
+    }
+    
+    @RequestMapping("/deliverGoods.do")
+    public void deliverGoods(@RequestParam String orderId){
+    	appOrder.deliverGoods(orderId);
+    }
+    
+    @RequestMapping("/signOrder.do")
+    public void signOrder(@RequestParam String orderId){
+    	appOrder.signOrder(orderId);
+    }
 }
+
+   
+   

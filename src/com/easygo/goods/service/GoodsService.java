@@ -50,7 +50,7 @@ public class GoodsService {
 //		List<AppGoods> list = (List<AppGoods>)this.appGoodsDao.findByParams("select from app_goods g where g.goods_id = :goodsIds", params);
 	}
 	
-	public SearchResult<Map> searchAppGoods(String goodsName, Integer goodsTypeId, Double minPrice, Double maxPrice,Integer pageSize, Integer pageNum)
+	public SearchResult<Map> searchAppGoods(String goodsName, Integer goodsTypeId, Double minPrice, Double maxPrice, Integer pageSize, Integer pageNum)
 	{
 		Map params = new HashMap<String, Object>();
 		
@@ -79,5 +79,16 @@ public class GoodsService {
 		SearchResult<Map> sr = this.appGoodsDao.doSQLSearch(sql, params, pageSize, pageNum);
 		
 		return sr;
+	}
+	
+	public QueryResult<Map> browseGoods(String goodsId){
+		Map params = new HashMap<String, Object>();
+		
+		String sql = "select * from app_goods g join app_goods_type gt on g.goods_type_id=gt.goods_type_id where g.goods_id = :goodsId";
+		params.put("goodsId", goodsId);
+			
+		QueryResult<Map> br = this.appGoodsDao.doSQLQuery(sql, params);
+		
+		return br;
 	}
 }

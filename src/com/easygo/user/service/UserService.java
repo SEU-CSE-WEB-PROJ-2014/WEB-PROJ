@@ -92,6 +92,13 @@ public class UserService {
 		}
 	}
 	
+	public SearchResult<Map> myOrder(String userId, Integer pageSize, Integer pageNum){
+		Map params = new HashMap<String, Object>();
+		String sql="slect * from app_goods g join app_order gt on g.goods_Id=gt.goods_id where gt.user_Id =: userId";
+		params.put("userId", userId);
+		SearchResult<Map> rs = this.userDao.doSQLSearch(sql, params, pageSize, pageNum);
+		return rs;
+	}
 	
 	public void logout(HttpServletRequest request, HttpServletResponse response){
 		Assert.notNull(request);
