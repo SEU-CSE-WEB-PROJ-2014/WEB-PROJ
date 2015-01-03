@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.easygo.common.utils.dao.SearchResult;
+import com.easygo.common.utils.platform.Platform;
+import com.easygo.goods.bo.AppGoodsType;
 import com.easygo.goods.service.GoodsService;
 import com.easygo.goods.service.GoodsTypeService;
 
@@ -49,12 +51,26 @@ public class BSGoodsTypeController {
 		
 	}
 	
-	@RequestMapping("/batchDelgoodsType.do")
-	public void batchDelGoodsType(
-			@RequestParam Integer[] typeIds){
+	
+	@RequestMapping("/AddOrEditgoodsTypePage.do")
+	public ModelAndView addOrEditGoodsTypePage(
+			@RequestParam(required=false) Integer typeId){
+		Map result = new HashMap<String, Object>();
+		if(typeId != null){
+			AppGoodsType type = goodsType.getGoodsType(typeId);
+			result.put("type", type);
+		}
+		
+		return new ModelAndView("goods/bsGoodsType/addOrEditGoodsType", result);
+	}
+	
+	
+	@RequestMapping("/delGoodsType.do")
+	public void delGoodsType(
+			@RequestParam Integer typeId){
 		
 		//TODO: 调用service层方法,删除对应typeId的类型
-		goodsType.DeleteAppGoodsType(typeIds);
+		goodsType.DeleteAppGoodsType(new Integer[]{typeId});
 	}
 	
 }

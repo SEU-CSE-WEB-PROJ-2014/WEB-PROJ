@@ -1,11 +1,12 @@
 package com.easygo.common.utils.dao;
 
 import java.lang.reflect.Array;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.util.Assert;
 
-public class QueryResult<T> {
+public class QueryResult<T> implements Iterable<T>{
 	private List<T> resultList;
 	private Class<T> type;
 
@@ -35,6 +36,14 @@ public class QueryResult<T> {
 		}
 		
 		return array;
+	}
+
+	public Iterator<T> iterator() {
+		if(this.resultList != null && resultList.size() > 0){
+			return this.resultList.iterator();
+		}else{
+			return null;
+		}
 	}
 	
 }

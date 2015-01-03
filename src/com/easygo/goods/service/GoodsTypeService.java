@@ -7,6 +7,7 @@ import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import com.easygo.common.utils.BusinessException;
 import com.easygo.common.utils.dao.SearchResult;
@@ -63,5 +64,10 @@ public class GoodsTypeService {
 		}
 		SearchResult<Map> rs = this.appGoodsTypeDao.doSQLSearch(sql, params, pageSize, pageNum);
 		return rs;
+	}
+	
+	public AppGoodsType getGoodsType(Integer typeId){
+		Assert.notNull(typeId);
+		return this.appGoodsTypeDao.get(typeId);
 	}
 }
