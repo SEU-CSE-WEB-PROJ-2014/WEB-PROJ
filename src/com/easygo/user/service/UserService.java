@@ -94,7 +94,7 @@ public class UserService {
 	
 	public SearchResult<Map> myOrder(String userId, Integer pageSize, Integer pageNum){
 		Map params = new HashMap<String, Object>();
-		String sql="slect * from app_goods g join app_order gt on g.goods_Id=gt.goods_id where gt.user_Id =: userId";
+		String sql="select * from app_goods g join app_order gt on g.goods_id = gt.goods_id where gt.user_id = :userId";
 		params.put("userId", userId);
 		SearchResult<Map> rs = this.userDao.doSQLSearch(sql, params, pageSize, pageNum);
 		return rs;

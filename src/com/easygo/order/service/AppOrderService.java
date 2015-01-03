@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.easygo.common.utils.dao.QueryResult;
 import com.easygo.common.utils.dao.SearchResult;
 import com.easygo.common.utils.platform.Platform;
 import com.easygo.order.bo.AppOrder;
@@ -19,27 +20,21 @@ public class AppOrderService {
 	private AppOrderDao appOrderDao;
 	
 	public void addOrder(String goodsId, String userId, Integer quantity){
-		//Map params = new HashMap<String, Object>();
-		//Object temp=new Object(){  };
+
 		
-		Map[] result = Platform.invoke("goodsService", "searchAppGoods", Map[].class, new Object[]{goodsId,null,null,null,null,null});
-		
-		if((Integer)result[0].get("quantity")>=quantity){
-			Integer newQuantity=(Integer)result[0].get(quantity)-quantity;
+		QueryResult<Map> result = (QueryResult<Map>)Platform.invoke("goodsService", "searchGoodsViaId", Object.class, new Object[]{goodsId});
+		if((Integer)result.getResultList().get(0).get("quantity")>=quantity){
+			Integer newQuantity=(Integer)result.getResultList().get(0).get("quantity")-quantity;
 			Platform.invoke("goodsService", "addOrEditAppGoods", String.class,new Object[]{goodsId,null,null,newQuantity,null,null});
 			
-			Double totalPrice=(Double)result[0].get("price")*quantity;
+			Double totalPrice=(Double)result.getResultList().get(0).get("price")*quantity;
 			
 			Timestamp createTime=new Timestamp(System.currentTimeMillis());
 			
 			insertOrder(goodsId,userId,newQuantity,totalPrice,createTime);
 			
 		}
-		
-		
-		
-		
-		
+	
 	}
 	
 	public void insertOrder(String goodsId,String userId, Integer quantity, Double price,Timestamp createTime ){
@@ -68,7 +63,7 @@ public class AppOrderService {
 		params.put("payState", 1);
 		Timestamp payTime=new Timestamp(System.currentTimeMillis());
 		params.put("payTime", payTime);
-		this.appOrderDao.bulkUpdate("update AppOrder order set order.payState =:payState, order.payTime =:payTime where order.orderId =: orderId", params);
+		this.appOrderDao.bulkUpdate("update AppOrder order set order.payState = :payState , order.payTime = :payTime where order.orderId = :orderId", params);
 		
 	}
 	
@@ -79,7 +74,7 @@ public class AppOrderService {
 		Map params=new HashMap<String,Object>();
 		params.put("orderId", orderId);
 		params.put("transTime", transTime);
-		this.appOrderDao.bulkUpdate("update AppOrder order set order.transTime =: transTime where order.orderId =: orderId", params);
+		this.appOrderDao.bulkUpdate("update AppOrder order set order.transTime = :transTime where order.orderId = :orderId", params);
 	}
 	
 	public void signOrder(String orderId){
@@ -88,7 +83,7 @@ public class AppOrderService {
 		params.put("orderId", orderId);
 		params.put("signState", 1);
 		params.put("signTime", signTime);
-		this.appOrderDao.bulkUpdate("update AppOrder order set order.signState =: signState, order.signTime =: signTime where order.orderId =: orderId", params);
+		this.appOrderDao.bulkUpdate("update AppOrder order set order.signState = :signState, order.signTime = :signTime where order.orderId = :orderId", params);
 		
 	}
 	public void setOrderTransState(String orderId, Integer transState){
@@ -110,7 +105,7 @@ public class AppOrderService {
 		Map params = new HashMap<Integer, Object>();
 		
 		if(payState != null){
-			sql += " and order.pay_state = :pay_state";
+			sql += " and order.pay_state = :payState";
 			params.put("payState", payState);
 		}
 		if(transState != null){
