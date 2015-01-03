@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.easygo.common.utils.dao.QueryResult;
 import com.easygo.common.utils.dao.SearchResult;
 import com.easygo.goods.service.GoodsService;
 
@@ -35,6 +36,18 @@ public class BSGoodsController {
 		
 		//TODO: result里放分页的goods数据
 		SearchResult<Map> rs = goods.searchAppGoods(goodsName, typeId, minPrice, maxPrice, pageSize, pageNum);
+		result.put("pageObject", rs);
+		
+		return new ModelAndView("", result);
+	}
+	
+	@RequestMapping("/browseGoods")
+	public ModelAndView browseGoods(
+			@RequestParam String goodsId){
+		Map result = new HashMap<String, Object>();
+		
+		//TODO: result里放分页的goods数据
+		QueryResult<Map> rs = goods.browseGoods(goodsId);
 		result.put("pageObject", rs);
 		
 		return new ModelAndView("", result);
