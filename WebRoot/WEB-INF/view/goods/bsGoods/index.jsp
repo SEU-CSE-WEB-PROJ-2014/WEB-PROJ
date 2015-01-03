@@ -19,16 +19,16 @@
 	</div>
 	
 	<div class="options">
-		<a class="add-btn" href="${basePath}bsGoodsType/AddOrEditgoodsTypePage.do">新增</a>
+		<a class="add-btn" href="${basePath}bsGoods/addOrEditGoodsPage.do">新增</a>
 	</div>
 </div>
 
 <script type="text/javascript">
-function removeType(typeId, obj, callback){
+function removeGoods(id, obj, callback){
 	$.post(
-		"${basePath}bsGoodsType/delGoodsType.do",
+		"${basePath}bsGoods/delGoods.do",
 		{
-			"typeId" : typeId
+			"goodsId" : id
 		},
 		function(result){
 			if(callback){
@@ -53,8 +53,8 @@ $(function(){
 	
 	//删除
 	$(".remove").die("click").live("click", function(){
-		var typeId = $(this).attr("id");
-		removeType(typeId, $(this), function(result){
+		var goodsId = $(this).attr("id");
+		removeGoods(goodsId, $(this), function(result){
 			if(result.status == 1){
 				grid.loadData();
 			}else{
@@ -74,7 +74,7 @@ $(function(){
         }, {
             display: "商品价格",
             name: "price",
-            width: "20%"
+            width: "10%"
         }, {	
             display: "商品数量",
             name: "quantity",
@@ -86,17 +86,17 @@ $(function(){
         }, {	
             display: "商品描述",
             name: "description",
-            width: "40%"
+            width: "25%"
         }, {
             display: '操作',
             name: 'option',
-            width: "30%",
+            width: "25%",
             render: function(items){
             	debugger
             	var operation = "";
-   	        	operation += "<a class='edit' id='" + items.goods_type_id + "' href='${basePath}bsGoodsType/AddOrEditgoodsTypePage.do?typeId="
-   	        			+ items.goods_type_id + "'>编辑</a> ";
-   				operation += "<a href='javascript:void(0);' class='remove' id='" + items.goods_type_id + "'>删除</a> ";
+   	        	operation += "<a class='edit' id='" + items.goods_id + "' href='${basePath}bsGoods/addOrEditGoodsPage.do?goodsId="
+   	        			+ items.goods_id + "'>编辑</a> ";
+   				operation += "<a href='javascript:void(0);' class='remove' id='" + items.goods_id + "'>删除</a> ";
     	        return operation;	
             }
         }],

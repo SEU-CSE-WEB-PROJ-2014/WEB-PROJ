@@ -7,6 +7,7 @@ import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import com.easygo.common.utils.BusinessException;
 import com.easygo.common.utils.dao.QueryResult;
@@ -23,7 +24,7 @@ public class GoodsService {
 	public String addOrEditAppGoods(String goodsId, String goodsName, Double price, Integer quantity, String description, Integer goodsTypeId)
 	{
 		AppGoods goods = null;
-		if(goodsId != null){				//typeId不为空，表示编辑
+		if(StringUtils.isNotEmpty(goodsId)){				//typeId不为空，表示编辑
 			goods = this.appGoodsDao.get(goodsId);	//通过dao层获取数据库层的bo对象
 			if(goods == null){
 				throw new BusinessException("商品不存在，goodsId：" + goodsId);
@@ -90,5 +91,10 @@ public class GoodsService {
 		QueryResult<Map> br = this.appGoodsDao.doSQLQuery(sql, params);
 		
 		return br;
+	}
+	
+	public AppGoods getGoods(String goodsId){
+		Assert.notNull(goodsId);
+		return this.appGoodsDao.get(goodsId);
 	}
 }
