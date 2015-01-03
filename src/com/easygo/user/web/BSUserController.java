@@ -62,4 +62,19 @@ public class BSUserController {
 		//TODO: 调用service层方法,删除对应userIds的用户
 		user.batchDelUser(userIds);
 	}
+	
+	@RequestMapping("/myOrder.do")
+	public ModelAndView myOrder(
+			@RequestParam String userId,
+			@RequestParam(required=false) Integer pageSize,
+			@RequestParam(required=false) Integer pageNum){
+		
+		SearchResult<Map> rs=user.myOrder(userId, pageSize, pageNum);
+		
+		Map Result = new HashMap<String,Object>();
+		Result.put("pageObject", rs);
+		return new ModelAndView("",Result);
+		
+		
+	}
 }

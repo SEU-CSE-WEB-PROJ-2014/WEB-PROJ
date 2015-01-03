@@ -50,7 +50,7 @@ public class GoodsService {
 //		List<AppGoods> list = (List<AppGoods>)this.appGoodsDao.findByParams("select from app_goods g where g.goods_id = :goodsIds", params);
 	}
 	
-	public SearchResult<Map> searchAppGoods(String goodsName, Integer goodsTypeId, Double minPrice, Double maxPrice,Integer pageSize, Integer pageNum)
+	public SearchResult<Map> searchAppGoods(String goodsName, Integer goodsTypeId, Double minPrice, Double maxPrice, Integer pageSize, Integer pageNum)
 	{
 		Map params = new HashMap<String, Object>();
 		
