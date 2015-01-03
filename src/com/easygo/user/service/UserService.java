@@ -126,11 +126,11 @@ public class UserService {
 	
 	public SearchResult<Map> searchUser(String name, String roleId, String email, Integer pageSize, Integer pageNum){
 		Map params = new HashMap<String, Object>();
-		String sql = "select * from core_user u where 1=1";
+		String sql = "select * from core_user u where 1=1 and u.state=1 ";
 		
 		if(StringUtils.isNotEmpty(name)){
-			sql += " and (u.login_name like '%:name%' or u.nick_name like '%:name%')";
-			params.put("name", name);
+			sql += " and (u.login_name like :name or u.nick_name like :name)";
+			params.put("name", "%"+name+"%");
 		}
 		if(StringUtils.isNotEmpty(roleId)){
 			sql += " and u.role_id = :roleId";
@@ -143,5 +143,10 @@ public class UserService {
 		
 		SearchResult<Map> rs = this.userDao.doSQLSearch(sql, params, pageSize, pageNum);
 		return rs;
+	}
+	
+	public CoreUser getUser(String userId){
+		Assert.notNull(userId);
+		return this.userDao.get(userId);
 	}
 }

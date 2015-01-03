@@ -12,24 +12,32 @@
 
 <div>
 	<div class="search-type">
-		<label><input type="text" value="" class="type-name-sea" placeHolder="输入种类名称"/></label>
+		<label><input type="text" value="" class="user-name-sea" placeHolder="输入登录名/昵称"/></label>
+		<label><input type="text" value="" class="email-sea" placeHolder="输入email地址"/></label>
+		<label>
+			<input type="radio" name="roleId" value="" checked="checked">不限制
+			<input type="radio" name="roleId" value="ID000">管理员
+			<input type="radio" name="roleId" value="ID001">商品管理员
+			<input type="radio" name="roleId" value="ID002">网购用户
+			<input type="radio" name="roleId" value="ID003">订单管理员
+		</label>
 		<a class="search" href="javascript:void(0);">查询</a>
 	</div>
-	
+
 	<div class="goods-type-grid">
 	</div>
 	
 	<div class="options">
-		<a class="add-btn" href="${basePath}bsGoods/addOrEditGoodsPage.do">新增</a>
+		<a class="add-btn" href="${basePath}bsUser/addOrEditUserPage.do">新增</a>
 	</div>
 </div>
 
 <script type="text/javascript">
-function removeGoods(id, obj, callback){
+function removeUser(id, obj, callback){
 	$.post(
-		"${basePath}bsGoods/delGoods.do",
+		"${basePath}bsUser/delUser.do",
 		{
-			"goodsId" : id
+			"userId" : id
 		},
 		function(result){
 			if(callback){
@@ -43,6 +51,28 @@ function removeGoods(id, obj, callback){
 
 var grid = null;
 $(function(){
+	$(".search").click(function(){
+		var name= $(".user-name-sea").val();
+		var roleId= $("input[name='roleId']:checked").val();
+		var email= $(".email-sea").val();
+		grid.setOptions({
+            parms: [
+       			{
+	                name: "name",
+	                value: name
+            	},{
+	                name: "roleId",
+	                value: roleId
+            	},
+            	{
+	                name: "email",
+	                value: email
+            	}
+            ]
+        });
+		grid.loadData();
+	});
+	
 	//新增
 	$(".add-btn").fancybox({
 		width:600,
@@ -54,8 +84,8 @@ $(function(){
 	
 	//删除
 	$(".remove").die("click").live("click", function(){
-		var goodsId = $(this).attr("id");
-		removeGoods(goodsId, $(this), function(result){
+		var id = $(this).attr("id");
+		removeUser(id, $(this), function(result){
 			if(result.status == 1){
 				grid.loadData();
 			}else{
@@ -69,40 +99,65 @@ $(function(){
 	grid = $(".goods-type-grid").ligerGrid({
         className: "goods-type-grid",//将l-grid层高强制自动
         columns: [{
-            display: "商品名称",
-            name: "goods_name",
-            width: "20%"
+            display: "登录名",
+            name: "login_name",
+            width: "15%"
         }, {
-            display: "商品价格",
-            name: "price",
-            width: "10%"
+            display: "昵称",
+            name: "nick_name",
+            width: "15%"
         }, {	
-            display: "商品数量",
+            display: "性别",
             name: "quantity",
-            width: "10%"
+            width: "10%",
+            render: function(items){
+            	if(items.sex == 0){
+            		return "男";
+            	}else if(items.sex == 1){
+            		return "女";
+            	}else{
+            		return "";
+            	}
+            }
         }, {	
-            display: "商品类型",
+            display: "角色",
             name: "type_name",
-            width: "10%"
+            width: "10%",
+            render: function(items){
+            	if(items.role_id == "ID000"){
+            		return "管理员";
+            	}else if(items.role_id == "ID001"){
+            		return "商品管理员";
+            	}else if(items.role_id == "ID002"){
+            		return "网购用户";
+            	}else if(items.role_id == "ID003"){
+            		return "订单管理员";
+            	}
+            	return "错误的身份";
+            }
         }, {	
-            display: "商品描述",
-            name: "description",
-            width: "25%"
+            display: "email",
+            name: "email",
+            width: "15%"
+        }, {	
+            display: "地址",
+            name: "address",
+            width: "15%"
         }, {
             display: '操作',
             name: 'option',
-            width: "25%",
+            width: "20%",
             render: function(items){
             	var operation = "";
-   	        	operation += "<a class='edit' id='" + items.goods_id + "' href='${basePath}bsGoods/addOrEditGoodsPage.do?goodsId="
-   	        			+ items.goods_id + "'>编辑</a> ";
-   				operation += "<a href='javascript:void(0);' class='remove' id='" + items.goods_id + "'>删除</a> ";
+   	        	operation += "<a class='edit' id='" + items.user_id + "' href='${basePath}bsUser/addOrEditUserPage.do?userId="
+   	        			+ items.user_id + "'>编辑</a> ";
+   				operation += "<a href='javascript:void(0);' class='remove' id='" + items.user_id + "'>删除</a> ";
     	        return operation;	
             }
         }],
         root: 'pageObject',
         record: 'totalCount',
-        url: '${basePath}bsGoods/goodsGrid.do',
+        url: '${basePath}bsUser/userGrid.do',
         isScroll: false,
         width: "100%",
         checkbox: true,

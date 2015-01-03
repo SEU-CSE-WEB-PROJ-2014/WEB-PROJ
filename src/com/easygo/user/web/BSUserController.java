@@ -3,6 +3,7 @@ package com.easygo.user.web;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.easygo.common.utils.dao.SearchResult;
+import com.easygo.user.bo.CoreUser;
 import com.easygo.user.service.UserService;
 
 
@@ -45,7 +47,7 @@ public class BSUserController {
 			@RequestParam(required=false) String userId,
 			@RequestParam String loginName,
 			@RequestParam String nickName,
-			@RequestParam String password,
+			@RequestParam(defaultValue="123") String password,		//默认密码123
 			@RequestParam Integer sex,
 			@RequestParam String roleId,
 			@RequestParam String email,
@@ -55,12 +57,24 @@ public class BSUserController {
 		user.addOrEditUser(userId, loginName, nickName, password, sex, roleId, email, address);
 	}
 	
-	@RequestMapping("/batchDelUsers.do")
-	public void batchDelUsers(
-			@RequestParam String[] userIds){
+	@RequestMapping("/addOrEditUserPage.do")
+	public ModelAndView addOrEditUserPage(
+			@RequestParam(required=false) String userId){
+		Map result = new HashMap<String, Object>();
+		if(StringUtils.isNotEmpty(userId)){
+			CoreUser user = this.user.getUser(userId);
+			result.put("user", user);
+		}
+		
+		return new ModelAndView("user/bsUser/addOrEditUser", result);
+	}
+	
+	@RequestMapping("/delUser.do")
+	public void delUser(
+			@RequestParam String userId){
 		
 		//TODO: 调用service层方法,删除对应userIds的用户
-		user.batchDelUser(userIds);
+		user.batchDelUser(new String[]{userId});
 	}
 	
 	@RequestMapping("/myOrder.do")
