@@ -11,6 +11,7 @@
 <div>
 	<div class="search-type">
 		<label><input type="text" value="" class="type-name-sea" placeHolder="输入种类名称"/></label>
+		<a class="search" href="javascript:void(0);">查询</a>
 	</div>
 	
 	<div class="goods-type-grid">
@@ -40,6 +41,18 @@ function removeType(typeId, obj, callback){
 
 var grid = null;
 $(function(){
+	$(".search").click(function(){
+		var typeName= $(".type-name-sea").val();
+		grid.setOptions({
+            parms: [{
+                name: "typeName",
+                value: typeName
+            }]
+        });
+		grid.loadData();
+	});
+	
+	
 	//新增
 	$(".add-btn").fancybox({
 		width:600,
