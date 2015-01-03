@@ -25,6 +25,7 @@ import org.springframework.web.util.UrlPathHelper;
 import org.springframework.web.util.WebUtils;
 
 import com.alibaba.fastjson.JSON;
+import com.easygo.common.utils.dao.SearchResult;
 
 public class EasyGoDispatcherServlet extends DispatcherServlet{
 	private static final UrlPathHelper urlPathHelper = new UrlPathHelper();
@@ -225,7 +226,19 @@ public class EasyGoDispatcherServlet extends DispatcherServlet{
 			Set<Map.Entry<String, Object>> entrySet = model.entrySet();
 			for(Map.Entry<String, Object> entry: entrySet){
 				if(!StringUtils.startsWith(entry.getKey(), BindingResult.MODEL_KEY_PREFIX)){
-					newModel.put(entry.getKey(), entry.getValue());
+					if(entry.getKey().equals("pageObject") 
+							&& entry.getValue() != null 
+							&& entry.getValue() instanceof SearchResult){
+						SearchResult<?> sr = (SearchResult<?>)entry.getValue();
+						newModel.put("pageObject", sr.getResultList());
+						newModel.put("pageSize", sr.getPageSize());
+						newModel.put("pageNum", sr.getPageNum());
+						newModel.put("totalCount", sr.getTotalCount());
+						newModel.put("totalPage", sr.getTotalPage());
+					}else{
+						newModel.put(entry.getKey(), entry.getValue());
+					}
+					
 				}
 			}
 			
