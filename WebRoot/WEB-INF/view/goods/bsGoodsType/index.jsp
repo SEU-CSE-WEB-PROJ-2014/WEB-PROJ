@@ -95,7 +95,6 @@ $(function(){
             name: 'option',
             width: "30%",
             render: function(items){
-            	debugger
             	var operation = "";
    	        	operation += "<a class='edit' id='" + items.goods_type_id + "' href='${basePath}bsGoodsType/AddOrEditgoodsTypePage.do?typeId="
    	        			+ items.goods_type_id + "'>编辑</a> ";

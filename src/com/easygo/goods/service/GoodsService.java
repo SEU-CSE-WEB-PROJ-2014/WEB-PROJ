@@ -72,8 +72,8 @@ public class GoodsService {
 		
 		//判断构造动态条件
 		if(StringUtils.isNotEmpty(goodsName)){
-			sql += " and g.goods_name like '%:goodsName%'";
-			params.put("goodsName", goodsName);
+			sql += " and g.goods_name like :goodsName";
+			params.put("goodsName", "%"+goodsName+"%");
 		}
 		if(goodsTypeId != null){
 			sql += " and g.goods_type_id = :goodsTypeId";

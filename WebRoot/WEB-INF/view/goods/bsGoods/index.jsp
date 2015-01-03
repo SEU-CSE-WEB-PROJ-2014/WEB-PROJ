@@ -11,7 +11,9 @@
 
 <div>
 	<div class="search-type">
-		<label><input type="text" value="" class="type-name-sea" placeHolder="输入种类名称"/></label>
+		<label><input type="text" value="" class="goods-name-sea" placeHolder="输入商品名称"/></label>
+		<label><input type="text" value="" class="min-price-sea" placeHolder="输入最低价格"/></label>
+		<label><input type="text" value="" class="max-price-sea" placeHolder="输入最高价格"/></label>
 		<a class="search" href="javascript:void(0);">查询</a>
 	</div>
 	
@@ -42,6 +44,27 @@ function removeGoods(id, obj, callback){
 
 var grid = null;
 $(function(){
+	$(".search").click(function(){
+		var goodsName= $(".goods-name-sea").val();
+		var minPrice= $(".min-price-sea").val();
+		var maxPrice= $(".max-price-sea").val();
+		grid.setOptions({
+            parms: [
+       			{
+	                name: "goodsName",
+	                value: goodsName
+            	},{
+	                name: "minPrice",
+	                value: minPrice
+            	},
+            	{
+	                name: "maxPrice",
+	                value: maxPrice
+            	}
+            ]
+        });
+		grid.loadData();
+	});
 	//新增
 	$(".add-btn").fancybox({
 		width:600,
@@ -92,7 +115,6 @@ $(function(){
             name: 'option',
             width: "25%",
             render: function(items){
-            	debugger
             	var operation = "";
    	        	operation += "<a class='edit' id='" + items.goods_id + "' href='${basePath}bsGoods/addOrEditGoodsPage.do?goodsId="
    	        			+ items.goods_id + "'>编辑</a> ";
