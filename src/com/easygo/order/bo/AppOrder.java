@@ -1,6 +1,8 @@
 package com.easygo.order.bo;
 
 import java.sql.Timestamp;
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,11 +27,12 @@ public class AppOrder implements java.io.Serializable {
 	private Integer state;
 	private Integer payState;
 	private Integer transState;
-	private Timestamp createTime;
-	private Timestamp payTime;
-	private Timestamp transTime;
-	private Timestamp signTime;
+	private Date createTime;
+	private Date payTime;
+	private Date transTime;
+	private Date signTime;
 	private Integer signState;
+	private String invoiceNum;
 
 	// Constructors
 
@@ -105,7 +108,7 @@ public class AppOrder implements java.io.Serializable {
 		this.quantity = quantity;
 	}
 
-	@Column(name = "totalPrice", nullable = false, precision = 22, scale = 0)
+	@Column(name = "total_price", nullable = false, precision = 22, scale = 0)
 	public Double getTotalPrice() {
 		return this.totalPrice;
 	}
@@ -142,38 +145,38 @@ public class AppOrder implements java.io.Serializable {
 	}
 
 	@Column(name = "create_time", length = 19)
-	public Timestamp getCreateTime() {
+	public Date getCreateTime() {
 		return this.createTime;
 	}
 
-	public void setCreateTime(Timestamp createTime) {
+	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
 	}
 
 	@Column(name = "pay_time", length = 19)
-	public Timestamp getPayTime() {
+	public Date getPayTime() {
 		return this.payTime;
 	}
 
-	public void setPayTime(Timestamp payTime) {
+	public void setPayTime(Date payTime) {
 		this.payTime = payTime;
 	}
 
 	@Column(name = "trans_time", length = 19)
-	public Timestamp getTransTime() {
+	public Date getTransTime() {
 		return this.transTime;
 	}
 
-	public void setTransTime(Timestamp transTime) {
+	public void setTransTime(Date transTime) {
 		this.transTime = transTime;
 	}
 
 	@Column(name = "sign_time", length = 19)
-	public Timestamp getSignTime() {
+	public Date getSignTime() {
 		return this.signTime;
 	}
 
-	public void setSignTime(Timestamp signTime) {
+	public void setSignTime(Date signTime) {
 		this.signTime = signTime;
 	}
 
@@ -185,5 +188,15 @@ public class AppOrder implements java.io.Serializable {
 	public void setSignState(Integer signState) {
 		this.signState = signState;
 	}
+	
+	@Column(name = "invoice_num", length = 50)
+	public String getInvoiceNum() {
+		return invoiceNum;
+	}
 
+	public void setInvoiceNum(String invoiceNum) {
+		this.invoiceNum = invoiceNum;
+	}
+
+	
 }

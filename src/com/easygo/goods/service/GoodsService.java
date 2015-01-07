@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -108,5 +109,15 @@ public class GoodsService {
 	public AppGoods getGoods(String goodsId){
 		Assert.notNull(goodsId);
 		return this.appGoodsDao.get(goodsId);
+	}
+	
+	public Map[] goodsInfoFormat(String[] ids){
+		if(ArrayUtils.isEmpty(ids)){
+			return null;
+		}
+		Map params = new HashMap<String, Object>();
+		params.put("ids", ids);
+		QueryResult<Map> qr = this.appGoodsDao.doNamedSQLQuery("AppGoods.goodsInfoFormat", params);
+		return qr.toArray();
 	}
 }

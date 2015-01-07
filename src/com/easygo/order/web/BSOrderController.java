@@ -72,9 +72,17 @@ public class BSOrderController {
     	
     }
     
+    @RequestMapping("/deliverGoodsPage.do")
+    public ModelAndView deliverGoodsPage(@RequestParam String orderId){
+    	Map result = new HashMap<String, Object>();
+    	result.put("orderId", orderId);
+    	
+    	return new ModelAndView("order/bsOrder/deliverGoods", result);
+    }
+    
     @RequestMapping("/deliverGoods.do")
-    public void deliverGoods(@RequestParam String orderId){
-    	appOrder.deliverGoods(orderId);
+    public void deliverGoods(@RequestParam String orderId, @RequestParam String invoiceNum){
+    	appOrder.deliverGoods(orderId, invoiceNum);
     }
     
     @RequestMapping("/signOrder.do")

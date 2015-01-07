@@ -1,11 +1,13 @@
 package com.easygo.order.service;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import com.easygo.common.utils.dao.QueryResult;
 import com.easygo.common.utils.dao.SearchResult;
@@ -68,13 +70,20 @@ public class AppOrderService {
 	}
 	
 	
-	public void deliverGoods(String orderId){
-		setOrderTransState(orderId,1);
-		Timestamp transTime=new Timestamp(System.currentTimeMillis());
-		Map params=new HashMap<String,Object>();
-		params.put("orderId", orderId);
-		params.put("transTime", transTime);
-		this.appOrderDao.bulkUpdate("update AppOrder order set order.transTime = :transTime where order.orderId = :orderId", params);
+	public void deliverGoods(String orderId, String invoiceNum){
+//		setOrderTransState(orderId,1);
+//		Timestamp transTime=new Timestamp(System.currentTimeMillis());
+//		Map params=new HashMap<String,Object>();
+//		params.put("orderId", orderId);
+//		params.put("transTime", transTime);
+//		this.appOrderDao.bulkUpdate("update AppOrder order set order.transTime = :transTime where order.orderId = :orderId", params);
+		Assert.notNull(orderId);
+		Assert.notNull(invoiceNum);
+		AppOrder order = this.appOrderDao.get(orderId);
+		order.setTransTime(new Date());
+		order.setTransState(1);
+		order.setInvoiceNum(invoiceNum);
+		this.appOrderDao.update(order);
 	}
 	
 	public void signOrder(String orderId){
@@ -101,25 +110,27 @@ public class AppOrderService {
 	}
 	
 	public SearchResult<Map> searchAppOrder(Integer payState, Integer transState, Integer signState, Integer pageSize, Integer pageNum){
-		String sql = "select * from app_order order where 1=1";
+		String sql = "select o.*, g.goods_name, u.nick_name, u.address from app_order o inner join app_goods g on g.goods_id = o.goods_id inner join core_user u on u.user_id = o.user_id where 1=1";
 		Map params = new HashMap<Integer, Object>();
 		
 		if(payState != null){
-			sql += " and order.pay_state = :payState";
+			sql += " and o.pay_state = :payState";
 			params.put("payState", payState);
 		}
 		if(transState != null){
-			sql += " and order.trans_state = :transState";
+			sql += " and o.trans_state = :transState";
 			params.put("transState", transState);
 		}
 		if(signState != null){
-			sql += " and order.sign_state = :signState";
+			sql += " and o.sign_state = :signState";
 			params.put("signState", signState);
 		}
 		
 		SearchResult<Map> rs = this.appOrderDao.doSQLSearch(sql, params, pageSize, pageNum);
 		return rs;
 	}
+	
+	
 }
 
  
