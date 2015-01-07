@@ -71,12 +71,6 @@ public class AppOrderService {
 	
 	
 	public void deliverGoods(String orderId, String invoiceNum){
-//		setOrderTransState(orderId,1);
-//		Timestamp transTime=new Timestamp(System.currentTimeMillis());
-//		Map params=new HashMap<String,Object>();
-//		params.put("orderId", orderId);
-//		params.put("transTime", transTime);
-//		this.appOrderDao.bulkUpdate("update AppOrder order set order.transTime = :transTime where order.orderId = :orderId", params);
 		Assert.notNull(orderId);
 		Assert.notNull(invoiceNum);
 		AppOrder order = this.appOrderDao.get(orderId);

@@ -11,15 +11,28 @@
 
 <div>
 	<div class="search-type">
+		<li>
+			<label>付款状态</label>
+			<input type="radio" name="payState" value="" checked="checked">不限
+			<input type="radio" name="payState" value="0">未付款
+			<input type="radio" name="payState" value="1">已付款
+		</li>
+		<li>
+			<label>发货状态</label>
+			<input type="radio" name="transState" value="" checked="checked">不限
+			<input type="radio" name="transState" value="0">未发货
+			<input type="radio" name="transState" value="1">已发货
+		</li>
+		<li>
+			<label>签收状态</label>
+			<input type="radio" name="signState" value="" checked="checked">不限
+			<input type="radio" name="signState" value="0">未签收
+			<input type="radio" name="signState" value="1">已签收
+		</li>
+		
 		<%--<label><input type="text" value="" class="user-name-sea" placeHolder="输入登录名/昵称"/></label>
 		<label><input type="text" value="" class="email-sea" placeHolder="输入email地址"/></label>
-		<label>
-			<input type="radio" name="roleId" value="" checked="checked">不限制
-			<input type="radio" name="roleId" value="ID000">管理员
-			<input type="radio" name="roleId" value="ID001">商品管理员
-			<input type="radio" name="roleId" value="ID002">网购用户
-			<input type="radio" name="roleId" value="ID003">订单管理员
-		</label>
+		
 		--%><a class="search" href="javascript:void(0);">查询</a>
 	</div>
 
@@ -35,21 +48,21 @@
 var grid = null;
 $(function(){
 	$(".search").click(function(){
-		var name= $(".user-name-sea").val();
-		var roleId= $("input[name='roleId']:checked").val();
-		var email= $(".email-sea").val();
+		var payState= $("input[name='payState']:checked").val();
+		var transState= $("input[name='transState']:checked").val();
+		var signState= $("input[name='signState']:checked").val();
 		grid.setOptions({
             parms: [
        			{
-	                name: "name",
-	                value: name
+	                name: "payState",
+	                value: payState
             	},{
-	                name: "roleId",
-	                value: roleId
+	                name: "transState",
+	                value: transState
             	},
             	{
-	                name: "email",
-	                value: email
+	                name: "signState",
+	                value: signState
             	}
             ]
         });

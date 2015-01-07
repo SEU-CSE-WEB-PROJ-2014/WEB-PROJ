@@ -69,7 +69,6 @@ public class BSOrderController {
     @RequestMapping("/payOrder.do")
     public void payOrder(@RequestParam String orderId){
     	appOrder.payOrder(orderId);
-    	
     }
     
     @RequestMapping("/deliverGoodsPage.do")
