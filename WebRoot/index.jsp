@@ -1,8 +1,10 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ page import="com.easygo.common.utils.Constant" %>
 <%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-request.setAttribute("basePath", basePath);
+	String path = request.getContextPath();
+	String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+	request.setAttribute("basePath", basePath);
+	request.setAttribute("homePage", Constant.HOME_PAGE);
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -19,5 +21,5 @@ request.setAttribute("basePath", basePath);
   </head>
 </html>
 <script type="text/javascript">
-	window.location="home/index.do";
+	window.location="${homePage}";
 </script>

@@ -41,4 +41,10 @@ public final class Constant {
 	 * controller方法异常时返回出错提示变量的名称
 	 */
 	public static final String MSG_NAME = "msg";
+	
+	
+	/**
+	 * 网站主页
+	 */
+	public static final String HOME_PAGE = "goods/searchGoods.do";
 }
