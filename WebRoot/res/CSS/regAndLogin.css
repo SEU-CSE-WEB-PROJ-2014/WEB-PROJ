@@ -13,3 +13,7 @@
 li{
 	list-style-type : none;
 }
+
+label{
+	width:40px;
+}
