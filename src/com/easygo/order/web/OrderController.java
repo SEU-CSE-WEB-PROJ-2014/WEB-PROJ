@@ -1,12 +1,17 @@
 package com.easygo.order.web;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.easygo.common.utils.BusinessException;
+import com.easygo.common.utils.dao.SearchResult;
 import com.easygo.common.utils.userManager.UserManager;
 import com.easygo.order.service.AppOrderService;
 
@@ -30,13 +35,34 @@ public class OrderController {
 	
 	
 	@RequestMapping("/myOrder.do")
-	public void myOrder(){
+	public ModelAndView myOrder(
+			@RequestParam(required=false) Integer payState,
+			@RequestParam(required=false) Integer transState,
+			@RequestParam(required=false) Integer signState,
+			@RequestParam(required=false) Integer pageSize,
+			@RequestParam(required=false) Integer pageNum){
 		String userId = UserManager.getCurrentUserId();
 		if(StringUtils.isEmpty(userId)){
 			throw new BusinessException("您尚未登录");
 		}
+		
+		Map result = new HashMap<String, Object>();
+		SearchResult<Map> sr = this.orderService.searchAppOrder(payState, transState, signState, pageSize, pageNum);
+		result.put("pageObject", sr);
+		return new ModelAndView("order/orderList", result);
 	}
 	
+	@RequestMapping("/myOrderPage.do")
+	public ModelAndView myOrderPage(){
+		String userId = UserManager.getCurrentUserId();
+		if(StringUtils.isEmpty(userId)){
+			throw new BusinessException("您尚未登录");
+		}
+		Map result = new HashMap<String, Object>();
+		SearchResult<Map> sr = this.orderService.searchAppOrder(null, null, null, null, null);
+		result.put("pageObject", sr);
+		return new ModelAndView("order/myOrder", result);
+	}
 	
 	@RequestMapping("/setOrderTransState.do")
 	public void setOrderTransState(

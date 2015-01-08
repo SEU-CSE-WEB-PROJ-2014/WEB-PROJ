@@ -1,12 +1,8 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8" session="false"%>
 <%@ include file="includes.jsp" %>
 <%@ page import="com.easygo.user.bo.*" %>
-<%@ page import="com.easygo.common.utils.userManager.*" %>
 
-<%
-	LoginUser curUser = UserManager.getCurrentUser();
-	request.setAttribute("curUser", curUser);
-%>
+
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
@@ -38,11 +34,11 @@
 				<c:if test="${curUser.hasBackstageAuth}">
 					<a href="${basePath}home/backstageIndex.do">后台管理</a>
 				</c:if>
-				
+				<a href="${contextPath}/order/myOrderPage.do" class="my-order">我的订单</a>
 				<a href="javascript:void(0);" class="logout">注销</a>
 			</c:when>
 			<c:otherwise>
-				<a href="${basePath}user/loginPage.do" class="login">登陆</a>
+				<a href="${basePath}user/loginPage.do" class="login">登录</a>
 	   	 		<a href="${basePath}user/regUserPage.do" class="register">注册</a>
 			</c:otherwise>
 		</c:choose>

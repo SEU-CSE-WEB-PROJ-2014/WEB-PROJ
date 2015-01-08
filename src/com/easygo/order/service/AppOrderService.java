@@ -37,7 +37,7 @@ public class AppOrderService {
 			
 			Timestamp createTime=new Timestamp(System.currentTimeMillis());
 			
-			insertOrder(goodsId,userId,newQuantity,totalPrice,createTime);
+			insertOrder(goodsId,userId,quantity,totalPrice,createTime);
 			
 		}
 	}
@@ -107,7 +107,7 @@ public class AppOrderService {
 	}
 	
 	public SearchResult<Map> searchAppOrder(Integer payState, Integer transState, Integer signState, Integer pageSize, Integer pageNum){
-		String sql = "select o.*, g.goods_name, u.nick_name, u.address from app_order o inner join app_goods g on g.goods_id = o.goods_id inner join core_user u on u.user_id = o.user_id where 1=1";
+		String sql = "select o.*, g.goods_name, g.price, u.nick_name, u.address from app_order o inner join app_goods g on g.goods_id = o.goods_id inner join core_user u on u.user_id = o.user_id where 1=1";
 		Map params = new HashMap<Integer, Object>();
 		
 		if(payState != null){
