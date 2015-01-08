@@ -22,12 +22,16 @@ public class AppOrderService {
 	private AppOrderDao appOrderDao;
 	
 	public void addOrder(String goodsId, String userId, Integer quantity){
-
-		
 		QueryResult<Map> result = (QueryResult<Map>)Platform.invoke("goodsService", "searchGoodsViaId", Object.class, new Object[]{goodsId});
 		if((Integer)result.getResultList().get(0).get("quantity")>=quantity){
 			Integer newQuantity=(Integer)result.getResultList().get(0).get("quantity")-quantity;
-			Platform.invoke("goodsService", "addOrEditAppGoods", String.class,new Object[]{goodsId,null,null,newQuantity,null,null});
+			
+			String oldGoodsName=(String)result.getResultList().get(0).get("goods_name"); 
+			
+			Double oldPrice=(Double)result.getResultList().get(0).get("price");
+            String oldDescription=(String)result.getResultList().get(0).get("description"); 
+            Integer oldGoodsTypeId=(Integer)result.getResultList().get(0).get("goods_type_id");
+			Platform.invoke("goodsService", "addOrEditAppGoods", String.class,new Object[]{goodsId,oldGoodsName,oldPrice,newQuantity,oldDescription,oldGoodsTypeId});
 			
 			Double totalPrice=(Double)result.getResultList().get(0).get("price")*quantity;
 			
@@ -36,7 +40,6 @@ public class AppOrderService {
 			insertOrder(goodsId,userId,newQuantity,totalPrice,createTime);
 			
 		}
-	
 	}
 	
 	public void insertOrder(String goodsId,String userId, Integer quantity, Double price,Timestamp createTime ){

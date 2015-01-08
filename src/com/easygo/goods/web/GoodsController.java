@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,6 +34,10 @@ public class GoodsController {
 			@RequestParam(required=false) Double minPrice,
 			@RequestParam(required=false) Double maxPrice){
 		Map result = new HashMap<String, Object>();
+		if(StringUtils.isEmpty(goodsName)){
+			goodsName = null;
+		}
+		
 		Map[] types = this.typeService.SearchAppGoodsType(null, Integer.MAX_VALUE, 0).toArray();
 		SearchResult<Map> sr = goodsService.searchAppGoods(goodsName, typeId, minPrice, maxPrice, pageSize, pageNum);
 		result.put("types", types);

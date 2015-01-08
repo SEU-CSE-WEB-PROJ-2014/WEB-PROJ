@@ -12,7 +12,7 @@
 	<div>
 		<c:forEach items="${types}" var="type" varStatus="typeStatus">
 			<a href="javascript:void(0);" title="${type.type_intro}" 
-				class="goods-type <c:if test="${type.type_id == typeId}">selected</c:if>" 
+				class="goods-type <c:if test="${type.goods_type_id == typeId}">selected</c:if>" 
 				typeId="${type.goods_type_id}">${type.type_name}</a>
 		</c:forEach>
 	</div>

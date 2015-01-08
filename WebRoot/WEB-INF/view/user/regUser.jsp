@@ -32,12 +32,14 @@ $(function(){
 		var email = $("#email").val();
 		var password = $("#pwd").val();
 		var nickName = $("#nickName").val();
+		var loginName = nickName;
 		$.post(
 				"${basePath}user/regUser.do",
 				{
 					"email" : email,
 					"password" : password,
-					"nickName" : nickName
+					"nickName" : nickName,
+					"loginName" : loginName
 				},
 				function(result){
 					var status = result.status;
