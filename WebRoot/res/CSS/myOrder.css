@@ -1,0 +1,43 @@
+.my-order-content{
+	margin-top : 30px;
+	width : 680px;
+	color : rgb(51, 51, 51);
+	word-wrap : break-word;
+	font-family : 微软雅黑, 宋体, Arial;
+	display : inline-block;
+	font-size : 14px;
+	margin-left : 200px;
+	padding : 15px;
+	padding-top : 0px;
+	background-color : rgb(250, 250, 250);
+}
+
+.order-type-div li, .order-list-ul li{
+	list-style-type : none;
+	margin : 5px;
+}
+
+.order-type-div li{
+	float : left;
+}
+
+.order-type-div li:hover{
+	text-decoration:underline;
+}
+
+.order-list-ul li{
+	height: 50px;
+	border : 1px solid rgb(145, 206, 190);
+	background : url(breakline.gif) center bottom repeat-x
+}
+
+
+.order-list-ul li .total-price-label{
+	margin-left : 50px;
+}
+
+
+.order-list-ul li .opration{
+	margin-right : 50px;
+	float : right;
+}

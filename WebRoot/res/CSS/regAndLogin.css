@@ -1,0 +1,19 @@
+.login-div, .reg-div{
+	color : rgb(51, 51, 51);
+	word-wrap : break-word;
+	font-family : 微软雅黑, 宋体, Arial;
+	display : inline-block;
+	font-size : 14px;
+	margin-top : 30px;
+	padding : 15px;
+	padding-top : 0px;
+	background-color : rgb(250, 250, 250);
+}
+
+li{
+	list-style-type : none;
+}
+
+label{
+	width:40px;
+}

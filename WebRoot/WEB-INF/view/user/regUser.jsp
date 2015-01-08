@@ -1,12 +1,13 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8" session="false"%>
 <%@ include file="/WEB-INF/common/includes.jsp" %>
 
+<link rel="stylesheet" type="text/css" href="${contextPath}/res/CSS/regAndLogin.css">
 
-<div>
+<div class="reg-div">
     <div>
 	 	<form>
 	     	<ul>
-	     		 <li><h1>请注册</h1></li>
+	     		 <li><h4>请注册</h4></li>
 	             <li><label><b>*</b>邮箱：</label>
 					<input id="email" name="email" type="text" placeholder="请输入有效邮箱"/>
 			     </li>

@@ -1,7 +1,9 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8" session="false"%>
 <%@ include file="/WEB-INF/common/includes.jsp" %>
 
-<div>
+<link rel="stylesheet" type="text/css" href="${contextPath}/res/CSS/regAndLogin.css">
+
+<div class="reg-div">
     <div>
 	 	<form>
 	     	<ul>

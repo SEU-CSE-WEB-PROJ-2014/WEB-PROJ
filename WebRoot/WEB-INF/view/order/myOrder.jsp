@@ -4,15 +4,17 @@
 <!-- 分页插件 -->
 <script type="text/javascript" src="${contextPath}/res/js/pager/jquery.simplePagination.js"></script>
 <link rel="stylesheet" type="text/css" href="${contextPath}/res/js/pager/simplePagination.css">
+<link rel="stylesheet" type="text/css" href="${contextPath}/res/CSS/myOrder.css">
 
 
-<div>
-	<div>
+<div class="my-order-content">
+	<div class="order-type-div">
 		<li class="order-type all-order" payState="" transState="" signState="">所有订单</li>
 		<li class="order-type wait-pay-order" payState="0" transState="" signState="">待付款</li>
 		<li class="order-type wait-deliver-order" payState="1" transState="0" signState="">待发货</li>
 		<li class="order-type wait-sign-order" payState="1" transState="1" signState="0">待签收</li>
 	</div>
+	<br/>
 	<div id="myOrderList">
 	</div>
 </div>
