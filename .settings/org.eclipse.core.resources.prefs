@@ -1,5 +1,14 @@
+<<<<<<< HEAD
 #Thu Jan 08 21:21:47 CST 2015
+=======
+#Thu Jan 08 21:57:57 CST 2015
+>>>>>>> branch 'dev' of git@gitcafe.com:jallenjia/easygo.git
 eclipse.preferences.version=1
 encoding//WebRoot/index.jsp=UTF-8
+<<<<<<< HEAD
 encoding//WebRoot/res/CSS/goodsDetail.css=UTF-8
+=======
+encoding//WebRoot/res/CSS/head2.css=UTF-8
+encoding//WebRoot/res/CSS/searchGoods2.css=UTF-8
+>>>>>>> branch 'dev' of git@gitcafe.com:jallenjia/easygo.git
 encoding/<project>=UTF-8

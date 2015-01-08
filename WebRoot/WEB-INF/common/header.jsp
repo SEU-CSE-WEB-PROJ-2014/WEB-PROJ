@@ -20,7 +20,7 @@
 	<script src="${contextPath}/res/js/jquery.js"></script>
 	<script src="${contextPath}/res/js/fancybox/jquery.fancybox-1.3.1.pack.js"></script>
 	<link rel="stylesheet" type="text/css" href="${contextPath}/res/js/fancybox/fancybox.css"/>
-	<link rel="stylesheet" type="text/css" href="${contextPath}/res/CSS/head.css"/>
+	<link rel="stylesheet" type="text/css" href="${contextPath}/res/CSS/head2.css"/>
   </head>
 </html>
 
@@ -31,7 +31,7 @@
 	<div>
 		<c:choose>
 			<c:when test="${curUser != null}">
-				${curUser.nickName}&nbsp;&nbsp;您好！
+				<div class="hello">${curUser.nickName}&nbsp;&nbsp;您好！</div>
 				<c:if test="${curUser.hasBackstageAuth}">
 					<a class="manager" href="${basePath}home/backstageIndex.do">后台管理</a>
 				</c:if>

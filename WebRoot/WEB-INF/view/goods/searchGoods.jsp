@@ -4,7 +4,7 @@
 <!-- 分页插件 -->
 <script type="text/javascript" src="${contextPath}/res/js/pager/jquery.simplePagination.js"></script>
 <link rel="stylesheet" type="text/css" href="${contextPath}/res/js/pager/simplePagination.css">
-<link rel="stylesheet" type="text/css" href="${contextPath}/res/CSS/searchGoods.css">
+<link rel="stylesheet" type="text/css" href="${contextPath}/res/CSS/searchGoods2.css">
 <!-- 搜索条件 -->
 <div>
 	<a class="searchOverall sea-btn" href="javascript:void(0);">查找</a>
