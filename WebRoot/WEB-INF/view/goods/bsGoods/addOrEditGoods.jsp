@@ -8,7 +8,11 @@
 	<li><label>数量：</label><input type="text" value="${goods.quantity}" placeHolder="输入商品数量" class="quantity"></li>
 	<li><label>商品介绍：</label><textarea class="description">${goods.description}</textarea></li>
 	<li><label>商品种类：</label>
-				
+		<select id="typeId">
+			<c:forEach items="${types}" var="type">
+				<option value="${type.goods_type_id}" <c:if test="${type.goods_type_id == goods.goodsTypeId}">selected</c:if>>${type.type_name}</option>
+			</c:forEach>
+		</select>
 	</li>
 	
 	<input type="button" class="ok-btn" value="确定">
@@ -24,6 +28,7 @@ $(function(){
 		var price = $(".price").val();
 		var quantity = $(".quantity").val();
 		var description = $(".description").val();
+		var typeId = $("#typeId").val();
 		
 		$.post(
 			"${basePath}bsGoods/addOrEditGoods.do",
@@ -33,7 +38,7 @@ $(function(){
 				"price" : price,
 				"quantity" : quantity,
 				"description" : description,
-				"typeId" : ""
+				"typeId" : typeId
 			},
 			function(result){
 				if(result.status == 1){

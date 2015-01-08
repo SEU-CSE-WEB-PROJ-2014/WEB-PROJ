@@ -55,9 +55,13 @@ $(function(){
 	
 	$(".verify-password").fancybox({
 		onStart: function(){
+			$(this);
+			debugger
 			$("#pwdVerifyDiv").show();
 		},
 		onClosed: function(){
+			$(this);
+			debugger
 			$("#pwdVerifyDiv").hide();	
 		}
 	});
