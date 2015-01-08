@@ -126,7 +126,28 @@ public class AppOrderService {
 		SearchResult<Map> rs = this.appOrderDao.doSQLSearch(sql, params, pageSize, pageNum);
 		return rs;
 	}
-	
+	public SearchResult<Map> searchMyOrder(String userId, Integer payState, Integer transState, Integer signState, Integer pageSize, Integer pageNum){
+		String sql = "select g.goods_name, g.description, o.*, gt.type_name, gt.type_intro from app_goods g inner join app_order o on o.goods_id =  g.goods_id inner join app_goods_type gt on gt.goods_type_id = g.goods_type_id where o.user_id = :userId";
+		Map params = new HashMap<Integer, Object>();
+		params.put("userId", userId);
+		
+		if(payState != null){
+			sql += " and o.pay_state = :payState";
+			params.put("payState", payState);
+		}
+		if(transState != null){
+			sql += " and o.trans_state = :transState";
+			params.put("transState", transState);
+		}
+		if(signState != null){
+			sql += " and o.sign_state = :signState";
+			params.put("signState", signState);
+		}
+		
+		sql += " order by o.create_time";
+		SearchResult<Map> rs = this.appOrderDao.doSQLSearch(sql, params, pageSize, pageNum);
+		return rs;
+	}
 	
 }
 

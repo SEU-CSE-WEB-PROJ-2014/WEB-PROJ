@@ -88,8 +88,6 @@ public class BSOrderController {
     public void deliverGoods(@RequestParam String orderId, @RequestParam String invoiceNum){
     	appOrder.deliverGoods(orderId, invoiceNum);
     }
-    
-    
 }
 
    
