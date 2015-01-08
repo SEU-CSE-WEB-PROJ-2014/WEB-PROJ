@@ -24,26 +24,27 @@
 	<script src="${contextPath}/res/js/jquery.js"></script>
 	<script src="${contextPath}/res/js/fancybox/jquery.fancybox-1.3.1.pack.js"></script>
 	<link rel="stylesheet" type="text/css" href="${contextPath}/res/js/fancybox/fancybox.css"/>
+	<link rel="stylesheet" type="text/css" href="${contextPath}/res/CSS/head.css"/>
   </head>
 </html>
 
 
 <!-- header数据 -------------------------------------------------------------------------->
 <div class="header">
-	<a href="${homePage}">首页</a>
+	<a class="firstPage" href="${homePage}">首页</a>
 	<div>
 		<c:choose>
 			<c:when test="${curUser != null}">
 				${curUser.nickName}&nbsp;&nbsp;您好！
 				<c:if test="${curUser.hasBackstageAuth}">
-					<a href="${basePath}home/backstageIndex.do">后台管理</a>
+					<a class="manager" href="${basePath}home/backstageIndex.do">后台管理</a>
 				</c:if>
 				
-				<a href="javascript:void(0);" class="logout">注销</a>
+				<a class="logout" href="javascript:void(0);" class="logout">注销</a>
 			</c:when>
 			<c:otherwise>
-				<a href="${basePath}user/loginPage.do" class="login">登陆</a>
-	   	 		<a href="${basePath}user/regUserPage.do" class="register">注册</a>
+				<a class="login" href="${basePath}user/loginPage.do" class="login">登陆</a>
+	   	 		<a class="reg" href="${basePath}user/regUserPage.do" class="register">注册</a>
 			</c:otherwise>
 		</c:choose>
 	</div>

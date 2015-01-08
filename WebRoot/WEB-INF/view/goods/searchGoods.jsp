@@ -4,20 +4,20 @@
 <!-- 分页插件 -->
 <script type="text/javascript" src="${contextPath}/res/js/pager/jquery.simplePagination.js"></script>
 <link rel="stylesheet" type="text/css" href="${contextPath}/res/js/pager/simplePagination.css">
-
+<link rel="stylesheet" type="text/css" href="${contextPath}/res/CSS/searchGoods.css">
 <!-- 搜索条件 -->
 <div>
-	<a href="javascript:void(0);" class="sea-btn">查找</a>
-	<input type="text" placeHolder="查找商品" class="sea-goods-name">
-	<div>
+	<a class="searchOverall" href="javascript:void(0);" class="sea-btn">查找</a>
+	<input class="searchOverall" type="text" placeHolder="查找商品" class="sea-goods-name">
+	<div class="goodsType">
 		<c:forEach items="${types}" var="type" varStatus="typeStatus">
 			<a href="javascript:void(0);" title="${type.type_intro}" class="goods-type" typeId="${type.type_id}">${type.type_name}</a>
 		</c:forEach>
 	</div>
-	<div>
+	<div >
 		<input type="text" placeHolder="最低价格" class="sea-min-price" value="">
 		<input type="text" placeHolder="最高价格" class="sea-max-price" value="">
-	</div>
+	</div >
 </div>
 
 <!-- 商品列表 -->
