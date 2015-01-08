@@ -25,10 +25,16 @@ public class GoodsController {
 	private GoodsTypeService typeService;
 	
 	@RequestMapping("/searchGoods.do")
-	public ModelAndView searchGoods(){
+	public ModelAndView searchGoods(
+			@RequestParam(required=false) Integer pageSize,
+			@RequestParam(required=false) Integer pageNum,
+			@RequestParam(required=false) String goodsName,
+			@RequestParam(required=false) Integer typeId,
+			@RequestParam(required=false) Double minPrice,
+			@RequestParam(required=false) Double maxPrice){
 		Map result = new HashMap<String, Object>();
 		Map[] types = this.typeService.SearchAppGoodsType(null, Integer.MAX_VALUE, 0).toArray();
-		SearchResult<Map> sr = this.goodsService.searchAppGoods(null, null, null, null, null, null);
+		SearchResult<Map> sr = goodsService.searchAppGoods(goodsName, typeId, minPrice, maxPrice, pageSize, pageNum);
 		
 		result.put("pageObject", sr);
 		result.put("types", types);

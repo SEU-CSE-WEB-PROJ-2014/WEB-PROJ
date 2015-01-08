@@ -34,13 +34,12 @@ function searchGoods(pageNum){
 	}
 	var minPrice = $(".sea-min-price").val();
 	var maxPrice = $(".sea-max-price").val();
-	$("#goodsList").load("${basePath}goods/goodsList.do",{
-		"pageNum":pageNum,
-		"goodsName":goodsName,
-		"typeId":typeId,
-		"minPrice":minPrice,
-		"maxPrice":maxPrice
-	});
+	window.location.href = "${basePath}goods/searchGoods.do?"
+		+ "pageNum=" + pageNum
+		+ "&goodsName=" + goodsName
+		+ "&typeId=" + typeId
+		+ "&minPrice=" + minPrice
+		+ "&maxPrice=" + maxPrice;
 }
 
 $(function(){

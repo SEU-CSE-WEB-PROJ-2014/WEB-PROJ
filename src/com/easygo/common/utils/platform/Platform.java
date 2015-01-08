@@ -30,7 +30,7 @@ public class Platform {
 				} catch (IllegalAccessException e) {
 					throw new BusinessException("invoke调用权限不匹配", e);
 				} catch (InvocationTargetException e) {
-					throw new BusinessException("invoke调用目标类型错误", e);
+					throw new BusinessException("方法运行出错:" + e.getTargetException().getMessage(), e);
 				}
 			}
 		}
