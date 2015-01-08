@@ -39,8 +39,8 @@
 				<a class="logout" href="javascript:void(0);" class="logout">注销</a>
 			</c:when>
 			<c:otherwise>
-				<a class="login" href="${basePath}user/loginPage.do" class="login">登陆</a>
-	   	 		<a class="reg" href="${basePath}user/regUserPage.do" class="register">注册</a>
+				<a class="login" href="${basePath}user/loginPage.do">登陆</a>
+	   	 		<a class="reg register" href="${basePath}user/regUserPage.do">注册</a>
 			</c:otherwise>
 		</c:choose>
 	</div>
