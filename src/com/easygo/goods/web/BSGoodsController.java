@@ -14,12 +14,15 @@ import com.easygo.common.utils.dao.QueryResult;
 import com.easygo.common.utils.dao.SearchResult;
 import com.easygo.goods.bo.AppGoods;
 import com.easygo.goods.service.GoodsService;
+import com.easygo.goods.service.GoodsTypeService;
 
 @Controller("bsGoods")
 @RequestMapping("/bsGoods")
 public class BSGoodsController {
 	@Autowired
 	private GoodsService goods;
+	@Autowired
+	private GoodsTypeService typeSearvice;
 	
 	@RequestMapping("/index.do")
 	public ModelAndView index(){
@@ -76,6 +79,8 @@ public class BSGoodsController {
 			AppGoods goods = this.goods.getGoods(goodsId);
 			result.put("goods", goods);
 		}
+		Map[] types = this.typeSearvice.SearchAppGoodsType(null, Integer.MAX_VALUE, 0).toArray();
+		result.put("types", types);
 		
 		return new ModelAndView("goods/bsGoods/addOrEditGoods", result);
 	}

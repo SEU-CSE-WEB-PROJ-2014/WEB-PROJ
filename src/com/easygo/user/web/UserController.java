@@ -29,9 +29,6 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
-	
-	
-	
 	@RequestMapping("/loginPage.do")
 	public ModelAndView loginPage(){
 		
@@ -69,6 +66,7 @@ public class UserController {
 			HttpServletRequest request, HttpServletResponse response) throws Exception{
 
 		userService.addOrEditUser(null, loginName, nickName, password, sex, LoginUser.ROLE_ID_USERS, email, address);
-
 	}
+	
+	
 }

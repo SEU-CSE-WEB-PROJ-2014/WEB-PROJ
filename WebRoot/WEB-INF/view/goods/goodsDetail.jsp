@@ -22,9 +22,18 @@ $(function(){
 		var quantity = $(".buy-quantity").val();
 		
 		$.post(
-			"${contextPath}/",
-			{},
-			function(){},
+			"${contextPath}/order/order.do",
+			{
+				goodsId : goodsId,
+				quantity : quantity
+			},
+			function(result){
+				if(result.status == 1){
+					alert("下单成功");
+				}else{
+					alert("下单失败：\n" + result.msg);
+				}
+			},
 			"json"
 		);
 	});

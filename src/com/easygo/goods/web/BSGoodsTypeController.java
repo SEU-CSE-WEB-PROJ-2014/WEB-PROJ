@@ -34,8 +34,8 @@ public class BSGoodsTypeController {
 		Map result = new HashMap<String, Object>();
 		
 		//TODO: result里放分页的goodsType数据
-		SearchResult<Map> rs = goodsType.SearchAppGoodsType(typeName, pageSize, pageNum);
-		result.put("pageObject", rs);
+		SearchResult<Map> sr = goodsType.SearchAppGoodsType(typeName, pageSize, pageNum);
+		result.put("pageObject", sr);
 		
 		return new ModelAndView("", result);
 	}

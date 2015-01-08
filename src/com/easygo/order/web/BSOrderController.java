@@ -34,7 +34,7 @@ public class BSOrderController {
 		Map result = new HashMap<String, Object>();
 		
 		//调用service层,返回分页用户数据:
-		SearchResult<Map> rs = appOrder.searchAppOrder(payState, transState, signState, pageSize, pageNum);
+		SearchResult<Map> rs = appOrder.searchAppOrder(null, payState, transState, signState, pageSize, pageNum);
 		result.put("pageObject", rs);
 		return new ModelAndView("", result);
 	}
@@ -52,7 +52,6 @@ public class BSOrderController {
 	public void batchCancelOrder(
 			@RequestParam String[] orders){
 		
-		//TODO: 调用service层方法,删除对应userIds的用户
 		appOrder.batchCancelOrder(orders);
 	}
 	
@@ -71,6 +70,12 @@ public class BSOrderController {
     	appOrder.payOrder(orderId);
     }
     
+    
+    @RequestMapping("/signOrder.do")
+    public void signOrder(@RequestParam String orderId){
+    	appOrder.signOrder(orderId);
+    }
+    
     @RequestMapping("/deliverGoodsPage.do")
     public ModelAndView deliverGoodsPage(@RequestParam String orderId){
     	Map result = new HashMap<String, Object>();
@@ -82,11 +87,6 @@ public class BSOrderController {
     @RequestMapping("/deliverGoods.do")
     public void deliverGoods(@RequestParam String orderId, @RequestParam String invoiceNum){
     	appOrder.deliverGoods(orderId, invoiceNum);
-    }
-    
-    @RequestMapping("/signOrder.do")
-    public void signOrder(@RequestParam String orderId){
-    	appOrder.signOrder(orderId);
     }
 }
 

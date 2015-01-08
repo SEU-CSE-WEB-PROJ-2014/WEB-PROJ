@@ -173,7 +173,7 @@ if (typeof (LigerUIManagers) == "undefined") LigerUIManagers = {};
                 {
                     if (p.usePager)
                     {
-                        param.push({ name: p.pageParmName, value: p.newPage });
+                        param.push({ name: p.pageParmName, value: p.newPage - 1});
                         param.push({ name: p.pagesizeParmName, value: p.pageSize });
                     }
                     if (p.sortName)

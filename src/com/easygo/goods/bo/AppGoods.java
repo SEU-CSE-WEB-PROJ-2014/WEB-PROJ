@@ -90,7 +90,7 @@ public class AppGoods implements java.io.Serializable {
 		this.quantity = quantity;
 	}
 
-	@Column(name = "description", nullable = false)
+	@Column(name = "description")
 	public String getDescription() {
 		return this.description;
 	}

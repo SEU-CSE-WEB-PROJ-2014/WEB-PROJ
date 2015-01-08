@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,13 +26,28 @@ public class GoodsController {
 	private GoodsTypeService typeService;
 	
 	@RequestMapping("/searchGoods.do")
-	public ModelAndView searchGoods(){
+	public ModelAndView searchGoods(
+			@RequestParam(required=false) Integer pageSize,
+			@RequestParam(required=false) Integer pageNum,
+			@RequestParam(required=false) String goodsName,
+			@RequestParam(required=false) Integer typeId,
+			@RequestParam(required=false) Double minPrice,
+			@RequestParam(required=false) Double maxPrice){
 		Map result = new HashMap<String, Object>();
+		if(StringUtils.isEmpty(goodsName)){
+			goodsName = null;
+		}
+		
 		Map[] types = this.typeService.SearchAppGoodsType(null, Integer.MAX_VALUE, 0).toArray();
-		SearchResult<Map> sr = this.goodsService.searchAppGoods(null, null, null, null, null, null);
+		SearchResult<Map> sr = goodsService.searchAppGoods(goodsName, typeId, minPrice, maxPrice, pageSize, pageNum);
+		result.put("types", types);
 		
 		result.put("pageObject", sr);
-		result.put("types", types);
+		result.put("goodsName", goodsName);
+		result.put("typeId", typeId);
+		result.put("minPrice", minPrice);
+		result.put("maxPrice", maxPrice);
+		
 		return new ModelAndView("goods/searchGoods", result);
 	}
 	
