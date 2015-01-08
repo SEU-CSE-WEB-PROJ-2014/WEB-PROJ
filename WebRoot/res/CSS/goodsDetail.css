@@ -1,0 +1,30 @@
+.goods-detail-content{
+	width : 680px;
+	color : rgb(51, 51, 51);
+	word-wrap : break-word;
+	font-family : 微软雅黑, 宋体, Arial;
+	display : inline-block;
+	font-size : 14px;
+	margin-left : 200px;
+	padding : 15px;
+	padding-top : 0px;
+	background-color : rgb(250, 250, 250);
+}
+
+.goods-detail-content .goods-name-and-type{
+	background-color : rgb(145, 206, 190);
+	color : rgb(255, 255, 255);
+	width : 200px;
+	height : 70px;
+	margin-bottom : 10px;
+}
+
+.goods-detail-content .goods-name{
+	font-size : 25px;
+	padding-left : 30px;
+}
+
+.goods-detail-content .nums{
+	color : rgb(230, 119, 92);
+}
+

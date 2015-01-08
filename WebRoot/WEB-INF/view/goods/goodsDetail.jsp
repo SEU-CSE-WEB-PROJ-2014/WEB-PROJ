@@ -1,19 +1,26 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8" session="false"%>
 <%@ include file="/WEB-INF/common/header.jsp" %>
 
+<link rel="stylesheet" type="text/css" href="${contextPath}/res/CSS/goodsDetail.css"/>
 
-<input type="hidden" value="${goods.goods_id}" class="goods-id">
-<div>${goods.goods_name}</div>
-<div><label>分类：</label>${goods.type_name}</div>
-<div><label>单价：</label>${goods.price}</div>
-<div>
-	<label>库存：</label>${goods.quantity}
-	<label>购买数量：</label><input type="text" value="1" class="buy-quantity">	
-	<input type="button" value="购买" class="buy-btn">
+<div class="goods-detail-content">
+	<input type="hidden" value="${goods.goods_id}" class="goods-id">
+	<div class="goods-name-and-type">
+		${goods.type_name}<br/>
+		<div class="goods-name">
+			${goods.goods_name}
+		</div>
+	</div>
+	<div>单价：<label class="nums">${goods.price}</label></div>
+	<div>
+		库存：<label class="nums">${goods.quantity}</label><br/>
+		购买数量：<input type="text" value="1" class="buy-quantity nums">	
+		<input type="button" value="购买" class="buy-btn">
+	</div>
+	
+	<div class="title-row">商品介绍</div>
+	<div>${goods.description}</div>
 </div>
-
-<div>商品介绍</div>
-<div>${goods.description}</div>
 
 <script type="text/javascript">
 $(function(){

@@ -14,14 +14,12 @@ a.searchOverall{
 	padding-top:5px;
 	padding-bottom:5px;
 	letter-spacing:20px;
-	
-	
 }
 
-a.searchOverall:link {color:white;}    /* Î´±»·ÃÎÊµÄÁ´½Ó */
-a.searchOverall:visited {color:black;} /* ÒÑ±»·ÃÎÊµÄÁ´½Ó */
-a.searchOverall:hover {color:#D5D7D7;}   /* Êó±êÖ¸ÕëÒÆ¶¯µ½Á´½ÓÉÏ */
-a.serachOverall:active {color:#D5D7D7;}  /* ÕýÔÚ±»µã»÷µÄÁ´½Ó */
+a.searchOverall:link {color:white;}    /* Î´ï¿½ï¿½ï¿½ï¿½ï¿½Êµï¿½ï¿½ï¿½ï¿½ï¿½ */
+a.searchOverall:visited {color:black;} /* ï¿½Ñ±ï¿½ï¿½ï¿½ï¿½Êµï¿½ï¿½ï¿½ï¿½ï¿½ */
+a.searchOverall:hover {color:#D5D7D7;}   /* ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½Æ¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
+a.serachOverall:active {color:#D5D7D7;}  /* ï¿½ï¿½ï¿½Ú±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
 
 input.searchOverall{
 	
