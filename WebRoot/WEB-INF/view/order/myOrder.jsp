@@ -20,8 +20,8 @@
 <script type="text/javascript">
 function myOrder(pageNum){
 	var payState = $(".order-type[class*=selected]").attr("payState");
-	var transState = $(".order-type[class*=selected]").attr("payState");
-	var signState = $(".order-type[class*=selected]").attr("payState");
+	var transState = $(".order-type[class*=selected]").attr("transState");
+	var signState = $(".order-type[class*=selected]").attr("signState");
 	
 	$("#myOrderList").load("${contextPath}/order/myOrder.do",{
 		"payState" : payState,
