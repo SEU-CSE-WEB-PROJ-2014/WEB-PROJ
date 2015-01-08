@@ -7,8 +7,8 @@
 <link rel="stylesheet" type="text/css" href="${contextPath}/res/CSS/searchGoods.css">
 <!-- 搜索条件 -->
 <div>
-	<a class="searchOverall" href="javascript:void(0);" class="sea-btn">查找</a>
-	<input class="searchOverall" type="text" placeHolder="查找商品" class="sea-goods-name">
+	<a class="searchOverall sea-btn" href="javascript:void(0);">查找</a>
+	<input class="searchOverall sea-goods-name" type="text" placeHolder="查找商品">
 	<div class="goodsType">
 		<c:forEach items="${types}" var="type" varStatus="typeStatus">
 			<a href="javascript:void(0);" title="${type.type_intro}" 
