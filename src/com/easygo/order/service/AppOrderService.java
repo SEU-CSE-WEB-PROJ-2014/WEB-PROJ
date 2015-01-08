@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -103,10 +104,16 @@ public class AppOrderService {
 		this.appOrderDao.bulkUpdate("update AppOrder order set order.state = 0 where order.orderId in (:orders)", params);
 	}
 	
-	public SearchResult<Map> searchAppOrder(Integer payState, Integer transState, Integer signState, Integer pageSize, Integer pageNum){
+	public SearchResult<Map> searchAppOrder(String userId, Integer payState, Integer transState, Integer signState, Integer pageSize, Integer pageNum){
+//		Assert.notNull(userId);
 		String sql = "select o.*, g.goods_name, g.price, u.nick_name, u.address from app_order o inner join app_goods g on g.goods_id = o.goods_id inner join core_user u on u.user_id = o.user_id where 1=1";
 		Map params = new HashMap<Integer, Object>();
 		
+		if(StringUtils.isNotEmpty(userId)){
+			sql += " and o.user_id = :userId";
+			params.put("userId", userId);
+		}
+				
 		if(payState != null){
 			sql += " and o.pay_state = :payState";
 			params.put("payState", payState);

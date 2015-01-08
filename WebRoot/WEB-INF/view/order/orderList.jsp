@@ -7,7 +7,6 @@
 			<a href="${contextPath}/goods/browseGoods.do?goodsId=${order.goods_id}" target="_blank">${order.goods_name}</a>
 			<label>￥${order.total_price}&nbsp;&nbsp;<span>${order.price} x ${order.quantity}</span></label>
 			<label>
-				${order.pay_state}__${order.trans_state}__${order.sign_state}
 				<c:choose>
 					<c:when test="${order.pay_state == 0}">
 						<a href="javascript:void(0);" class="pay-btn verify-password">付款</a>

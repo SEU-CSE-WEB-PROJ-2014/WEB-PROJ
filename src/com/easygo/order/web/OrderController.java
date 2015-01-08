@@ -47,7 +47,7 @@ public class OrderController {
 		}
 		
 		Map result = new HashMap<String, Object>();
-		SearchResult<Map> sr = this.orderService.searchAppOrder(payState, transState, signState, pageSize, pageNum);
+		SearchResult<Map> sr = this.orderService.searchAppOrder(userId, payState, transState, signState, pageSize, pageNum);
 		result.put("pageObject", sr);
 		return new ModelAndView("order/orderList", result);
 	}
@@ -59,7 +59,7 @@ public class OrderController {
 			throw new BusinessException("您尚未登录");
 		}
 		Map result = new HashMap<String, Object>();
-		SearchResult<Map> sr = this.orderService.searchAppOrder(null, null, null, null, null);
+		SearchResult<Map> sr = this.orderService.searchAppOrder(userId, null, null, null, null, null);
 		result.put("pageObject", sr);
 		return new ModelAndView("order/myOrder", result);
 	}

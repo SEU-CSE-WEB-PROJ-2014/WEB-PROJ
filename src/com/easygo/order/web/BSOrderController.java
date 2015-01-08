@@ -34,7 +34,7 @@ public class BSOrderController {
 		Map result = new HashMap<String, Object>();
 		
 		//调用service层,返回分页用户数据:
-		SearchResult<Map> rs = appOrder.searchAppOrder(payState, transState, signState, pageSize, pageNum);
+		SearchResult<Map> rs = appOrder.searchAppOrder(null, payState, transState, signState, pageSize, pageNum);
 		result.put("pageObject", rs);
 		return new ModelAndView("", result);
 	}
