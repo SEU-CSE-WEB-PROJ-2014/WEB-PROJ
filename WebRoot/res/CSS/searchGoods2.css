@@ -3,37 +3,42 @@
 
 
 a.searchOverall{
-	background-color:#019875;
+	background-color:#77D3BE;
 	text-decoration: none;
 	position:absolute;
 	
-	left:900px;
+	left:700px;
 	top:100px;
 	padding-left:50px;
 	padding-right:40px;
 	padding-top:5px;
-	padding-bottom:5px;
+	padding-bottom:3px;
 	letter-spacing:20px;
-	font-family: 黑体;
+	font-family: 微软雅黑;
 	font-weight:bold;
 	
 }
 
 a.searchOverall:link {color:white;}    /* 未被访问的链接 */
-a.searchOverall:visited {color:black;} /* 已被访问的链接 */
-a.searchOverall:hover {color:#D5D7D7;}   /* 鼠标指针移动到链接上 */
-a.serachOverall:active {color:#D5D7D7;}  /* 正在被点击的链接 */
+a.searchOverall:visited {color:white;} /* 已被访问的链接 */
+a.searchOverall:hover {color:white; background-color:#019875;}   /* 鼠标指针移动到链接上 */
+a.serachOverall:active {color:white; background-color:#019875;}  /* 正在被点击的链接 */
 
+
+.goods-type:link {color:white;}    /* 未被访问的链接 */
+.goods-type:visited {color:white;} /* 已被访问的链接 */
+.goods-type:hover {color:white; background-color:#019875;}   /* 鼠标指针移动到链接上 */
+.goods-type:active {color:white;background-color:#019875;}  /* 正在被点击的链接 */
 
 .sea-min-price{
 	position:absolute;
-	left:600px;
+	left:400px;
 	top:135px;
 	padding-right:50px;
 }
 .sea-max-price{
 	position:absolute;
-	left:840px;
+	left:640px;
 	top:135px;
 	padding-right:50px;
 }
@@ -44,17 +49,32 @@ input.searchOverall{
 	
 	padding-bottom:8px;
 	position:absolute;
-	left:600px;
+	left:400px;
 	top:100px;
 }
 .goodsType{
 	position:absolute;
 	left:20px;
 	top:80px;
+	
+	
+}
+
+.goods-type{
+	
+	padding:20px;
+	background-color:#77D3BE;
+	text-decoration:none;
+	size:34px;
+	font-family:微软雅黑
 }
 
 #goodsList{
 	position:absolute;
-	left:500px;
-	top:230px;
+	left:350px;
+	top:180px;
+	background-color:#FAFAFA;
+	padding-left:10px;
+	padding-right:60px;
+
 }

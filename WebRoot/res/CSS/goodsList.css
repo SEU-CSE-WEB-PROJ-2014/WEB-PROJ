@@ -1,0 +1,44 @@
+.goodsList:link {color:#333;}    /* 未被访问的链接 */
+.goodsList:visited {color:#333;} /* 已被访问的链接 */
+.goodsList:hover {color:#00B38A;}   /* 鼠标指针移动到链接上 */
+.goodsList:active {color:#00B38A;}  /* 正在被点击的链接 */
+
+
+.goodsList{
+	font-family: 黑体;
+	font-weight: normal;
+	font-size: 20px;
+	line-height:200%;
+	
+	text-decoration:none;
+	
+	padding-left:10px;
+
+}
+
+.listAll{
+	border-style:solid;
+	border-width:1px;
+	border-color:#77D3BE;
+	list-style-type:none;
+	margin-top:10px;
+
+	
+}
+。price{
+	fornt-family:黑体;
+	font-size:20px;
+	color:red;
+}
+
+.quantity{
+	font-family:黑体;
+	font-size:20px;
+	color:green;
+	margin-right:320px;
+}
+
+#goodsListPager{
+	position:absolute;
+	left:400px;
+}

@@ -1,13 +1,13 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8" session="false"%>
 <%@ include file="/WEB-INF/common/includes.jsp" %>
-
+<link rel="stylesheet" type="text/css" href="${contextPath}/res/CSS/goodsList.css">
 
 <ul>
 	<c:forEach items="${pageObject.resultList}" var="goods" varStatus="goodsStatus">
-		<li>
-			<a href="${contextPath}/goods/browseGoods.do?goodsId=${goods.goods_id}">${goods.goods_name}</a>
-			<label>${goods.price}</label>
-			<label>${goods.quantity}</label>
+		<li class="listAll">
+			<a class="goodsList" href="${contextPath}/goods/browseGoods.do?goodsId=${goods.goods_id}">${goods.goods_name}</a>
+			<label class="price">${goods.price}</label>
+			<label class="quantity">${goods.quantity}</label>
 		</li>
 	</c:forEach>
 </ul>

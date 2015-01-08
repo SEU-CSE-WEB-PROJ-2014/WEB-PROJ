@@ -1,56 +1,60 @@
 
 .header {
 	color: white;
-	background-color: #019875;
+	background-color: #FAFAFA;
 	
 	padding:25px;
 	}
 
-.firstPage:link {color:white;}    /* 未被访问的链接 */
-.firstPage:visited {color:white;} /* 已被访问的链接 */
-.firstPage:hover {color:#D5D7D7;}   /* 鼠标指针移动到链接上 */
-.firstPage:active {color:#D5D7D7;}  /* 正在被点击的链接 */
+.firstPage:link {color:#999;}    /* 未被访问的链接 */
+.firstPage:visited {color:#999;} /* 已被访问的链接 */
+.firstPage:hover {color:#333;}   /* 鼠标指针移动到链接上 */
+.firstPage:active {color:#333;}  /* 正在被点击的链接 */
 
-.login:link {color:white;}    /* 未被访问的链接 */
-.login:visited {color:white;} /* 已被访问的链接 */
-.login:hover {color:#D5D7D7;}   /* 鼠标指针移动到链接上 */
-.login:active {color:#D5D7D7;}  /* 正在被点击的链接 */
+.login:link {color:#999;}    /* 未被访问的链接 */
+.login:visited {color:#999;} /* 已被访问的链接 */
+.login:hover {color:#333;}   /* 鼠标指针移动到链接上 */
+.login:active {color:#333;}  /* 正在被点击的链接 */
 
-.reg:link {color:white;}    /* 未被访问的链接 */
-.reg:visited {color:white;} /* 已被访问的链接 */
-.reg:hover {color:#D5D7D7;}   /* 鼠标指针移动到链接上 */
-.reg:active {color:#D5D7D7;}  /* 正在被点击的链接 */
+.reg:link {color:#999;}    /* 未被访问的链接 */
+.reg:visited {color:#999;} /* 已被访问的链接 */
+.reg:hover {color:#333;}   /* 鼠标指针移动到链接上 */
+.reg:active {color:#333;}  /* 正在被点击的链接 */
 
+.my-order:link {color:#999;}    /* 未被访问的链接 */
+.my-order:visited {color:#999;} /* 已被访问的链接 */
+.my-order:hover {color:#333;}   /* 鼠标指针移动到链接上 */
+.my-order:active {color:#333;}  /* 正在被点击的链接 */
 
-.manager:link {color:white;}    /* 未被访问的链接 */
-.manager:visited {color:white;} /* 已被访问的链接 */
-.manager:hover {color:#D5D7D7;}   /* 鼠标指针移动到链接上 */
-.manager:active {color:#D5D7D7;}  /* 正在被点击的链接 */
+.manager:link {color:#999;}    /* 未被访问的链接 */
+.manager:visited {color:#999;} /* 已被访问的链接 */
+.manager:hover {color:#333;}   /* 鼠标指针移动到链接上 */
+.manager:active {color:#333;}  /* 正在被点击的链接 */
 
-.logout:link {color:white;}    /* 未被访问的链接 */
-.logout:visited {color:white;} /* 已被访问的链接 */
-.logout:hover {color:#D5D7D7;}   /* 鼠标指针移动到链接上 */
-.logout:active {color:#D5D7D7;}  /* 正在被点击的链接 */
+.logout:link {color:#999;}    /* 未被访问的链接 */
+.logout:visited {color:#999;} /* 已被访问的链接 */
+.logout:hover {color:#333;}   /* 鼠标指针移动到链接上 */
+.logout:active {color:#333;}  /* 正在被点击的链接 */
 
 .firstPage{
 	/*background-color:#019875; padding-left:40px;padding-right:40px;*/
 	/*padding-top:3px; padding-bottom:5px;*/
-	color: white;
+	
 	letter-spacing: 10px;
-	font-family: 黑体;
+	font-family: 微软雅黑，宋体，Arial;
 	font-weight: bold;
 	font-size: 25px;
 	text-decoration: none;
 	position:absolute;
-	left:600px;
+	left:400px;
 	top:20px;
 }
 
 .login{
 	/*background-color:#019875; padding-left:35px;padding-right:35px;*/
-	color: white;
+	
 	letter-spacing: 10px;
-	font-family: 黑体;
+	font-family: 微软雅黑，宋体，Arial;
 	font-weight: bold;
 	font-size: 25px;
 	text-decoration: none;
@@ -65,9 +69,9 @@
 
 .reg{
 	/*background-color:#019875; padding-left:35px;padding-right:35px;*/
-	color: white;
+	
 	letter-spacing: 10px;
-	font-family: 黑体;
+	font-family: 微软雅黑，宋体，Arial;
 	font-weight: bold;
 	font-size: 25px;
 	text-decoration: none;
@@ -77,40 +81,41 @@
 	
 }
 .hello{
-	color: white;
-	font-family: 黑体;
+	
+	color:#999;
+	font-family: 微软雅黑，宋体，Arial;
 	font-weight: normal;
-	font-size: 20px;
+	font-size: 14px;
 
 	text-decoration: none;
 	position:absolute;
-	left:250px;
-	top:25px;
+	left:1000px;
+	top:24px;
 }
 
 .my-order{
-	color: white;
+	
 	letter-spacing: 1px;
-	font-family: 黑体;
+	font-family: 微软雅黑，宋体，Arial;
 	font-weight: bold;
 	font-size: 25px;
 	text-decoration: none;
 	position:absolute;
-	left:700px;
+	left:500px;
 	top:20px;
 }
 
 .manager{
 	/*background-color:#019875; padding-left:15px;padding-right:15px;*/
-	color: white;
+	
 	letter-spacing: 1px;
-	font-family: 黑体;
+	font-family: 微软雅黑，宋体，Arial;
 	font-weight: bold;
-	font-size: 25px;
+	font-size: 15px;
 	text-decoration: none;
 	position:absolute;
-	left:1070px;
-	top:20px;
+	left:1130px;
+	top:24px;
 
 	
 }
@@ -118,14 +123,14 @@
 
 .logout{
 	/*background-color:#019875; padding-left:35px;padding-right:35px;*/
-	color: white;
+	
 	letter-spacing: 10px;
-	font-family: 黑体;
+	font-family: 微软雅黑，宋体，Arial;
 	font-weight: bold;
-	font-size: 25px;
+	font-size: 15px;
 	text-decoration: none;
 	position:absolute;
-	left:1200px;
-	top:20px;
+	left:1210px;
+	top:24px;
 	
 }
