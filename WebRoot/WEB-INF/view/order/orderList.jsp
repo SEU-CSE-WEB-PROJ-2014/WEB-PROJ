@@ -1,24 +1,25 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8" session="false"%>
 <%@ include file="/WEB-INF/common/includes.jsp" %>
 
-<ul>
+<ul class="order-list-ul">
 	<c:forEach items="${pageObject.resultList}" var="order" varStatus="orderStatus">
 		<li orderId="${order.order_id}">
-			<a href="${contextPath}/goods/browseGoods.do?goodsId=${order.goods_id}" target="_blank">${order.goods_name}</a>
-			<label>￥${order.total_price}&nbsp;&nbsp;<span>${order.price} x ${order.quantity}</span></label>
+			<a class="order-goods" href="${contextPath}/goods/browseGoods.do?goodsId=${order.goods_id}" target="_blank">${order.goods_name}</a>
+			<br/>
+			<label class="total-price-label">￥${order.total_price}&nbsp;&nbsp;<span>${order.price} x ${order.quantity}</span></label>
 			<label>
 				<c:choose>
 					<c:when test="${order.pay_state == 0}">
-						<a href="javascript:void(0);" class="pay-btn verify-password">付款</a>
+						<a href="javascript:void(0);" class="opration pay-btn verify-password">付款</a>
 					</c:when>				
 					<c:when test="${order.pay_state == 1 && order.trans_state == 0}">
-						<a class="">待发货</a>
+						<a class="opration">待发货</a>
 					</c:when>				
 					<c:when test="${order.pay_state == 1 && order.trans_state == 1 && order.sign_state == 0}">
-						<a href="javascript:void(0);" class="sign-btn verify-password">签收</a>
+						<a href="javascript:void(0);" class="opration sign-btn verify-password">签收</a>
 					</c:when>		
 					<c:when test="${order.pay_state == 1 && order.trans_state == 1 && order.sign_state == 1}">
-						<a class="">交易成功</a>
+						<a class="opration">交易成功</a>
 					</c:when>				
 				</c:choose>
 			</label>
