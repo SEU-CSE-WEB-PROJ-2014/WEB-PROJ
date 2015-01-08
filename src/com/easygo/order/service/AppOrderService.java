@@ -64,12 +64,10 @@ public class AppOrderService {
 	
 	public void payOrder(String orderId){//存疑/////////////////////////
 		Map params = new HashMap<String,Object>();
-		params.put("orderId", orderId);
-		params.put("payState", 1);
-		Timestamp payTime=new Timestamp(System.currentTimeMillis());
-		params.put("payTime", payTime);
-		this.appOrderDao.bulkUpdate("update AppOrder order set order.payState = :payState , order.payTime = :payTime where order.orderId = :orderId", params);
-		
+		AppOrder order = this.appOrderDao.get(orderId);
+		order.setPayState(1);
+		order.setPayTime(new Date());
+		this.appOrderDao.update(order);
 	}
 	
 	
@@ -84,14 +82,13 @@ public class AppOrderService {
 	}
 	
 	public void signOrder(String orderId){
-		Timestamp signTime=new Timestamp(System.currentTimeMillis());
-		Map params=new HashMap<String,Object>();
-		params.put("orderId", orderId);
-		params.put("signState", 1);
-		params.put("signTime", signTime);
-		this.appOrderDao.bulkUpdate("update AppOrder order set order.signState = :signState, order.signTime = :signTime where order.orderId = :orderId", params);
-		
+		AppOrder order = this.appOrderDao.get(orderId);
+		order.setSignState(1);
+		order.setSignTime(new Date());
+		this.appOrderDao.update(order);
 	}
+	
+	
 	public void setOrderTransState(String orderId, Integer transState){
 		//Map[] result = Platform.invoke("goodsService", "searchAppGoods", Map[].class, new Object(){});	
 		Map params = new HashMap<String, Object>();

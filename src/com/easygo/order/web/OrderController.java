@@ -87,11 +87,10 @@ public class OrderController {
     		@RequestParam Integer quantity
     		){
     	orderService.addOrder(goodsId, userId, quantity);
-    	
     }
     
     @RequestMapping("/payOrder.do")
-    public void payOrder(@RequestParam String orderId){
+     public void payOrder(@RequestParam String orderId){
     	orderService.payOrder(orderId);
     }
     
