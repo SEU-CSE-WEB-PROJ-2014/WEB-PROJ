@@ -1,0 +1,131 @@
+
+.header {
+	color: white;
+	background-color: #019875;
+	
+	padding:25px;
+	}
+
+.firstPage:link {color:white;}    /* 未被访问的链接 */
+.firstPage:visited {color:white;} /* 已被访问的链接 */
+.firstPage:hover {color:#D5D7D7;}   /* 鼠标指针移动到链接上 */
+.firstPage:active {color:#D5D7D7;}  /* 正在被点击的链接 */
+
+.login:link {color:white;}    /* 未被访问的链接 */
+.login:visited {color:white;} /* 已被访问的链接 */
+.login:hover {color:#D5D7D7;}   /* 鼠标指针移动到链接上 */
+.login:active {color:#D5D7D7;}  /* 正在被点击的链接 */
+
+.reg:link {color:white;}    /* 未被访问的链接 */
+.reg:visited {color:white;} /* 已被访问的链接 */
+.reg:hover {color:#D5D7D7;}   /* 鼠标指针移动到链接上 */
+.reg:active {color:#D5D7D7;}  /* 正在被点击的链接 */
+
+
+.manager:link {color:white;}    /* 未被访问的链接 */
+.manager:visited {color:white;} /* 已被访问的链接 */
+.manager:hover {color:#D5D7D7;}   /* 鼠标指针移动到链接上 */
+.manager:active {color:#D5D7D7;}  /* 正在被点击的链接 */
+
+.logout:link {color:white;}    /* 未被访问的链接 */
+.logout:visited {color:white;} /* 已被访问的链接 */
+.logout:hover {color:#D5D7D7;}   /* 鼠标指针移动到链接上 */
+.logout:active {color:#D5D7D7;}  /* 正在被点击的链接 */
+
+.firstPage{
+	/*background-color:#019875; padding-left:40px;padding-right:40px;*/
+	/*padding-top:3px; padding-bottom:5px;*/
+	color: white;
+	letter-spacing: 10px;
+	font-family: 黑体;
+	font-weight: bold;
+	font-size: 25px;
+	text-decoration: none;
+	position:absolute;
+	left:600px;
+	top:20px;
+}
+
+.login{
+	/*background-color:#019875; padding-left:35px;padding-right:35px;*/
+	color: white;
+	letter-spacing: 10px;
+	font-family: 黑体;
+	font-weight: bold;
+	font-size: 25px;
+	text-decoration: none;
+	position:absolute;
+	left:1070px;
+	top:20px;
+	
+}
+
+
+
+
+.reg{
+	/*background-color:#019875; padding-left:35px;padding-right:35px;*/
+	color: white;
+	letter-spacing: 10px;
+	font-family: 黑体;
+	font-weight: bold;
+	font-size: 25px;
+	text-decoration: none;
+	position:absolute;
+	left:1150px;
+	top:20px;
+	
+}
+.hello{
+	color: white;
+	font-family: 黑体;
+	font-weight: normal;
+	font-size: 20px;
+
+	text-decoration: none;
+	position:absolute;
+	left:250px;
+	top:25px;
+}
+
+.my-order{
+	color: white;
+	letter-spacing: 1px;
+	font-family: 黑体;
+	font-weight: bold;
+	font-size: 25px;
+	text-decoration: none;
+	position:absolute;
+	left:700px;
+	top:20px;
+}
+
+.manager{
+	/*background-color:#019875; padding-left:15px;padding-right:15px;*/
+	color: white;
+	letter-spacing: 1px;
+	font-family: 黑体;
+	font-weight: bold;
+	font-size: 25px;
+	text-decoration: none;
+	position:absolute;
+	left:1070px;
+	top:20px;
+
+	
+}
+
+
+.logout{
+	/*background-color:#019875; padding-left:35px;padding-right:35px;*/
+	color: white;
+	letter-spacing: 10px;
+	font-family: 黑体;
+	font-weight: bold;
+	font-size: 25px;
+	text-decoration: none;
+	position:absolute;
+	left:1200px;
+	top:20px;
+	
+}
