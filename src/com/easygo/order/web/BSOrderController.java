@@ -88,6 +88,22 @@ public class BSOrderController {
     public void signOrder(@RequestParam String orderId){
     	appOrder.signOrder(orderId);
     }
+    
+    @RequestMapping("/myOrder.do")
+	public ModelAndView myOrder(
+			@RequestParam String userId,
+			@RequestParam Integer pageSize,
+			@RequestParam Integer pageNum,
+			@RequestParam(required=false) Integer payState,
+			@RequestParam(required=false) Integer transState,
+			@RequestParam(required=false) Integer signState){
+		Map result = new HashMap<String, Object>();
+		
+		//调用service层,返回分页用户数据:
+		SearchResult<Map> rs = appOrder.searchMyOrder(userId, payState, transState, signState, pageSize, pageNum);
+		result.put("pageObject", rs);
+		return new ModelAndView("", result);
+	}
 }
 
    
