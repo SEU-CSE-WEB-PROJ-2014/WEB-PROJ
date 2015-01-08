@@ -27,7 +27,13 @@ public class AppOrderService {
 		QueryResult<Map> result = (QueryResult<Map>)Platform.invoke("goodsService", "searchGoodsViaId", Object.class, new Object[]{goodsId});
 		if((Integer)result.getResultList().get(0).get("quantity")>=quantity){
 			Integer newQuantity=(Integer)result.getResultList().get(0).get("quantity")-quantity;
-			Platform.invoke("goodsService", "addOrEditAppGoods", String.class,new Object[]{goodsId,null,null,newQuantity,null,null});
+			
+			String oldGoodsName=(String)result.getResultList().get(0).get("goodsName"); 
+			
+			Double oldPrice=(Double)result.getResultList().get(0).get("price");
+            String oldDescription=(String)result.getResultList().get(0).get("description"); 
+            Integer oldGoodsTypeId=(Integer)result.getResultList().get(0).get("goodsTypeId");
+			Platform.invoke("goodsService", "addOrEditAppGoods", String.class,new Object[]{goodsId,oldGoodsName,oldPrice,newQuantity,oldDescription,oldGoodsTypeId});
 			
 			Double totalPrice=(Double)result.getResultList().get(0).get("price")*quantity;
 			
