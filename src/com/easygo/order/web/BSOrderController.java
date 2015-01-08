@@ -52,7 +52,6 @@ public class BSOrderController {
 	public void batchCancelOrder(
 			@RequestParam String[] orders){
 		
-		//TODO: 调用service层方法,删除对应userIds的用户
 		appOrder.batchCancelOrder(orders);
 	}
 	
@@ -71,6 +70,12 @@ public class BSOrderController {
     	appOrder.payOrder(orderId);
     }
     
+    
+    @RequestMapping("/signOrder.do")
+    public void signOrder(@RequestParam String orderId){
+    	appOrder.signOrder(orderId);
+    }
+    
     @RequestMapping("/deliverGoodsPage.do")
     public ModelAndView deliverGoodsPage(@RequestParam String orderId){
     	Map result = new HashMap<String, Object>();
@@ -84,10 +89,7 @@ public class BSOrderController {
     	appOrder.deliverGoods(orderId, invoiceNum);
     }
     
-    @RequestMapping("/signOrder.do")
-    public void signOrder(@RequestParam String orderId){
-    	appOrder.signOrder(orderId);
-    }
+    
 }
 
    

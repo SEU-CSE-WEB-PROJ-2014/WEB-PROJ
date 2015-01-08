@@ -35,7 +35,43 @@ public class OrderController {
 		if(StringUtils.isEmpty(userId)){
 			throw new BusinessException("您尚未登录");
 		}
-		
-		
 	}
+	
+	
+	@RequestMapping("/setOrderTransState.do")
+	public void setOrderTransState(
+			@RequestParam String orderId,
+			@RequestParam Integer transState){
+		
+		//TODO: 掉用service层方法,设置订单发货状态
+		orderService.setOrderTransState(orderId, transState);
+	}
+	
+	@RequestMapping("/batchCancelOrder.do")
+	public void batchCancelOrder(
+			@RequestParam String[] orders){
+		
+		orderService.batchCancelOrder(orders);
+	}
+	
+    @RequestMapping("/addOrder.do")//获取商品信息，检查库存余量，库存减去购买数量，计算总价，数据库update商品信息，增加订单，保存数据库
+    public void addOrder(
+    		@RequestParam String goodsId,
+    		@RequestParam String userId,
+    		@RequestParam Integer quantity
+    		){
+    	orderService.addOrder(goodsId, userId, quantity);
+    	
+    }
+    
+    @RequestMapping("/payOrder.do")
+    public void payOrder(@RequestParam String orderId){
+    	orderService.payOrder(orderId);
+    }
+    
+    
+    @RequestMapping("/signOrder.do")
+    public void signOrder(@RequestParam String orderId){
+    	orderService.signOrder(orderId);
+    }
 }

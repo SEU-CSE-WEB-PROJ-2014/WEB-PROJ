@@ -35,9 +35,14 @@ public class GoodsController {
 		Map result = new HashMap<String, Object>();
 		Map[] types = this.typeService.SearchAppGoodsType(null, Integer.MAX_VALUE, 0).toArray();
 		SearchResult<Map> sr = goodsService.searchAppGoods(goodsName, typeId, minPrice, maxPrice, pageSize, pageNum);
+		result.put("types", types);
 		
 		result.put("pageObject", sr);
-		result.put("types", types);
+		result.put("goodsName", goodsName);
+		result.put("typeId", typeId);
+		result.put("minPrice", minPrice);
+		result.put("maxPrice", maxPrice);
+		
 		return new ModelAndView("goods/searchGoods", result);
 	}
 	
