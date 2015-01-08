@@ -98,7 +98,7 @@ public class GoodsService {
 	public QueryResult<Map> browseGoods(String goodsId){
 		Map params = new HashMap<String, Object>();
 		
-		String sql = "select * from app_goods g join app_goods_type gt on g.goods_type_id=gt.goods_type_id where g.goods_id = :goodsId";
+		String sql = "select * from app_goods g left join app_goods_type gt on g.goods_type_id=gt.goods_type_id where g.goods_id = :goodsId";
 		params.put("goodsId", goodsId);
 			
 		QueryResult<Map> br = this.appGoodsDao.doSQLQuery(sql, params);

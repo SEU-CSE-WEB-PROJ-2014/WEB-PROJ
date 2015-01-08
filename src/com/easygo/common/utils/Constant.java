@@ -47,4 +47,10 @@ public final class Constant {
 	 * 网站主页
 	 */
 	public static final String HOME_PAGE = "goods/searchGoods.do";
+	
+	
+	/**
+	 * 默认分页大小
+	 */
+	public static final Integer DEFAULT_PAGE_SIZE = 10;
 }

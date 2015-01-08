@@ -18,9 +18,9 @@ import org.springframework.orm.hibernate3.SessionFactoryUtils;
 import org.springframework.util.Assert;
 
 import com.easygo.common.utils.BusinessException;
+import com.easygo.common.utils.Constant;
 
 public class SQLSearchCallback<T> implements HibernateCallback<SearchResult<T>> {
-	private static final Integer DEFAULT_PAGE_SIZE = 20;
 	private String query = null;
 	private HibernateTemplate template = null;
 	private Map<String, Object> params = null;
@@ -32,7 +32,7 @@ public class SQLSearchCallback<T> implements HibernateCallback<SearchResult<T>> 
 			Map<String, Object> params, Class<T> type, Integer pageSize, Integer pageNum) {
 		Assert.notNull(query);
 		Assert.notNull(template);
-		pageSize = pageSize == null ? DEFAULT_PAGE_SIZE : pageSize;
+		pageSize = pageSize == null ? Constant.DEFAULT_PAGE_SIZE : pageSize;
 		pageNum = pageNum == null ? 0 : pageNum;
 		
 		
@@ -151,6 +151,8 @@ public class SQLSearchCallback<T> implements HibernateCallback<SearchResult<T>> 
 		this.prepareQuery(queryObject);
 		//以map返回数据
 		queryObject.setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
+		queryObject.setFirstResult(getStartRowNum());
+		queryObject.setMaxResults(this.pageSize);
 		
 		//查询参数
 		if (params != null && !params.isEmpty()) {

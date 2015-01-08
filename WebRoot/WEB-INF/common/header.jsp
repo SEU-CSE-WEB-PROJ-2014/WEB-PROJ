@@ -30,20 +30,23 @@
 
 <!-- header数据 -------------------------------------------------------------------------->
 <div class="header">
-	<c:choose>
-		<c:when test="${curUser != null}">
-			${curUser.nickName}&nbsp;&nbsp;您好！
-			<c:if test="${curUser.hasBackstageAuth}">
-				<a href="${basePath}home/backstageIndex.do">后台管理</a>
-			</c:if>
-			
-			<a href="javascript:void(0);" class="logout">注销</a>
-		</c:when>
-		<c:otherwise>
-			<a href="${basePath}user/loginPage.do" class="login">登陆</a>
-   	 		<a href="${basePath}user/regUserPage.do" class="register">注册</a>
-		</c:otherwise>
-	</c:choose>
+	<a href="${homePage}">首页</a>
+	<div>
+		<c:choose>
+			<c:when test="${curUser != null}">
+				${curUser.nickName}&nbsp;&nbsp;您好！
+				<c:if test="${curUser.hasBackstageAuth}">
+					<a href="${basePath}home/backstageIndex.do">后台管理</a>
+				</c:if>
+				
+				<a href="javascript:void(0);" class="logout">注销</a>
+			</c:when>
+			<c:otherwise>
+				<a href="${basePath}user/loginPage.do" class="login">登陆</a>
+	   	 		<a href="${basePath}user/regUserPage.do" class="register">注册</a>
+			</c:otherwise>
+		</c:choose>
+	</div>
 </div>
 
 <script type="text/javascript">

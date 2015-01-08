@@ -15,7 +15,7 @@ import org.hibernate.annotations.GenericGenerator;
 @Entity
 @Table(name = "app_goods", catalog = "easygo")
 @NamedNativeQueries({
-	@NamedNativeQuery(name="AppGoods.goodsSearch", query="select g.*, gt.type_name from app_goods g left join app_goods_type gt on g.goods_type_id=gt.goods_type_id where 1=1 and g.state=1 ", resultSetMapping="sqlMapping"),
+	@NamedNativeQuery(name="AppGoods.goodsSearch", query="select g.*, gt.type_name, gt.type_intro from app_goods g left join app_goods_type gt on g.goods_type_id=gt.goods_type_id where 1=1 and g.state=1 ", resultSetMapping="sqlMapping"),
 	@NamedNativeQuery(name="AppGoods.goodsInfoFormat", query="select * from app_goods g where g.goods_id in (:ids)", resultSetMapping="sqlMapping")
 })
 public class AppGoods implements java.io.Serializable {

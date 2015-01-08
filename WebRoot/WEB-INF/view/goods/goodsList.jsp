@@ -5,7 +5,7 @@
 <ul>
 	<c:forEach items="${pageObject.resultList}" var="goods" varStatus="goodsStatus">
 		<li>
-			<a href="javascript:void(0);">${goods.goods_name}</a>
+			<a href="${contextPath}/goods/browseGoods.do?goodsId=${goods.goods_id}">${goods.goods_name}</a>
 			<label>${goods.price}</label>
 			<label>${goods.quantity}</label>
 		</li>
@@ -17,10 +17,15 @@
 <script type="text/javascript">
 $(function(){
 	$("#goodsListPager").pagination({
-		"items" : "${pageObject.totalPage}",
-		"itemsOnPage" : "${pageObject.pageNum + 1}",
+		prevText: '上一页',
+		nextText: '下一页',
+		cssStyle: 'light-theme',
+		"selectOnClick": false,
+		"pages" : "${pageObject.totalPage}",
+		"currentPage" : "${pageObject.pageNum + 1}",
 		"onPageClick" : function(pageNumber, event){
-			searchGoods(pageNumber-1);			
+			searchGoods(pageNumber-1);
+			return false;
 		}
 	});
 });

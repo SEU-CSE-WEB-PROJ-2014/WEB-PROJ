@@ -15,8 +15,8 @@
 		</c:forEach>
 	</div>
 	<div>
-		<input type="text" placeHolder="最低价格" class="sea-min-price">
-		<input type="text" placeHolder="最高价格" class="sea-max-price">
+		<input type="text" placeHolder="最低价格" class="sea-min-price" value="">
+		<input type="text" placeHolder="最高价格" class="sea-max-price" value="">
 	</div>
 </div>
 
@@ -28,7 +28,10 @@
 <script type="text/javascript">
 function searchGoods(pageNum){
 	var goodsName = $(".sea-goods-name").val();
-	var typeId = $(".goods-type[class*=selected]").val();
+	var typeId = "";
+	if($(".goods-type[class*=selected]").length > 0){
+		typeId = $(".goods-type[class*=selected]").val();
+	}
 	var minPrice = $(".sea-min-price").val();
 	var maxPrice = $(".sea-max-price").val();
 	$("#goodsList").load("${basePath}goods/goodsList.do",{
