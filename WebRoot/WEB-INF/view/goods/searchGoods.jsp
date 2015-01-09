@@ -10,11 +10,15 @@
 	<a class="searchOverall sea-btn" href="javascript:void(0);">查找</a>
 	<input class="searchOverall sea-goods-name" type="text" placeHolder="查找商品">
 	<div class="goodsType">
+	 
 		<c:forEach items="${types}" var="type" varStatus="typeStatus">
+		   <li class="typeList" <c:if test="${type.goods_type_id == typeId}">selected</c:if>>
 			<a href="javascript:void(0);" title="${type.type_intro}" 
-				class="goods-type <c:if test="${type.goods_type_id == typeId}">selected</c:if>" 
+				class="goods-type" 
 				typeId="${type.goods_type_id}">${type.type_name}</a>
+		   </li>
 		</c:forEach>
+	 
 	</div>
 	<div >
 		<input type="text" placeHolder="最低价格" class="sea-min-price" value="">
@@ -31,8 +35,8 @@
 function searchGoods(pageNum){
 	var goodsName = $(".sea-goods-name").val();
 	var typeId = "";
-	if($(".goods-type[class*=selected]").length > 0){
-		typeId = $(".goods-type[class*=selected]").attr("typeId");
+	if($(".typeList[class*=selected]").length > 0){
+		typeId = $(".typeList[class*=selected]").children("a").attr("typeId");
 	}
 	var minPrice = $(".sea-min-price").val();
 	var maxPrice = $(".sea-max-price").val();
@@ -48,7 +52,7 @@ $(function(){
 	$(".sea-btn").click(function(){
 		searchGoods(0);
 	});
-	$(".goods-type").click(function(){
+	$(".typeList").click(function(){
 		$(this).removeClass("selected").addClass("selected").siblings().removeClass("selected");
 		$(".sea-btn").click();
 	});

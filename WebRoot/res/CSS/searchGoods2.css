@@ -25,10 +25,10 @@ a.searchOverall:hover {color:white; background-color:#019875;}   /* 鼠标指针
 a.serachOverall:active {color:white; background-color:#019875;}  /* 正在被点击的链接 */
 
 
-.goods-type:link {color:white;}    /* 未被访问的链接 */
-.goods-type:visited {color:white;} /* 已被访问的链接 */
-.goods-type:hover {color:white; background-color:#019875;}   /* 鼠标指针移动到链接上 */
-.goods-type:active {color:white;background-color:#019875;}  /* 正在被点击的链接 */
+.typeList:link {color:#019875;}    /* 未被访问的链接 */
+.typeList:visited {color:#019875;} /* 已被访问的链接 */
+.typeList:hover {color:#019875; background-color:white;}   /* 鼠标指针移动到链接上 */
+.typeList:active {color:#019875;background-color:white;}  /* 正在被点击的链接 */
 
 .sea-min-price{
 	position:absolute;
@@ -52,21 +52,52 @@ input.searchOverall{
 	left:400px;
 	top:100px;
 }
+
+
 .goodsType{
-	position:absolute;
-	left:20px;
-	top:80px;
+
+    position:absolute;
+    left:60px;
+    top:120px;
+	text-decoration:none;
+}
+
+.typeList{
+
+	padding-left:80px;
+	padding-right:70px;
+    
+    
+   
+    
+	line-height:300%;
+	font-family:微软雅黑;
+	list-style-type:none;
+	text-decoration:none;
+	background-color:#FAFAFA;
 	
+	
+}
+
+.typeList[selected]{
+	background-color:white;
+	border-top-style:solid;
+	border-bottom-style:solid;
+	border-top-width:2px;
+	border-bottom-width:2px;
+	border-color:#D9D8C9;
+	padding-left:80px;
+	padding-right:70px;
 	
 }
 
 .goods-type{
 	
-	padding:20px;
-	background-color:#77D3BE;
+
 	text-decoration:none;
-	size:34px;
-	font-family:微软雅黑
+    color:#019875;
+	
+	
 }
 
 #goodsList{
