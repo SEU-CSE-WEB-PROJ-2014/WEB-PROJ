@@ -54,6 +54,9 @@ public class BSUserController {
 			@RequestParam String address){
 		
 		//TODO: 掉用service层方法,userId非空时修改用户,userId空时新增用户
+		if(StringUtils.isEmpty(userId)){
+			userId = null;
+		}
 		user.addOrEditUser(userId, loginName, nickName, password, sex, roleId, email, address);
 	}
 	
