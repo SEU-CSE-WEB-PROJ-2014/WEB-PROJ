@@ -40,6 +40,7 @@ public class UserController {
 	public ModelAndView login(@RequestParam String loginName, @RequestParam String password,
 			HttpServletRequest request, HttpServletResponse response) throws IOException, IllegalAccessException, InvocationTargetException{
 		this.userService.login(loginName, password, request, response);
+		
 		return null;
 	}
 	

@@ -149,4 +149,27 @@ public class UserService {
 		Assert.notNull(userId);
 		return this.userDao.get(userId);
 	}
+	
+	
+//	public void searchUser(String nickName, Integer sex){
+//		String hql = "select u from coreUser u where 1=1";
+//		Map params = new HashMap<String, Object>();
+//		if(StringUtils.isNotEmpty(nickName)){
+//			hql += " and u.nickName = :nickName";
+//			params.put("nickName", nickName);
+//		}
+//		if(sex != null){
+//			hql += " and u.sex = :sex";
+//			params.put("sex", sex);
+//		}
+//		this.userDao.findByParams(hql, params);
+//	}
+	
+	public void searchUser(String nickName, Integer sex){
+		Map params = new HashMap<String, Object>();
+		params.put("nickName", nickName);
+		params.put("sex", sex);
+		this.userDao.mixedInEqQueryByParams(params);
+	}
+	
 }
